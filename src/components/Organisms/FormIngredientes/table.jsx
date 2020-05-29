@@ -12,6 +12,9 @@ const tableProducts = ({ dataProducts, eliminarProducts, edit }) => {
             <tr>
               <th>Nombre</th>
               <th>Disponible</th>
+              <th>Categoria</th>
+              <th>Unitario</th>
+
               <th>Pequeño</th>
               <th>Mediano</th>
               <th>Grande</th>
@@ -25,6 +28,8 @@ const tableProducts = ({ dataProducts, eliminarProducts, edit }) => {
                 <tr key={index}>
                   <td>{item.nombre}</td>
                   <td>{item.disponible === true ? "Disponible" : "Agotado"}</td>
+                  <td>{item.categories}</td>
+                  <td>{item.precioUnitario}</td>
                   <td>{item.sm}</td>
                   <td>{item.md}</td>
                   <td>{item.lg}</td>
@@ -33,6 +38,7 @@ const tableProducts = ({ dataProducts, eliminarProducts, edit }) => {
                       type="buttom"
                       className="btn btn-danger mb-2 btn-sm"
                       onClick={() => eliminarProducts(item)}
+                      // onClick={() => console.log(item)}
                     >
                       Eliminar
                     </button>

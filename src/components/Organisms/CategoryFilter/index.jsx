@@ -10,7 +10,7 @@ import { editcategorie } from "../../../store/Categories/actions";
 
 import styles from "./styles";
 
-const AllTables = ({ data }) => {
+const AllTables = ({ data, posicion }) => {
   const classes = styles();
 
   const dispatch = useDispatch();
@@ -87,9 +87,9 @@ const AllTables = ({ data }) => {
                 <Typography variant="body1" color="textPrimary" align="left">
                   {item.nombre}
                 </Typography>
-                <Typography variant="body1" color="textPrimary" align="left">
+                {/* <Typography variant="body1" color="textPrimary" align="left">
                   {index}
-                </Typography>
+                </Typography> */}
               </div>
             }
           />
@@ -124,7 +124,10 @@ const AllTables = ({ data }) => {
             />
           </div>
           <div className="d-flex justify-content-end my-3 mr-2">
-            <button onClick={() => addCategorie()} className="btn btn-success">
+            <button
+              onClick={() => addCategorie()}
+              className="btn btn-success btn-sm"
+            >
               Agregar Categoria
             </button>
           </div>
@@ -133,7 +136,7 @@ const AllTables = ({ data }) => {
         ""
       )}
 
-      {!newCategoria.agregar ? (
+      {!newCategoria.agregar && posicion ? (
         <div className="d-flex justify-content-end my-3 mr-2">
           <button
             onClick={() =>
@@ -142,7 +145,7 @@ const AllTables = ({ data }) => {
                 agregar: true,
               })
             }
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
           >
             Nueva Categoria
           </button>

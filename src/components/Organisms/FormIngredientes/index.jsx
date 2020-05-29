@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Material UI
 import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
@@ -11,6 +11,8 @@ import TableProduct from "./table";
 const FormIngredientes = () => {
   const classes = styles();
   const dataProducts = useSelector((state) => state.products);
+
+  const dataCategories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({
@@ -21,14 +23,17 @@ const FormIngredientes = () => {
     nuevo: false,
     edit: false,
     editData: "",
+    presentaciones: false,
   });
 
   const [nuevoProd, setNuevoProd] = useState({
     disponible: true,
     nombre: "",
-    sm: "no disponible",
-    md: "no disponible",
-    lg: "no disponible",
+    presentaciones: false,
+    categories: "",
+    // sm: "no disponible",
+    // md: "no disponible",
+    // lg: "no disponible",
   });
 
   const eliminarDatos = () => {
@@ -77,6 +82,14 @@ const FormIngredientes = () => {
       }, 2500);
       return;
     }
+    if (nuevoProd.precioUnitario) {
+      nuevoProd.sm = "";
+      nuevoProd.md = "";
+      nuevoProd.lg = "";
+    } else {
+      nuevoProd.precioUnitario = "";
+    }
+
     await dispatch(editproducts(nuevoProd, "Add"));
     eliminarDatos();
     crearAlertaExito("Se a creado el producto con exito");
@@ -110,6 +123,13 @@ const FormIngredientes = () => {
       }, 2500);
       return;
     }
+    if (nuevoProd.precioUnitario) {
+      nuevoProd.sm = "";
+      nuevoProd.md = "";
+      nuevoProd.lg = "";
+    } else {
+      nuevoProd.precioUnitario = "";
+    }
     dispatch(editproducts(nuevoProd, "Update"));
     eliminarDatos();
     crearAlertaExito("Se a editado el producto con exito");
@@ -121,6 +141,7 @@ const FormIngredientes = () => {
       nuevo: false,
       edit: true,
       editData: edit,
+      presentaciones: edit.presentaciones ? true : false,
     });
 
     setNuevoProd({
@@ -131,6 +152,9 @@ const FormIngredientes = () => {
       md: edit.md,
       lg: edit.lg,
       id: edit.id,
+      categories: edit.categories,
+      precioUnitario: edit.precioUnitario,
+      presentaciones: edit.presentaciones ? true : false,
     });
   };
 
@@ -197,56 +221,28 @@ const FormIngredientes = () => {
                     }}
                   />
                 </div>
-                <h6 className="form-group mb-4 align-text-center col-10">
-                  Precio del Producto - Presentacion :
-                </h6>
-                <div className="form-group col-10 d-flex aling-item-center">
-                  <label for="inputZip">Pequeño:</label>
-                  <input
-                    type="text"
-                    className="form-control col-8 ml-3"
-                    id="inputZip"
-                    placeholder="Precio"
-                    defaultValue={form.editData ? form.editData.sm : ""}
+
+                <div className="form-group col-10">
+                  <label for="inputZip">Categoria</label>
+                  <select
                     onChange={(e) => {
                       return setNuevoProd({
                         ...nuevoProd,
-                        sm: e.target.value,
+                        categories: e.target.value,
                       });
                     }}
-                  />
-                </div>
-                <div className="form-group col-10 d-flex aling-item-center">
-                  <label for="inputZip">Mediano:</label>
-                  <input
-                    type="text"
-                    className="form-control col-8 ml-3"
-                    id="inputZip"
-                    placeholder="Precio"
-                    defaultValue={form.editData ? form.editData.md : ""}
-                    onChange={(e) => {
-                      return setNuevoProd({
-                        ...nuevoProd,
-                        md: e.target.value,
-                      });
-                    }}
-                  />
-                </div>
-                <div className="form-group col-10 d-flex aling-item-center">
-                  <label for="inputZip">Grande: </label>{" "}
-                  <input
-                    type="text"
-                    className="form-control col-8 ml-4"
-                    id="inputZip"
-                    placeholder="Precio"
-                    defaultValue={form.editData ? form.editData.lg : ""}
-                    onChange={(e) => {
-                      return setNuevoProd({
-                        ...nuevoProd,
-                        lg: e.target.value,
-                      });
-                    }}
-                  />
+                    defaultChecked={form.edit ? form.editData.categories : ""}
+                    className="custom-select"
+                    defaultValue={form.edit ? form.editData.categories : ""}
+                  >
+                    <option selected>Categoria...</option>
+
+                    {dataCategories.map((item, index) => (
+                      <option key={index} value={item.nombre}>
+                        {item.nombre}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="form-group col-10">
@@ -254,11 +250,118 @@ const FormIngredientes = () => {
                     <input
                       type="checkbox"
                       className="custom-control-input"
-                      id="customSwitch1"
-                      defaultChecked={nuevoProd}
-                      defaultValue={
-                        form.editData ? form.editData.disponible : ""
+                      id="customSwitch2"
+                      defaultChecked={
+                        form.editData ? form.editData.disponible : false
                       }
+                      // defaultValue={
+                      //   form.editData ? form.editData.presentaciones : false
+                      // }
+                      onChange={(e) => {
+                        setNuevoProd({
+                          ...nuevoProd,
+                          presentaciones: e.target.checked,
+                        });
+
+                        setForm({
+                          ...form,
+                          presentaciones: e.target.checked,
+                        });
+                      }}
+                    />
+                    <label className="custom-control-label" for="customSwitch2">
+                      diferentes presentaciones
+                    </label>
+                  </div>
+                </div>
+                <h6 className="form-group mb-4 align-text-center col-10">
+                  Precio del Producto - Presentacion :
+                </h6>
+                {form.presentaciones ? (
+                  <Fragment>
+                    <div className="form-group col-10 d-flex aling-item-center">
+                      <label for="inputZip">Pequeño:</label>
+                      <input
+                        type="text"
+                        className="form-control col-8 ml-3"
+                        id="inputZip"
+                        placeholder="Precio"
+                        defaultValue={form.editData ? form.editData.sm : ""}
+                        onChange={(e) => {
+                          return setNuevoProd({
+                            ...nuevoProd,
+                            sm: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="form-group col-10 d-flex aling-item-center">
+                      <label for="inputZip">Mediano:</label>
+                      <input
+                        type="text"
+                        className="form-control col-8 ml-3"
+                        id="inputZip"
+                        placeholder="Precio"
+                        defaultValue={form.editData ? form.editData.md : ""}
+                        onChange={(e) => {
+                          return setNuevoProd({
+                            ...nuevoProd,
+                            md: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="form-group col-10 d-flex aling-item-center">
+                      <label for="inputZip">Grande: </label>
+                      <input
+                        type="text"
+                        className="form-control col-8 ml-4"
+                        id="inputZip"
+                        placeholder="Precio"
+                        defaultValue={form.editData ? form.editData.lg : ""}
+                        onChange={(e) => {
+                          return setNuevoProd({
+                            ...nuevoProd,
+                            lg: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <div className="form-group col-10 d-flex aling-item-center">
+                      <label for="inputZip">Precio unitario:</label>
+                      <input
+                        type="text"
+                        className="form-control col-8 ml-3"
+                        id="inputZip"
+                        placeholder="Precio"
+                        defaultValue={
+                          form.editData ? form.editData.precioUnitario : ""
+                        }
+                        onChange={(e) => {
+                          return setNuevoProd({
+                            ...nuevoProd,
+                            precioUnitario: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+                  </Fragment>
+                )}
+                <div className="form-group col-10">
+                  <div className="custom-control custom-switch">
+                    <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="customSwitch1"
+                      defaultChecked={
+                        form.editData ? form.editData.disponible : true
+                      }
+                      // defaultValue={
+                      //   form.editData ? form.editData.disponible : ""
+                      // }
                       onChange={(e) => {
                         return setNuevoProd({
                           ...nuevoProd,

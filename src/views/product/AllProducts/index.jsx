@@ -34,7 +34,7 @@ const AllProducts = () => {
 
   return (
     <section className={classes.root}>
-      <CategoryFilter data={data} />
+      <CategoryFilter data={data} posicion={false} />
       <ProductList />
     </section>
   );

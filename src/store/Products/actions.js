@@ -49,16 +49,16 @@ export const editproducts = (products, method) => async (dispatch) => {
       payload: "Se creo correctamente",
     });
   } else if (method === "Delete") {
+    // console.log("===========================");
+    // console.log(products.id);
+    // console.log("===========================");
+    // return;
     dispatch({
       type: PRODUCT_SUCCESS,
       payload: "Se borro correctamente",
     });
     productsEditRef(products.id).remove();
   } else {
-    // console.log("===========================");
-    // console.log(method);
-    // console.log("===========================");
-    // return;
     dispatch({
       type: PRODUCT_SUCCESS,
       payload: "Se edito correctamente",

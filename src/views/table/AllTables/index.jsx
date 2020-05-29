@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 
 // Material UI
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 // Organisms
-import { TableList, CategoryFilter } from '../../../components/Organisms';
+import { TableList, CategoryFilter } from "../../../components/Organisms";
 
 const styles = makeStyles({
   root: {
-    display: 'flex'
-  }
+    display: "flex",
+  },
 });
 
 const AllTables = () => {
   const classes = styles();
   const data = [
     {
-      label: 'Terraza',
-      quantity: 12
+      label: "Terraza",
+      quantity: 12,
     },
     {
-      label: 'Patio',
-      quantity: 8
-    }
+      label: "Patio",
+      quantity: 8,
+    },
   ];
 
   return (
