@@ -43,6 +43,10 @@ export const editAddMenu = (addMenu, method) => async (dispatch) => {
   });
 
   if (method === "Add") {
+    console.log("=======================================================");
+    console.log(addMenu);
+    console.log("=======================================================");
+    return;
     addMenuRef.push(addMenu);
     dispatch({
       type: ADDMENU_SUCCESS,
