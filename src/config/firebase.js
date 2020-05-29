@@ -14,3 +14,6 @@ export const productsEditRef = (id) => databaseRef.child("products/" + id);
 
 export const categoriesRef = databaseRef.child("categories/");
 export const categoriesEditRef = (id) => databaseRef.child("categories/" + id);
+
+export const addMenuRef = databaseRef.child("addmenu/");
+export const addMenuEditRef = (id) => databaseRef.child("addmenu/" + id);

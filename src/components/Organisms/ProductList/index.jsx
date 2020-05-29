@@ -33,6 +33,8 @@ const ProductList = () => {
     return dataProducts[i];
   });
 
+  const arrayMenu = [];
+
   let gridSize = {
     xs: 12,
     sm: 6,
@@ -73,6 +75,14 @@ const ProductList = () => {
     setViewVariant(variant);
   };
 
+  const menuarray = (producto) => {
+    arrayMenu.push(producto);
+    console.log("haciendo click a un producto: ", arrayMenu);
+  };
+  const addmenu = () => {
+    console.log("se add al menu");
+  };
+
   // const data = ["a", "a", "a", "a", "a", "a", "a", "a", "a"];
 
   return (
@@ -81,7 +91,7 @@ const ProductList = () => {
         <AppBar position="static" color="inherit">
           <Toolbar className={classes.toolbar}>
             <Typography variant="subtitle2" color="primary">
-              PRODUCTOS
+              CREAR MENU
             </Typography>
             <div>
               <Tooltip title="Lista" aria-label="Lista">
@@ -112,12 +122,13 @@ const ProductList = () => {
           </Toolbar>
         </AppBar>
       </Grid>
+
       {data.map((item, index) => (
-        <Grid item {...gridSize} key={index}>
+        <Grid item {...gridSize} key={index} onClick={() => menuarray(item)}>
           <ProductCard variant={viewVariant} products={item} />
         </Grid>
       ))}
-      {/* <FabButton color="primary" label="addProduct" /> */}
+      <FabButton color="primary" label="addProduct" addmenu={addmenu} />
     </Grid>
   );
 };

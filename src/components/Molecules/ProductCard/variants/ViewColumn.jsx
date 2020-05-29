@@ -11,16 +11,16 @@ import styles from "./styles";
 const ProductCardViewColumn = ({ products }) => {
   const classes = styles();
   return (
-    <Card className={classes.marginxy}>
+    <Card>
       <CardContent className={classes.contentColumn}>
         <Typography
           variant="subtitle2"
           color="textPrimary"
           className={classes.priceColumn}
         >
-          {`$ ${products.sm}`}
+          {`$ ${products.sm ? products.sm : products.precioUnitario}`}
         </Typography>
-        <DropdownMenu
+        {/* <DropdownMenu
           label="Opciones"
           className={classes.options}
           options={[
@@ -34,7 +34,7 @@ const ProductCardViewColumn = ({ products }) => {
               label: "Eliminar",
             },
           ]}
-        />
+        /> */}
         <Avatar className={classes.avatarColumn}>
           <img
             src="https://img.icons8.com/color/48/000000/pizza.png"

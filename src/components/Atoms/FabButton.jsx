@@ -15,7 +15,7 @@ const styles = makeStyles({
   },
 });
 
-const FabButton = ({ color, label }) => {
+const FabButton = ({ color, label, addmenu }) => {
   const classes = styles();
 
   return (
@@ -23,7 +23,7 @@ const FabButton = ({ color, label }) => {
       color={color}
       aria-label={label}
       className={classes.root}
-      href="/product/new"
+      onClick={() => addmenu()}
     >
       <Add />
     </Fab>

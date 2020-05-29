@@ -20,8 +20,8 @@ const routes = [
         path: "/ingredientes",
       },
       {
-        label: "Productos",
-        path: "/products",
+        label: "Crear menu",
+        path: "/crear-menu",
       },
       {
         label: "Mesas",

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 //action
 import { getProduct } from "../store/Products/actions";
 import { getCategories } from "../store/Categories/actions";
+import { getAddMenu } from "../store/AgregarMenu/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function AuthLoading(props) {
     // if (auth.info) {
     dispatch(getProduct());
     dispatch(getCategories());
+    dispatch(getAddMenu());
     // }
   }, [auth.info, dispatch]);
 

@@ -83,8 +83,8 @@ export default makeStyles((theme) => ({
     fontSize: 12,
   },
   avatarColumn: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     marginBottom: theme.spacing(4),
   },
   // Others

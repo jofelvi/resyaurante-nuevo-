@@ -28,7 +28,7 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <ProtectedRouter exact path="/" component={DashboardView} />
-            <ProtectedRouter exact path="/products" component={AllProducts} />
+            <ProtectedRouter exact path="/crear-menu" component={AllProducts} />
             <ProtectedRouter
               exact
               path="/product/new"

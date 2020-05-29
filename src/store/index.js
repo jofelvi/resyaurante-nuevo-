@@ -5,11 +5,12 @@ import logger from "redux-logger";
 import authReducer from "./auth/reducer";
 import products from "./Products/reducer";
 import categories from "./Categories/reducer";
-
+import addMenu from "./AgregarMenu/reducer";
 const reducers = combineReducers({
   auth: authReducer,
   products: products,
   categories: categories,
+  addmenu: addMenu,
 });
 
 let middleware = [];
