@@ -1,0 +1,8 @@
+export const USER_SIGN_IN = "USER_SIGN_IN";
+export const USER_SIGN_IN_FAILED = "USER_SIGN_IN_FAILED";
+export const USER_SIGN_OUT = "USER_SIGN_OUT";
+export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
+export const START_LOADING = "START_LOADING";
+export const END_LOADING = "END_LOADING";
+export const USER_SIGN_UP_SUCCESS = "USER_SIGN_UP_SUCCESS";
+export const USER_UP_IN_FAILED = "USER_UP_IN_FAILED";

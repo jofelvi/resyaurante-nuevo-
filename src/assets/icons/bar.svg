@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96pt" height="96pt" viewBox="0 0 96 96" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFEB3B;fill-opacity:1;" d="M 84 24 C 84 32.835938 76.835938 40 68 40 C 59.164063 40 52 32.835938 52 24 C 52 15.164063 59.164063 8 68 8 C 76.835938 8 84 15.164063 84 24 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFDE7;fill-opacity:1;" d="M 66 10 L 70 10 L 70 38 L 66 38 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFDE7;fill-opacity:1;" d="M 54 22 L 82 22 L 82 26 L 54 26 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFDE7;fill-opacity:1;" d="M 56.6875 15.515625 L 59.515625 12.6875 L 79.3125 32.484375 L 76.484375 35.3125 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFFDE7;fill-opacity:1;" d="M 59.511719 35.3125 L 56.683594 32.484375 L 76.484375 12.683594 L 79.3125 15.511719 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFC107;fill-opacity:1;" d="M 68 11 C 75.171875 11 81 16.828125 81 24 C 81 31.167969 75.171875 37 68 37 C 60.832031 37 55 31.167969 55 24 C 55 16.828125 60.832031 11 68 11 M 68 8 C 59.160156 8 52 15.160156 52 24 C 52 32.839844 59.160156 40 68 40 C 76.839844 40 84 32.839844 84 24 C 84 15.160156 76.839844 8 68 8 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FFB300;fill-opacity:1;" d="M 59.707031 34 L 62.632813 34 L 70 24 L 55 24 C 55 28.019531 56.832031 31.613281 59.707031 34 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90CAF9;fill-opacity:1;" d="M 40 57.0625 L 44 57.0625 L 44 84 L 40 84 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90CAF9;fill-opacity:1;" d="M 58 86 C 58 86 44.003906 84 44 78 C 44 72 39.996094 72 40 78 C 40 84 26 86 26 86 C 24.894531 86 24 86.894531 24 88 L 60 88 C 60 86.894531 59.105469 86 58 86 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#90CAF9;fill-opacity:1;" d="M 14 24 L 21.367188 34 L 55.519531 34 C 53.320313 31.261719 52 27.789063 52 24 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#FB8C00;fill-opacity:1;" d="M 55 24 L 52 24 C 52 27.789063 53.320313 31.261719 55.519531 34 L 59.707031 34 C 56.832031 31.613281 55 28.019531 55 24 Z "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:#F50057;fill-opacity:1;" d="M 19.894531 32 L 39.132813 58.109375 C 39.132813 58.109375 41.777344 62.257813 44.921875 58.035156 C 48.0625 53.8125 64.105469 32 64.105469 32 Z "/>
+</g>
+</svg>
