@@ -4,7 +4,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core";
 
 // Organisms
-import { NewProduct } from "../../../components/Organisms";
+import { AllMenu } from "../../../components/Organisms";
 
 const styles = makeStyles({
   root: {
@@ -12,14 +12,14 @@ const styles = makeStyles({
   },
 });
 
-const FormProduct = () => {
+const Menu = () => {
   const classes = styles();
 
   return (
     <section className={classes.root}>
-      <NewProduct />
+      <AllMenu />
     </section>
   );
 };
 
-export default FormProduct;
+export default Menu;

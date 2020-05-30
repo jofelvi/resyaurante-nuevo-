@@ -4,7 +4,7 @@ import TableList from "./TableList";
 import DeliveryList from "./DeliveryList";
 import KitchenList from "./KitchenList";
 import BarList from "./BarList";
-import NewProduct from "./NewProduct";
+import AllMenu from "./AllMenu";
 import FormIngredientes from "./FormIngredientes";
 
 export {
@@ -14,6 +14,6 @@ export {
   DeliveryList,
   KitchenList,
   BarList,
-  NewProduct,
+  AllMenu,
   FormIngredientes,
 };

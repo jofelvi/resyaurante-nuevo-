@@ -12,7 +12,7 @@ import AuthLoading from "./components/AuthLoading";
 import { SignInView, SignUpView, SignOutView } from "./views/auth";
 import DashboardView from "./views/dashboard";
 import { AllProducts } from "./views/product";
-import { FormProduct } from "./views/productnew";
+import { AllMenu } from "./views/allMenu";
 import { FormIngredientes } from "./views/ingredientes";
 import { AllTables } from "./views/table";
 import { AllDeliverys } from "./views/delivery";
@@ -29,11 +29,7 @@ const App = () => {
           <Switch>
             <ProtectedRouter exact path="/" component={DashboardView} />
             <ProtectedRouter exact path="/crear-menu" component={AllProducts} />
-            <ProtectedRouter
-              exact
-              path="/product/new"
-              component={FormProduct}
-            />
+            <ProtectedRouter exact path="/all-menu" component={AllMenu} />
             <ProtectedRouter
               exact
               path="/ingredientes"
