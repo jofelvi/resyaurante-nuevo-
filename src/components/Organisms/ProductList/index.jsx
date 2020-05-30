@@ -117,6 +117,8 @@ const ProductList = () => {
     };
     dispatch(editAddMenu(menuListo, "Add"));
 
+    setArrayMenu([]);
+
     setNombreCategore({
       ...nombreCategore,
       alertSuccess: "Se creo el menu correctamente",

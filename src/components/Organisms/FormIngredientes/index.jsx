@@ -34,6 +34,7 @@ const FormIngredientes = () => {
     // sm: "no disponible",
     // md: "no disponible",
     // lg: "no disponible",
+    stock: 0,
   });
 
   const eliminarDatos = () => {
@@ -155,6 +156,7 @@ const FormIngredientes = () => {
       categories: edit.categories,
       precioUnitario: edit.precioUnitario,
       presentaciones: edit.presentaciones ? true : false,
+      stock: edit.stock,
     });
   };
 
@@ -243,6 +245,22 @@ const FormIngredientes = () => {
                       </option>
                     ))}
                   </select>
+                </div>
+                <div className="form-group col-10">
+                  <label for="inputZip">Cantidad</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputZip"
+                    placeholder="Cantidad"
+                    defaultValue={form.editData ? form.editData.stock : ""}
+                    onChange={(e) => {
+                      return setNuevoProd({
+                        ...nuevoProd,
+                        stock: e.target.value,
+                      });
+                    }}
+                  />
                 </div>
 
                 <div className="form-group col-10">
