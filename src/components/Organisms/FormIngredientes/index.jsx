@@ -136,10 +136,6 @@ const FormIngredientes = () => {
     crearAlertaExito("Se a editado el producto con exito");
   };
   const edit = (edit) => {
-    console.log("=======================================================");
-    console.log(edit);
-    console.log("=======================================================");
-
     setForm({
       ...form,
       abrirProductoForm: true,

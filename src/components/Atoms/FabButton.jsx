@@ -15,7 +15,7 @@ const styles = makeStyles({
   },
 });
 
-const FabButton = ({ color, label, addmenu }) => {
+const FabButton = ({ color, label, addmenu, addOrden }) => {
   const classes = styles();
 
   return (
@@ -23,7 +23,13 @@ const FabButton = ({ color, label, addmenu }) => {
       color={color}
       aria-label={label}
       className={classes.root}
-      onClick={() => addmenu()}
+      onClick={() => {
+        if (addmenu) {
+          addmenu();
+        } else if (addOrden) {
+          addOrden();
+        }
+      }}
     >
       <Add />
     </Fab>

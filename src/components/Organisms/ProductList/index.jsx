@@ -141,8 +141,6 @@ const ProductList = () => {
     setArrayMenu(nuevoArray);
   };
 
-  // const data = ["a", "a", "a", "a", "a", "a", "a", "a", "a"];
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -151,32 +149,6 @@ const ProductList = () => {
             <Typography variant="subtitle2" color="primary">
               CREAR MENU
             </Typography>
-            {/* <div>
-              <Tooltip title="Lista" aria-label="Lista">
-                <IconButton
-                  color={viewVariant === "list" ? "primary" : "default"}
-                  onClick={changeView("list")}
-                >
-                  <ViewList />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Filas" aria-label="Filas">
-                <IconButton
-                  color={viewVariant === "row" ? "primary" : "default"}
-                  onClick={changeView("row")}
-                >
-                  <ViewStream />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Columnas" aria-label="Columnas">
-                <IconButton
-                  color={viewVariant === "column" ? "primary" : "default"}
-                  onClick={changeView("column")}
-                >
-                  <ViewColumn />
-                </IconButton>
-              </Tooltip>
-            </div> */}
           </Toolbar>
         </AppBar>
 
@@ -209,6 +181,22 @@ const ProductList = () => {
                   }}
                 />
               </div>
+              <div className="form-group col-md-6 mb-3">
+                <label for="inputZip">Precio</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputZip"
+                  placeholder="Precio"
+                  onChange={(e) => {
+                    return setNombreCategore({
+                      ...nombreCategore,
+                      precio: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+
               <div className="d-flex justify-content-end my-3 mr-2 col-md-6">
                 <button
                   onClick={() => {

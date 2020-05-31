@@ -18,7 +18,9 @@ const ProductCardViewColumn = ({ products }) => {
           color="textPrimary"
           className={classes.priceColumn}
         >
-          {`$ ${products.sm ? products.sm : products.precioUnitario}`}
+          {`$ ${
+            products.precioUnitario ? products.precioUnitario : products.precio
+          }`}
         </Typography>
 
         {/* <Typography

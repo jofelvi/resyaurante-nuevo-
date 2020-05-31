@@ -19,7 +19,8 @@ import { ViewList, ViewStream, ViewColumn } from "@material-ui/icons";
 import { FabButton } from "../../Atoms";
 
 // Molecules
-import { ProductCard } from "../../Molecules";
+
+import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewRow";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
 
@@ -39,18 +40,6 @@ const MenuList = () => {
     // console.log(precioFinal(dataProducts[i]));
     return dataProducts[i];
   });
-  // const precioFinal = (products) => {
-  //   const productop = products.products;
-  //   const precio = productop.map((item) => {
-  //     const sm = item.sm ? item.sm : 0;
-  //     const md = item.md ? item.md : 0;
-  //     const lg = item.lg ? item.lg : 0;
-  //     const preciounitario = item.precioUnitario ? item.precioUnitario : 0;
-
-  //     return preciounitario;
-  //   });
-  //   return precio;
-  // };
 
   const [arrayMenu, setArrayMenu] = useState([]);
   const [nombreCategore, setNombreCategore] = useState({
@@ -67,34 +56,6 @@ const MenuList = () => {
     lg: 3,
     xl: 2,
   };
-
-  if (viewVariant === "list") {
-    gridSize = {
-      xs: 12,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 12,
-    };
-  }
-  if (viewVariant === "row") {
-    gridSize = {
-      xs: 12,
-      sm: 6,
-      md: 6,
-      lg: 6,
-      xl: 3,
-    };
-  }
-  if (viewVariant === "column") {
-    gridSize = {
-      xs: 12,
-      sm: 6,
-      md: 3,
-      lg: 3,
-      xl: 2,
-    };
-  }
 
   const changeView = (variant) => () => {
     setViewVariant(variant);
@@ -150,13 +111,16 @@ const MenuList = () => {
     }, 2500);
   };
 
+  const addOrden = () => {
+    console.log("=======================================================");
+    console.log("desde addOrden");
+    console.log("=======================================================");
+  };
+
   const eliminarItemArray = (producto) => {
     console.log("eliminar productos:  ", producto);
     const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
-    // console.log("===============================================");
-    // console.log(arrayMenu);
-    // console.log(nuevoArray);
-    // console.log("===============================================");
+
     setArrayMenu(nuevoArray);
   };
 
@@ -170,32 +134,6 @@ const MenuList = () => {
             <Typography variant="subtitle2" color="primary">
               LISTA MENU
             </Typography>
-            <div>
-              <Tooltip title="Lista" aria-label="Lista">
-                <IconButton
-                  color={viewVariant === "list" ? "primary" : "default"}
-                  onClick={changeView("list")}
-                >
-                  <ViewList />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Filas" aria-label="Filas">
-                <IconButton
-                  color={viewVariant === "row" ? "primary" : "default"}
-                  onClick={changeView("row")}
-                >
-                  <ViewStream />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Columnas" aria-label="Columnas">
-                <IconButton
-                  color={viewVariant === "column" ? "primary" : "default"}
-                  onClick={changeView("column")}
-                >
-                  <ViewColumn />
-                </IconButton>
-              </Tooltip>
-            </div>
           </Toolbar>
         </AppBar>
 
@@ -275,10 +213,10 @@ const MenuList = () => {
           key={index}
           onClick={() => (nombreCategore.agregar ? menuarray(item) : "")}
         >
-          <ProductCard variant={viewVariant} products={item} />
+          <ProductoCardRow variant={viewVariant} products={item} />
         </Grid>
       ))}
-      <FabButton color="primary" label="addProduct" addmenu={addmenu} />
+      <FabButton color="primary" label="addProduct" addOrden={addOrden} />
     </Grid>
   );
 };
