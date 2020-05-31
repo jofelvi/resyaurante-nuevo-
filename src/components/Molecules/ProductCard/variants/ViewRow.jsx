@@ -18,7 +18,9 @@ const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
           color="textPrimary"
           className={classes.priceRow}
         >
-          {`$ ${products.sm}`}
+          {`$ ${
+            products.precioUnitario ? products.precioUnitario : products.precio
+          }`}
         </Typography>
         <DropdownMenu
           edit={edit}

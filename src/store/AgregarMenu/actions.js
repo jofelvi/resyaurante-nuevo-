@@ -6,6 +6,7 @@ import {
   ADDMENU_SUCCESS,
   ADDMENU_EDIT,
   GET_ADDMENU_SUCCESS,
+  MENU_FILTER,
 } from "./Constants";
 
 export const getAddMenu = () => (dispatch) => {
@@ -33,6 +34,36 @@ export const getAddMenu = () => (dispatch) => {
   });
   dispatch({
     type: ADDMENU_END,
+  });
+};
+
+export const filterMenu = (products, filter) => async (dispatch) => {
+  dispatch({
+    type: ADDMENU_START,
+  });
+
+  console.log("=======================================================");
+  console.log("filtrando");
+  console.log("=======================================================");
+
+  let filtrado;
+  if (filter !== "All") {
+    filtrado = products.filter((item, index) => item.categories === filter);
+  } else {
+    filtrado = products;
+  }
+
+  console.log("=======================================================");
+  console.log(products);
+  console.log("=======================================================");
+
+  console.log("=======================================================");
+  console.log(filtrado);
+  console.log("=======================================================");
+
+  dispatch({
+    type: MENU_FILTER,
+    payload: filtrado,
   });
 };
 

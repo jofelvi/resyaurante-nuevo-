@@ -3,9 +3,6 @@ import React from "react";
 // Material UI
 import { Card, CardContent, Avatar, Typography } from "@material-ui/core";
 
-// Atoms
-import { DropdownMenu } from "../../../../components/Atoms";
-
 import styles from "./styles";
 
 const ProductCardViewColumn = ({ products }) => {
@@ -23,30 +20,6 @@ const ProductCardViewColumn = ({ products }) => {
           }`}
         </Typography>
 
-        {/* <Typography
-          variant="subtitle1"
-          color="textSecondary"
-          align="left"
-          paragraph
-          className={classes.description}
-        >
-          {products.categorie}
-        </Typography> */}
-        {/* <DropdownMenu
-          label="Opciones"
-          className={classes.options}
-          options={[
-            {
-              label: "Ver",
-            },
-            {
-              label: "Editar",
-            },
-            {
-              label: "Eliminar",
-            },
-          ]}
-        /> */}
         <Avatar className={classes.avatarColumn}>
           <img
             src="https://img.icons8.com/color/48/000000/pizza.png"

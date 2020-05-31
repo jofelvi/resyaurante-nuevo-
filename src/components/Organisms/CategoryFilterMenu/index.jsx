@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, Typography, Button } from "@material-ui/core";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
-import { editcategorie } from "../../../store/Categories/actions";
-import { filterProducts } from "../../../store/Products/actions";
+import { editcategorieMenu } from "../../../store/Categories/actions";
+import { filterMenu } from "../../../store/AgregarMenu/actions";
 
 import styles from "./styles";
 
@@ -15,14 +15,14 @@ const AllTables = ({ data, posicion }) => {
   const classes = styles();
 
   const dispatch = useDispatch();
-  const productosAll = useSelector((state) => state.products.products);
+  const productosAll = useSelector((state) => state.addmenu.addmenu);
 
   const [filterFil, setFilterFil] = useState({
     productosAllFilter: "All",
     checked: false,
   });
   useEffect(() => {
-    dispatch(filterProducts(productosAll, filterFil.productosAllFilter));
+    dispatch(filterMenu(productosAll, filterFil.productosAllFilter));
   });
 
   const [state, setState] = React.useState({
@@ -58,14 +58,12 @@ const AllTables = ({ data, posicion }) => {
   };
 
   const addCategorie = (e) => {
-    // e.preventDefault();
-
     const { nombreCategoria } = newCategoria;
 
     if (nombreCategoria === "") {
       return;
     }
-    dispatch(editcategorie({ nombre: nombreCategoria }, "Add"));
+    dispatch(editcategorieMenu({ nombre: nombreCategoria }, "Add"));
     crearAlertaExito("Se a creado la categoria con exito");
   };
 
@@ -138,6 +136,9 @@ const AllTables = ({ data, posicion }) => {
                 <Typography variant="body1" color="textPrimary" align="left">
                   {item.nombre}
                 </Typography>
+                {/* <Typography variant="body1" color="textPrimary" align="left">
+                  {index}
+                </Typography> */}
               </div>
             }
           />

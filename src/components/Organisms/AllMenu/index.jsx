@@ -12,15 +12,14 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-// Icons
-import { ViewList, ViewStream, ViewColumn } from "@material-ui/icons";
+import { ModalScreen } from "../../Molecules";
 
 // Atoms
 import { FabButton } from "../../Atoms";
 
 // Molecules
 
-import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewRow";
+import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewColumn";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
 
@@ -31,7 +30,7 @@ const MenuList = () => {
   const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
 
-  const dataProducts = useSelector((state) => state.addmenu.addmenu);
+  const dataProducts = useSelector((state) => state.addmenu.menufilter);
   const data = Object.keys(dataProducts).map((i) => {
     console.log(dataProducts[i]);
     dataProducts[i].id = i;
@@ -40,6 +39,15 @@ const MenuList = () => {
     // console.log(precioFinal(dataProducts[i]));
     return dataProducts[i];
   });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [arrayMenu, setArrayMenu] = useState([]);
   const [nombreCategore, setNombreCategore] = useState({
@@ -216,7 +224,12 @@ const MenuList = () => {
           <ProductoCardRow variant={viewVariant} products={item} />
         </Grid>
       ))}
-      <FabButton color="primary" label="addProduct" addOrden={addOrden} />
+      <ModalScreen openModal={open} handleClose={handleClose} />
+      <FabButton
+        color="primary"
+        label="addProduct"
+        addOrden={handleClickOpen}
+      />
     </Grid>
   );
 };

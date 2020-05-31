@@ -37,6 +37,10 @@ const ProductList = () => {
     return dataProducts[i];
   });
 
+  const dataCategories = useSelector(
+    (state) => state.categories.categoriesMenu
+  );
+
   const [arrayMenu, setArrayMenu] = useState([]);
   const [nombreCategore, setNombreCategore] = useState({
     nombre: "",
@@ -52,34 +56,6 @@ const ProductList = () => {
     lg: 3,
     xl: 2,
   };
-
-  if (viewVariant === "list") {
-    gridSize = {
-      xs: 12,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 12,
-    };
-  }
-  if (viewVariant === "row") {
-    gridSize = {
-      xs: 12,
-      sm: 6,
-      md: 6,
-      lg: 6,
-      xl: 3,
-    };
-  }
-  if (viewVariant === "column") {
-    gridSize = {
-      xs: 12,
-      sm: 6,
-      md: 3,
-      lg: 3,
-      xl: 2,
-    };
-  }
 
   const changeView = (variant) => () => {
     setViewVariant(variant);
@@ -115,6 +91,8 @@ const ProductList = () => {
     const menuListo = {
       nombre: nombreCategore.nombre,
       products: arrayMenu,
+      categories: nombreCategore.categories,
+      precio: nombreCategore.precio,
     };
     dispatch(editAddMenu(menuListo, "Add"));
 
@@ -181,6 +159,30 @@ const ProductList = () => {
                   }}
                 />
               </div>
+
+              <div className="form-group col-md-6">
+                <label for="inputZip">Categoria</label>
+                <select
+                  onChange={(e) => {
+                    return setNombreCategore({
+                      ...nombreCategore,
+                      categories: e.target.value,
+                    });
+                  }}
+                  // defaultChecked={form.edit ? form.editData.categories : ""}
+                  className="custom-select"
+                  // defaultValue={form.edit ? form.editData.categories : ""}
+                >
+                  <option selected>Categoria...</option>
+
+                  {dataCategories.map((item, index) => (
+                    <option key={index} value={item.nombre}>
+                      {item.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="form-group col-md-6 mb-3">
                 <label for="inputZip">Precio</label>
                 <input

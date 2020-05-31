@@ -5,6 +5,7 @@ import {
   ADDMENU_SUCCESS,
   ADDMENU_EDIT,
   GET_ADDMENU_SUCCESS,
+  MENU_FILTER,
 } from "./Constants";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   loading: false,
   msg: "",
   addmenu: [],
+  menufilter: [],
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -42,6 +44,14 @@ export default function (state = initialState, { type, payload }) {
         error: false,
         loading: false,
         addmenu: payload,
+      };
+    }
+    case MENU_FILTER: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        menufilter: payload,
       };
     }
     case ADDMENU_EDIT: {

@@ -5,6 +5,7 @@ import {
   CATEGORIES_SUCCESS,
   CATEGORIES_EDIT,
   GET_CATEGORIES_SUCCESS,
+  GET_CATEGORIES_MENU_SUCCESS,
 } from "./Constants";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   loading: false,
   msg: "",
   categories: [],
+  categoriesMenu: [],
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -42,6 +44,14 @@ export default function (state = initialState, { type, payload }) {
         error: false,
         loading: false,
         categories: payload,
+      };
+    }
+    case GET_CATEGORIES_MENU_SUCCESS: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        categoriesMenu: payload,
       };
     }
     case CATEGORIES_EDIT: {
