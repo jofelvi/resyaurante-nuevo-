@@ -20,6 +20,16 @@ const ProductCardViewColumn = ({ products }) => {
         >
           {`$ ${products.sm ? products.sm : products.precioUnitario}`}
         </Typography>
+
+        {/* <Typography
+          variant="subtitle1"
+          color="textSecondary"
+          align="left"
+          paragraph
+          className={classes.description}
+        >
+          {products.categorie}
+        </Typography> */}
         {/* <DropdownMenu
           label="Opciones"
           className={classes.options}
@@ -55,7 +65,7 @@ const ProductCardViewColumn = ({ products }) => {
           paragraph
           className={classes.description}
         >
-          Comida rapida
+          {products.descripcion ? products.descripcion : products.nombre}
         </Typography>
       </CardContent>
     </Card>

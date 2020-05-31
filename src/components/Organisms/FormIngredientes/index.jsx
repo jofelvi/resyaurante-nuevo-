@@ -136,6 +136,10 @@ const FormIngredientes = () => {
     crearAlertaExito("Se a editado el producto con exito");
   };
   const edit = (edit) => {
+    console.log("=======================================================");
+    console.log(edit);
+    console.log("=======================================================");
+
     setForm({
       ...form,
       abrirProductoForm: true,
@@ -157,6 +161,7 @@ const FormIngredientes = () => {
       precioUnitario: edit.precioUnitario,
       presentaciones: edit.presentaciones ? true : false,
       stock: edit.stock,
+      descripcion: edit.descripcion,
     });
   };
 
@@ -219,6 +224,25 @@ const FormIngredientes = () => {
                       return setNuevoProd({
                         ...nuevoProd,
                         nombre: e.target.value,
+                      });
+                    }}
+                  />
+                </div>
+
+                <div className="form-group col-10">
+                  <label for="inputZip">Descripcion del Producto</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="inputZip"
+                    placeholder="Descripcion"
+                    defaultValue={
+                      form.editData ? form.editData.descripcion : ""
+                    }
+                    onChange={(e) => {
+                      return setNuevoProd({
+                        ...nuevoProd,
+                        descripcion: e.target.value,
                       });
                     }}
                   />
@@ -438,7 +462,7 @@ const FormIngredientes = () => {
       )}
 
       <TableProduct
-        dataProducts={dataProducts.products}
+        dataProducts={dataProducts.productsFilter}
         eliminarProducts={eliminarProducts}
         edit={edit}
       />

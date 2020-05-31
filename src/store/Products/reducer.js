@@ -5,6 +5,7 @@ import {
   PRODUCT_SUCCESS,
   PRODUCT_EDIT,
   GET_PRODUCT_SUCCESS,
+  PRODUCT_FILTER,
 } from "./Constants";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   loading: false,
   msg: "",
   products: [],
+  productsFilter: [],
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -19,7 +21,6 @@ export default function (state = initialState, { type, payload }) {
     case PRODUCT_START: {
       return { ...state, loading: true, error: null };
     }
-
     case PRODUCT_END: {
       return { ...state, loading: false };
     }
@@ -42,6 +43,14 @@ export default function (state = initialState, { type, payload }) {
         error: false,
         loading: false,
         products: payload,
+      };
+    }
+    case PRODUCT_FILTER: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        productsFilter: payload,
       };
     }
     case PRODUCT_EDIT: {

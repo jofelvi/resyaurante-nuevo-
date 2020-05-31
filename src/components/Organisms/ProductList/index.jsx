@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -30,7 +30,8 @@ const ProductList = () => {
   const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
 
-  const dataProducts = useSelector((state) => state.products.products);
+  const dataProducts = useSelector((state) => state.products.productsFilter);
+
   const data = Object.keys(dataProducts).map((i) => {
     dataProducts[i].id = i;
     return dataProducts[i];
@@ -94,7 +95,7 @@ const ProductList = () => {
     });
   };
   const addmenubd = () => {
-    if (nombreCategore.nombre == "" || arrayMenu.length < 2) {
+    if (nombreCategore.nombre === "" || arrayMenu.length < 2) {
       setNombreCategore({
         ...nombreCategore,
         alertSuccess:
@@ -136,11 +137,7 @@ const ProductList = () => {
 
   const eliminarItemArray = (producto) => {
     console.log("eliminar productos:  ", producto);
-    const nuevoArray = arrayMenu.filter((item) => item.id != producto.id);
-    // console.log("===============================================");
-    // console.log(arrayMenu);
-    // console.log(nuevoArray);
-    // console.log("===============================================");
+    const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
     setArrayMenu(nuevoArray);
   };
 
@@ -154,7 +151,7 @@ const ProductList = () => {
             <Typography variant="subtitle2" color="primary">
               CREAR MENU
             </Typography>
-            <div>
+            {/* <div>
               <Tooltip title="Lista" aria-label="Lista">
                 <IconButton
                   color={viewVariant === "list" ? "primary" : "default"}
@@ -179,7 +176,7 @@ const ProductList = () => {
                   <ViewColumn />
                 </IconButton>
               </Tooltip>
-            </div>
+            </div> */}
           </Toolbar>
         </AppBar>
 

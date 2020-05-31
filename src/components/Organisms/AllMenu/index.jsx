@@ -110,7 +110,7 @@ const MenuList = () => {
     });
   };
   const addmenubd = () => {
-    if (nombreCategore.nombre == "" || arrayMenu.length < 2) {
+    if (nombreCategore.nombre === "" || arrayMenu.length < 2) {
       setNombreCategore({
         ...nombreCategore,
         alertSuccess:
@@ -152,7 +152,7 @@ const MenuList = () => {
 
   const eliminarItemArray = (producto) => {
     console.log("eliminar productos:  ", producto);
-    const nuevoArray = arrayMenu.filter((item) => item.id != producto.id);
+    const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
     // console.log("===============================================");
     // console.log(arrayMenu);
     // console.log(nuevoArray);

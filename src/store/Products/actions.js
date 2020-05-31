@@ -5,7 +5,7 @@ import {
   PRODUCT_FAIL,
   PRODUCT_SUCCESS,
   GET_PRODUCT_SUCCESS,
-  PRODUCT_EDIT,
+  PRODUCT_FILTER,
 } from "./Constants";
 
 export const getProduct = () => (dispatch) => {
@@ -36,6 +36,23 @@ export const getProduct = () => (dispatch) => {
   });
 };
 
+export const filterProducts = (products, filter) => async (dispatch) => {
+  dispatch({
+    type: PRODUCT_START,
+  });
+  let filtrado;
+  if (filter !== "All") {
+    filtrado = products.filter((item, index) => item.categories === filter);
+  } else {
+    filtrado = products;
+  }
+
+  dispatch({
+    type: PRODUCT_FILTER,
+    payload: filtrado,
+  });
+};
+
 export const editproducts = (products, method) => async (dispatch) => {
   dispatch({
     type: PRODUCT_START,
@@ -49,10 +66,6 @@ export const editproducts = (products, method) => async (dispatch) => {
       payload: "Se creo correctamente",
     });
   } else if (method === "Delete") {
-    // console.log("===========================");
-    // console.log(products.id);
-    // console.log("===========================");
-    // return;
     dispatch({
       type: PRODUCT_SUCCESS,
       payload: "Se borro correctamente",

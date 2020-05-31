@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,6 +7,7 @@ import { Card, Typography, Button } from "@material-ui/core";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import { editcategorie } from "../../../store/Categories/actions";
+import { filterProducts } from "../../../store/Products/actions";
 
 import styles from "./styles";
 
@@ -14,6 +15,15 @@ const AllTables = ({ data, posicion }) => {
   const classes = styles();
 
   const dispatch = useDispatch();
+  const productosAll = useSelector((state) => state.products.products);
+
+  const [filterFil, setFilterFil] = useState({
+    productosAllFilter: "All",
+    checked: false,
+  });
+  useEffect(() => {
+    dispatch(filterProducts(productosAll, filterFil.productosAllFilter));
+  });
 
   const [state, setState] = React.useState({
     checkedA: false,
@@ -68,6 +78,37 @@ const AllTables = ({ data, posicion }) => {
         <Button className={classes.headerButtonReset}>Limpiar</Button>
       </div>
       <div className={classes.filtersContainer}>
+        <FormControlLabel
+          classes={{
+            root: classes.formControlLabel,
+          }}
+          control={
+            <Checkbox
+              // checked={state[item.label] ? state[item.label] : false}
+              // onChange={handleChange(item.label)}
+              checked={filterFil.productosAllFilter === "All" ? true : false}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setFilterFil({
+                    productosAllFilter: "All",
+                  });
+                }
+              }}
+              value="All"
+              color="primary"
+            />
+          }
+          label={
+            <div className={classes.filterOption}>
+              <Typography variant="body1" color="textPrimary" align="left">
+                Todos
+              </Typography>
+              {/* <Typography variant="body1" color="textPrimary" align="left">
+                  {index}
+                </Typography> */}
+            </div>
+          }
+        />
         {data.map((item, index) => (
           <FormControlLabel
             classes={{
@@ -76,8 +117,18 @@ const AllTables = ({ data, posicion }) => {
             key={index}
             control={
               <Checkbox
-                checked={state[item.label] ? state[item.label] : false}
-                onChange={handleChange(item.label)}
+                // checked={state[item.label] ? state[item.label] : false}
+                // onChange={handleChange(item.label)}
+                checked={
+                  filterFil.productosAllFilter === item.nombre ? true : false
+                }
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setFilterFil({
+                      productosAllFilter: item.nombre,
+                    });
+                  }
+                }}
                 value={item.label}
                 color="primary"
               />

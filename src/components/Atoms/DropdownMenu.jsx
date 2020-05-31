@@ -1,16 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 // Material UI
-import { IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
+import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 
-import { MoreVert } from '@material-ui/icons';
+import { MoreVert } from "@material-ui/icons";
 
-const DropdownMenu = ({ className, label, options = [] }) => {
+const DropdownMenu = ({
+  className,
+  label,
+  options = [],
+  edit,
+  products,
+  eliminarProducts,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleOpenMenu = event => {
+  const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -18,11 +25,15 @@ const DropdownMenu = ({ className, label, options = [] }) => {
     setAnchorEl(null);
   };
 
-  const handleItemMenuOnClick = cb => () => {
-    if (cb) {
-      cb();
+  const handleItemMenuOnClick = (label) => () => {
+    // if (cb) {
+    //   cb();
+    // }
+    if (label === "Editar") {
+      edit(products);
+    } else if (label === "Eliminar") {
+      eliminarProducts(products);
     }
-
     handleCloseMenu();
   };
 
@@ -32,7 +43,8 @@ const DropdownMenu = ({ className, label, options = [] }) => {
         <IconButton
           aria-label={label}
           className={className}
-          onClick={handleOpenMenu}>
+          onClick={handleOpenMenu}
+        >
           <MoreVert />
         </IconButton>
       </Tooltip>
@@ -41,11 +53,12 @@ const DropdownMenu = ({ className, label, options = [] }) => {
           elevation={1}
           anchorEl={anchorEl}
           getContentAnchorEl={null}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
           keepMounted
           open={isMenuOpen}
-          onClose={handleCloseMenu}>
+          onClose={handleCloseMenu}
+        >
           {options.map(({ label, link, to, onClick }, index) => {
             if (link) {
               return (
@@ -53,13 +66,14 @@ const DropdownMenu = ({ className, label, options = [] }) => {
                   key={index}
                   component={Link}
                   to={to}
-                  onClick={handleCloseMenu}>
+                  onClick={handleCloseMenu}
+                >
                   {label}
                 </MenuItem>
               );
             }
             return (
-              <MenuItem key={index} onClick={handleItemMenuOnClick(onClick)}>
+              <MenuItem key={index} onClick={handleItemMenuOnClick(label)}>
                 {label}
               </MenuItem>
             );

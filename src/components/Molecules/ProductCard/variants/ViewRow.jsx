@@ -8,7 +8,7 @@ import { DropdownMenu } from "../../../../components/Atoms";
 
 import styles from "./styles";
 
-const ProductCardViewRow = ({ products }) => {
+const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
   const classes = styles();
   return (
     <Card className={classes.marginxy}>
@@ -21,12 +21,12 @@ const ProductCardViewRow = ({ products }) => {
           {`$ ${products.sm}`}
         </Typography>
         <DropdownMenu
+          edit={edit}
+          eliminarProducts={eliminarProducts}
+          products={products}
           label="Opciones"
           className={classes.options}
           options={[
-            {
-              label: "Ver",
-            },
             {
               label: "Editar",
             },
@@ -57,7 +57,7 @@ const ProductCardViewRow = ({ products }) => {
             paragraph
             className={classes.description}
           >
-            Comida rapida
+            {products.descripcion ? products.descripcion : products.nombre}
           </Typography>
         </div>
       </CardContent>
