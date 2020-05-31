@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { useSelector } from "react-redux";
 
 // Material UI
 import {
@@ -6,12 +7,15 @@ import {
   Toolbar,
   Breadcrumbs,
   Link,
-  Typography
-} from '@material-ui/core';
+  Typography,
+} from "@material-ui/core";
 
-import styles from './styles';
+import styles from "./styles";
 
-const Breadcrumb = props => {
+const Breadcrumb = (props) => {
+  const costosAddCuenta = useSelector(
+    (state) => state.addcuenta.productsCuenta
+  );
   const classes = styles();
   return (
     <AppBar position="static" color="inherit" className={classes.root}>
@@ -20,7 +24,10 @@ const Breadcrumb = props => {
           FOOD
         </Typography>
         <Breadcrumbs aria-label="Breadcrumb">
-          <Link color="inherit" href="#" onClick={() => console.log('click')}>
+          <Typography variant="subtitle2" color="textSecondary">
+            {`${costosAddCuenta} $`}
+          </Typography>
+          <Link color="inherit" href="#" onClick={() => console.log("click")}>
             <Typography variant="subtitle2" color="textSecondary">
               Home
             </Typography>

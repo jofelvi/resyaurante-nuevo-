@@ -12,9 +12,6 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-// Icons
-import { ViewList, ViewStream, ViewColumn } from "@material-ui/icons";
-
 // Atoms
 import { FabButton } from "../../Atoms";
 
@@ -92,7 +89,7 @@ const ProductList = () => {
       nombre: nombreCategore.nombre,
       products: arrayMenu,
       categories: nombreCategore.categories,
-      precio: nombreCategore.precio,
+      precioUnitario: nombreCategore.precio,
     };
     dispatch(editAddMenu(menuListo, "Add"));
 

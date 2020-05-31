@@ -6,11 +6,13 @@ import authReducer from "./auth/reducer";
 import products from "./Products/reducer";
 import categories from "./Categories/reducer";
 import addMenu from "./AgregarMenu/reducer";
+import productosCuenta from "./agregaralaCuenta/reducer";
 const reducers = combineReducers({
   auth: authReducer,
   products: products,
   categories: categories,
   addmenu: addMenu,
+  addcuenta: productosCuenta,
 });
 
 let middleware = [];

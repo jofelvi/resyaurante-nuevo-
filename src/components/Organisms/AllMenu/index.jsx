@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-import { ModalScreen } from "../../Molecules";
+import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
 
 // Atoms
 import { FabButton } from "../../Atoms";
@@ -32,21 +32,31 @@ const MenuList = () => {
 
   const dataProducts = useSelector((state) => state.addmenu.menufilter);
   const data = Object.keys(dataProducts).map((i) => {
-    console.log(dataProducts[i]);
+    // console.log(dataProducts[i]);
     dataProducts[i].id = i;
 
-    // dataProducts[i].precioUnitario = precioFinal(dataProducts[i]);
-    // console.log(precioFinal(dataProducts[i]));
     return dataProducts[i];
   });
 
   const [open, setOpen] = React.useState(false);
+  const [openProducto, setopenProducto] = useState({
+    open: false,
+    menuItem: "",
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setopenProducto(false);
+  };
+  const openMenuProduct = (menu) => {
+    setopenProducto({
+      ...openProducto,
+      open: true,
+      menuItem: menu,
+    });
   };
 
   const [arrayMenu, setArrayMenu] = useState([]);
@@ -219,12 +229,21 @@ const MenuList = () => {
           item
           {...gridSize}
           key={index}
-          onClick={() => (nombreCategore.agregar ? menuarray(item) : "")}
+          onClick={() => openMenuProduct(item)}
         >
           <ProductoCardRow variant={viewVariant} products={item} />
         </Grid>
       ))}
-      <ModalScreen openModal={open} handleClose={handleClose} />
+      {openProducto.menuItem ? (
+        <ModalScreenEstatico
+          openModal={openProducto.open}
+          handleClose={handleClose}
+          menuItem={openProducto.menuItem}
+        />
+      ) : (
+        ""
+      )}
+      <ModalScreenDinamico openModal={open} handleClose={handleClose} />
       <FabButton
         color="primary"
         label="addProduct"

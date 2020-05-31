@@ -3,7 +3,8 @@ import TableCard from "./TableCard";
 import DeliveryCard from "./DeliveryCard";
 import KitchenCard from "./KitchenCard";
 import BarCard from "./BarCard";
-import ModalScreen from "./ModalFullScreen";
+import ModalScreenEstatico from "./ModalScreenEstatico";
+import ModalScreenDinamico from "./ModalScreenDinamico";
 
 export {
   ProductCard,
@@ -11,5 +12,6 @@ export {
   DeliveryCard,
   KitchenCard,
   BarCard,
-  ModalScreen,
+  ModalScreenEstatico,
+  ModalScreenDinamico,
 };
