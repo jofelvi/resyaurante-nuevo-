@@ -6,16 +6,24 @@ import { makeStyles, Fab } from "@material-ui/core";
 // Icons
 import { Add } from "@material-ui/icons";
 
-const styles = makeStyles({
+import DropdownMenu from "./DropdownMenuPedidos";
+
+const styles = makeStyles((theme) => ({
   root: {
     position: "fixed",
     bottom: 0,
     right: 0,
     margin: 24,
   },
-});
+  options: {
+    position: "absolute",
+    right: -3,
+    top: -3,
+    margin: theme.spacing(2),
+  },
+}));
 
-const FabButton = ({ color, label, addmenu, addOrden }) => {
+const FabButton = ({ color, label, addmenu, addOrden, pedido, estatico }) => {
   const classes = styles();
 
   return (
@@ -24,14 +32,35 @@ const FabButton = ({ color, label, addmenu, addOrden }) => {
       aria-label={label}
       className={classes.root}
       onClick={() => {
-        if (addmenu) {
-          addmenu();
-        } else if (addOrden) {
-          addOrden();
+        if (!pedido) {
+          if (addmenu) {
+            addmenu();
+          } else if (addOrden) {
+            addOrden();
+          }
         }
       }}
     >
-      <Add />
+      {pedido ? (
+        <DropdownMenu
+          // edit={edit}
+          // eliminarProducts={eliminarProducts}
+          // products={products}
+          // label="Opciones"
+          className={classes.options}
+          estatico={estatico}
+          options={[
+            {
+              label: "Menu",
+            },
+            {
+              label: "Personalizado",
+            },
+          ]}
+        />
+      ) : (
+        <Add />
+      )}
     </Fab>
   );
 };

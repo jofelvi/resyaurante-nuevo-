@@ -16,6 +16,10 @@ const routes = [
         path: "/",
       },
       {
+        label: "Pedidos",
+        path: "/pedidos",
+      },
+      {
         label: "Menu Lista",
         path: "/all-menu",
       },

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Material UI
 import { Card, Typography, Button } from "@material-ui/core";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
+import Home from "@material-ui/icons/Home";
 
 import { editcategorieMenu } from "../../../store/Categories/actions";
 import { filterMenu } from "../../../store/AgregarMenu/actions";
@@ -15,7 +16,16 @@ const AllTables = ({ data, posicion }) => {
   const classes = styles();
 
   const dispatch = useDispatch();
-  const productosAll = useSelector((state) => state.addmenu.addmenu);
+  const productosAllmenu = useSelector((state) => state.addmenu.addmenu);
+  const productosIngredientes = useSelector((state) => state.products.products);
+
+  const filterIngredientes = productosIngredientes.filter(
+    (item) =>
+      item.categories === "Bebidas" ||
+      item.categories === "Postres" ||
+      item.categories === "Extras"
+  );
+  const productosAll = [...filterIngredientes, ...productosAllmenu];
 
   const [filterFil, setFilterFil] = useState({
     productosAllFilter: "All",
@@ -98,9 +108,10 @@ const AllTables = ({ data, posicion }) => {
           }
           label={
             <div className={classes.filterOption}>
-              <Typography variant="body1" color="textPrimary" align="left">
-                Todos
-              </Typography>
+              <Home size="15" />
+              {/* <Typography variant="body1" color="textPrimary" align="left">
+                Menú
+              </Typography> */}
               {/* <Typography variant="body1" color="textPrimary" align="left">
                   {index}
                 </Typography> */}

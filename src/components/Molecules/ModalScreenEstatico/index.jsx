@@ -42,6 +42,7 @@ export default function FullScreenDialog({
   const costosAddCuenta = useSelector(
     (state) => state.addcuenta.productsCuenta
   );
+  const listaProducts = useSelector((state) => state.addcuenta.listaProducts);
   const IngredientesExtras = allProducts.filter(
     (item) => item.categories === "Extras"
   );
@@ -64,9 +65,18 @@ export default function FullScreenDialog({
   };
 
   const siguientesModal = () => {
-    const productos = [menuItem, ...selectExtras, selectBases];
+    const menuNuevo = {
+      precioUnitario: menuItem.precioUnitario
+        ? menuItem.precioUnitario
+        : menuItem.precio,
+      categories: menuItem.categories,
+      nombre: menuItem.nombre,
+      base: selectBases.nombre ? selectBases.nombre : "Sin base",
+      extras: selectExtras,
+    };
+    const productoslista = [...listaProducts, menuNuevo];
 
-    dispatch(addProductosCosto(productos, costosAddCuenta));
+    dispatch(addProductosCosto(productoslista, costosAddCuenta, menuNuevo));
     handleClose();
   };
 

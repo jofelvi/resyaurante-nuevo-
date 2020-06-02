@@ -33,54 +33,64 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   openModal = false,
   handleClose,
-  menuItem = [],
   mostrandoModal,
 }) {
   const classes = useStyles();
 
-  const productsBase = [
-    {
-      nombre: "Pequeño",
-      precio: 9.5,
-      peso: "500ml",
-    },
-    {
-      nombre: "Grande",
-      precio: 11.5,
-      peso: "750ml",
-    },
-    {
-      nombre: "Extra Grande",
-      precio: 12.5,
-
-      peso: "1000ml",
-    },
-  ];
+  const products = useSelector((state) => state.products.products);
+  const productsBase = products.filter((prod) => prod.categories === "Bases");
+  const productsProteinas = products.filter(
+    (prod) => prod.categories === "Proteinas"
+  );
 
   const dispatch = useDispatch();
 
   const [selectBases, setselectBases] = useState({
-    plato: "",
+    bases: [],
+    proteina: "",
   });
 
   const lista_pedido_dinamico = useSelector(
     (state) => state.addcuenta.menudinamicoorden
   );
+  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
 
   const handleChangeCheckboxBases = (extra, checked) => {
+    let quitarbase;
     if (checked) {
       setselectBases({
-        plato: extra,
-        productselegidos: lista_pedido_dinamico,
+        ...selectBases,
+        bases: [...selectBases.bases, extra],
+      });
+    }
+    if (!checked) {
+      quitarbase = selectBases.bases.filter(
+        (item) => item.nombre !== extra.nombre
+      );
+      setselectBases({
+        ...selectBases,
+        bases: quitarbase,
+      });
+    }
+  };
+  const handleChangeCheckboxProteinas = (extra, checked) => {
+    let quitarbase;
+    if (checked) {
+      setselectBases({
+        ...selectBases,
+        proteina: extra,
       });
     }
   };
 
   const siguientesModal = () => {
-    mostrandoModal("BasesProteinas");
-    dispatch(
-      addProductosMenuDinamicos(selectBases.productselegidos, selectBases.plato)
-    );
+    const ordenmodal = [
+      ...lista_pedido_dinamico,
+      { Bases: selectBases.bases },
+      { Proteina: selectBases.proteina.nombre },
+    ];
+    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
+    mostrandoModal("Marinado");
     handleClose();
   };
 
@@ -105,7 +115,7 @@ export default function FullScreenDialog({
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Diseña tu Bowl
+              Bases y Proteinas
             </Typography>
             <Button autoFocus color="inherit" onClick={siguientesModal}>
               Siguiente
@@ -118,7 +128,7 @@ export default function FullScreenDialog({
               <div className="row p-4">
                 <div className="col-12 ">
                   <Typography variant="h5" className={classes.title}>
-                    Eliga un tamaño para su Orden
+                    Escoje 2 bases para tu Bowl
                   </Typography>
                 </div>
                 <div className="col-12 d-flex mt-2 flex-wrap">
@@ -138,43 +148,41 @@ export default function FullScreenDialog({
                             color="primary"
                           />
                         }
-                        label={`${item.nombre}  ${item.peso}...$${item.precio}`}
+                        label={`${item.nombre}`}
                       />
                     </div>
                   ))}
                 </div>
-                {/* <div className="col-12">
-                  <Typography variant="h6" className={classes.title}>
-                    Solo puede elegir una opcion para su pedido
-                  </Typography>
-                </div> */}
               </div>
-              {/* <div className="row p-4">
+              <div className="row p-4">
                 <div className="col-12">
                   <Typography variant="h5" className={classes.title}>
-                    ¿Quieres añadir algo extra?
+                    Escoje una Proteina para tu Bowl
                   </Typography>
                 </div>
                 <div className="col-12 d-flex mt-2 flex-wrap">
-                  {IngredientesExtras.map((item, index) => (
+                  {productsProteinas.map((item, index) => (
                     <div key={index} className="form-group col-4">
                       <FormControlLabel
                         control={
                           <Checkbox
                             // checked={state.checkedB}
                             onChange={(e) =>
-                              handleChangeCheckbox(item, e.target.checked)
+                              handleChangeCheckboxProteinas(
+                                item,
+                                e.target.checked
+                              )
                             }
                             name="checkedB"
                             color="primary"
                           />
                         }
-                        label={`${item.nombre}  $${item.precioUnitario}`}
+                        label={`${item.nombre}`}
                       />
                     </div>
                   ))}
                 </div>
-              </div> */}
+              </div>
             </List>
           </div>
         </DialogContent>

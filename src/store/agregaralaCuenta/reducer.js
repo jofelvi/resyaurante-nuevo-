@@ -5,6 +5,7 @@ import {
   ADDALACUENTA_SUCCESS,
   ADDALACUENTA_EDIT,
   SET_ADDALACUENTA_SUCCESS,
+  SET_ADDALACUENTA_DINAMICO_SUCCESS,
 } from "./Constants";
 
 const initialState = {
@@ -12,6 +13,9 @@ const initialState = {
   loading: false,
   msg: "",
   productsCuenta: 0,
+  listaProducts: [],
+  menudinamicoorden: [],
+  tipodebowl: "",
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -41,7 +45,18 @@ export default function (state = initialState, { type, payload }) {
         ...state,
         error: false,
         loading: false,
-        productsCuenta: payload,
+        productsCuenta: payload.costo,
+        listaProducts: payload.lista,
+      };
+    }
+    case SET_ADDALACUENTA_DINAMICO_SUCCESS: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        menudinamicoorden: payload.products,
+        tipodebowl: payload.tipo,
+        productsCuenta: payload.costoTotal,
       };
     }
     case ADDALACUENTA_EDIT: {

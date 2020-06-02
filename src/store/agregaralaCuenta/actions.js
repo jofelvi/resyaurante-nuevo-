@@ -6,6 +6,7 @@ import {
   ADDALACUENTA_SUCCESS,
   ADDALACUENTA_EDIT,
   SET_ADDALACUENTA_SUCCESS,
+  SET_ADDALACUENTA_DINAMICO_SUCCESS,
 } from "./Constants";
 
 // export const getCuentas = () => (dispatch) => {
@@ -36,24 +37,65 @@ import {
 //   });
 // };
 
-export const addProductosCosto = (products, precioAnterior = 0) => (
-  dispatch
-) => {
+export const addProductosCosto = (
+  products_lista,
+  precioAnterior = 0,
+  prodNuevo
+) => (dispatch) => {
   dispatch({
     type: ADDALACUENTA_START,
   });
 
   let preciototal = precioAnterior;
-  for (const key in products) {
-    let number = products[key].precioUnitario
-      ? Number(products[key].precioUnitario)
-      : 0;
-    preciototal += number;
+  if (prodNuevo.extras) {
+    for (const key in prodNuevo.extras) {
+      let number = prodNuevo.extras[key].precioUnitario
+        ? Number(prodNuevo.extras[key].precioUnitario)
+        : 0;
+      preciototal += number;
+    }
+  }
+  preciototal += Number(prodNuevo.precioUnitario);
+  dispatch({
+    type: SET_ADDALACUENTA_SUCCESS,
+    payload: {
+      costo: preciototal,
+      lista: products_lista,
+    },
+  });
+  dispatch({
+    type: ADDALACUENTA_END,
+  });
+};
+export const addProductosMenuDinamicos = (
+  products_lista,
+  plato,
+  precio = false
+) => (dispatch) => {
+  dispatch({
+    type: ADDALACUENTA_START,
+  });
+
+  let precioPlato;
+  if (precio) {
+    if (plato === "Pequeño") {
+      precioPlato = 9.5;
+    } else if (plato === "Grande") {
+      precioPlato = 11.5;
+    } else if (plato === "Extra Grande") {
+      precioPlato = 12.5;
+    }
+  } else {
+    precioPlato = 0;
   }
 
   dispatch({
-    type: SET_ADDALACUENTA_SUCCESS,
-    payload: preciototal,
+    type: SET_ADDALACUENTA_DINAMICO_SUCCESS,
+    payload: {
+      products: products_lista,
+      tipo: plato,
+      costoTotal: precioPlato,
+    },
   });
   dispatch({
     type: ADDALACUENTA_END,

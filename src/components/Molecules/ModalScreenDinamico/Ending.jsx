@@ -33,56 +33,56 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   openModal = false,
   handleClose,
-  menuItem = [],
   mostrandoModal,
 }) {
   const classes = useStyles();
 
-  const productsBase = [
-    {
-      nombre: "Pequeño",
-      precio: 9.5,
-      peso: "500ml",
-    },
-    {
-      nombre: "Grande",
-      precio: 11.5,
-      peso: "750ml",
-    },
-    {
-      nombre: "Extra Grande",
-      precio: 12.5,
-
-      peso: "1000ml",
-    },
-  ];
+  const products = useSelector((state) => state.products.products);
+  const productsProteinas = products.filter(
+    (prod) => prod.categories === "Endings"
+  );
 
   const dispatch = useDispatch();
 
   const [selectBases, setselectBases] = useState({
-    plato: "",
+    proteina: [],
   });
 
   const lista_pedido_dinamico = useSelector(
     (state) => state.addcuenta.menudinamicoorden
   );
+  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
 
-  const handleChangeCheckboxBases = (extra, checked) => {
+  const handleChangeCheckboxProteinas = (extra, checked) => {
+    let quitarbase;
     if (checked) {
       setselectBases({
-        plato: extra,
-        productselegidos: lista_pedido_dinamico,
+        proteina: [...selectBases.proteina, extra],
       });
     }
   };
 
   const siguientesModal = () => {
-    mostrandoModal("BasesProteinas");
-    dispatch(
-      addProductosMenuDinamicos(selectBases.productselegidos, selectBases.plato)
-    );
+    const nombreTopping = selectBases.proteina.map((item) => item.nombre);
+    const ordenmodal = [
+      ...lista_pedido_dinamico,
+      {
+        Endings: nombreTopping,
+      },
+    ];
+    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
+    mostrandoModal("Extra");
     handleClose();
   };
+
+  let numeroProd;
+  if (tipoBowl === "Pequeño") {
+    numeroProd = 2;
+  } else if (tipoBowl === "Grande") {
+    numeroProd = 3;
+  } else if (tipoBowl === "Extra Grande") {
+    numeroProd = 4;
+  }
 
   return (
     <div>
@@ -105,7 +105,7 @@ export default function FullScreenDialog({
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              Diseña tu Bowl
+              Endings
             </Typography>
             <Button autoFocus color="inherit" onClick={siguientesModal}>
               Siguiente
@@ -116,21 +116,21 @@ export default function FullScreenDialog({
           <div className="justify-content-center col-12">
             <List>
               <div className="row p-4">
-                <div className="col-12 ">
+                <div className="col-12">
                   <Typography variant="h5" className={classes.title}>
-                    Eliga un tamaño para su Orden
+                    Elige {numeroProd} Endings para tu Bowl
                   </Typography>
                 </div>
                 <div className="col-12 d-flex mt-2 flex-wrap">
-                  {productsBase.map((item, index) => (
+                  {productsProteinas.map((item, index) => (
                     <div key={index} className="form-group col-4">
                       <FormControlLabel
                         control={
                           <Checkbox
                             // checked={state.checkedB}
                             onChange={(e) =>
-                              handleChangeCheckboxBases(
-                                item.nombre,
+                              handleChangeCheckboxProteinas(
+                                item,
                                 e.target.checked
                               )
                             }
@@ -138,43 +138,12 @@ export default function FullScreenDialog({
                             color="primary"
                           />
                         }
-                        label={`${item.nombre}  ${item.peso}...$${item.precio}`}
+                        label={`${item.nombre}`}
                       />
                     </div>
                   ))}
                 </div>
-                {/* <div className="col-12">
-                  <Typography variant="h6" className={classes.title}>
-                    Solo puede elegir una opcion para su pedido
-                  </Typography>
-                </div> */}
               </div>
-              {/* <div className="row p-4">
-                <div className="col-12">
-                  <Typography variant="h5" className={classes.title}>
-                    ¿Quieres añadir algo extra?
-                  </Typography>
-                </div>
-                <div className="col-12 d-flex mt-2 flex-wrap">
-                  {IngredientesExtras.map((item, index) => (
-                    <div key={index} className="form-group col-4">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e) =>
-                              handleChangeCheckbox(item, e.target.checked)
-                            }
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={`${item.nombre}  $${item.precioUnitario}`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div> */}
             </List>
           </div>
         </DialogContent>

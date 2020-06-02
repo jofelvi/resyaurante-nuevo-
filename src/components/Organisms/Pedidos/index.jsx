@@ -13,7 +13,13 @@ import {
 } from "@material-ui/core";
 
 import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
+// modales dnamicoQ
 
+import Modalbaseproteinas from "../../Molecules/ModalScreenDinamico/BasesYproteinas";
+import ModalMarinados from "../../Molecules/ModalScreenDinamico/Marinados";
+import ModalTopping from "../../Molecules/ModalScreenDinamico/Topping";
+import ModalEndings from "../../Molecules/ModalScreenDinamico/Ending";
+import ModalExtra from "../../Molecules/ModalScreenDinamico/Extra";
 // Atoms
 import { FabButton } from "../../Atoms";
 
@@ -22,6 +28,7 @@ import { FabButton } from "../../Atoms";
 import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewColumn";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
+import { addProductosCosto } from "../../../store/agregaralaCuenta/actions";
 
 import styles from "./styles";
 
@@ -29,6 +36,10 @@ const MenuList = () => {
   const classes = styles();
   const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
+  const costosAddCuenta = useSelector(
+    (state) => state.addcuenta.productsCuenta
+  );
+  const listaProducts = useSelector((state) => state.addcuenta.listaProducts);
 
   const dataProducts = useSelector((state) => state.addmenu.menufilter);
   const data = Object.keys(dataProducts).map((i) => {
@@ -38,25 +49,90 @@ const MenuList = () => {
     return dataProducts[i];
   });
 
+  const [tipoPedido, settipoPedido] = useState({
+    estatico: false,
+    dinamico: false,
+  });
+
   const [open, setOpen] = React.useState(false);
   const [openProducto, setopenProducto] = useState({
     open: false,
     menuItem: "",
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (opcion) => {
+    if (opcion === "Menu") {
+      // setOpen(true);
+      settipoPedido({
+        estatico: true,
+        dinamico: false,
+      });
+    } else if (opcion === "Personalizado") {
+      settipoPedido({
+        estatico: false,
+        dinamico: true,
+      });
+    }
   };
+
+  // ===============================================
+  // logica de los modales
+  // ===============================================
+
+  const [modalMostar, setmodalMostar] = useState({
+    modal: "",
+    open: false,
+  });
+
+  const mostrandoModal = (tipo) => {
+    setmodalMostar({
+      modal: "",
+      open: false,
+    });
+    setTimeout(() => {
+      setmodalMostar({
+        modal: tipo,
+        open: true,
+      });
+    }, 300);
+  };
+  // ===============================================
+  // end logica de los modales
+  // ===============================================
+
   const handleClose = () => {
     setOpen(false);
-    setopenProducto(false);
+    setopenProducto({ ...openProducto, open: false, menuItem: "" });
+    settipoPedido({
+      estatico: false,
+      dinamico: false,
+    });
+    setmodalMostar({
+      modal: "",
+      open: false,
+    });
   };
   const openMenuProduct = (menu) => {
-    setopenProducto({
-      ...openProducto,
-      open: true,
-      menuItem: menu,
-    });
+    if (menu.products) {
+      setopenProducto({
+        ...openProducto,
+        open: true,
+        menuItem: menu,
+      });
+    } else {
+      siguientesProd(menu);
+    }
+  };
+
+  const siguientesProd = (prod) => {
+    const menuNuevo = {
+      precioUnitario: prod.precioUnitario ? prod.precioUnitario : prod.precio,
+      categories: prod.categories,
+      nombre: prod.nombre,
+    };
+    const productoslista = [...listaProducts, menuNuevo];
+
+    dispatch(addProductosCosto(productoslista, costosAddCuenta, menuNuevo));
   };
 
   const [arrayMenu, setArrayMenu] = useState([]);
@@ -136,6 +212,7 @@ const MenuList = () => {
   };
 
   const eliminarItemArray = (producto) => {
+    console.log("eliminar productos:  ", producto);
     const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
 
     setArrayMenu(nuevoArray);
@@ -228,7 +305,7 @@ const MenuList = () => {
           item
           {...gridSize}
           key={index}
-          onClick={() => openMenuProduct(item)}
+          onClick={() => (tipoPedido.estatico ? openMenuProduct(item) : "")}
         >
           <ProductoCardRow variant={viewVariant} products={item} />
         </Grid>
@@ -242,12 +319,67 @@ const MenuList = () => {
       ) : (
         ""
       )}
-      <ModalScreenDinamico openModal={open} handleClose={handleClose} />
-      {/* <FabButton
+
+      <ModalScreenDinamico
+        openModal={tipoPedido.dinamico}
+        handleClose={handleClose}
+        mostrandoModal={mostrandoModal}
+      />
+
+      {/* =================  modales dinamicos ================= */}
+
+      {modalMostar.modal === "BasesProteinas" ? (
+        <Modalbaseproteinas
+          openModal={modalMostar.open}
+          handleClose={handleClose}
+          mostrandoModal={mostrandoModal}
+        />
+      ) : (
+        ""
+      )}
+      {modalMostar.modal === "Marinado" ? (
+        <ModalMarinados
+          openModal={modalMostar.open}
+          handleClose={handleClose}
+          mostrandoModal={mostrandoModal}
+        />
+      ) : (
+        ""
+      )}
+      {modalMostar.modal === "Topping" ? (
+        <ModalTopping
+          openModal={modalMostar.open}
+          handleClose={handleClose}
+          mostrandoModal={mostrandoModal}
+        />
+      ) : (
+        ""
+      )}
+      {modalMostar.modal === "Endings" ? (
+        <ModalEndings
+          openModal={modalMostar.open}
+          handleClose={handleClose}
+          mostrandoModal={mostrandoModal}
+        />
+      ) : (
+        ""
+      )}
+      {modalMostar.modal === "Extra" ? (
+        <ModalExtra
+          openModal={modalMostar.open}
+          handleClose={handleClose}
+          mostrandoModal={mostrandoModal}
+        />
+      ) : (
+        ""
+      )}
+
+      <FabButton
         color="primary"
         label="addProduct"
-        addOrden={handleClickOpen}
-      /> */}
+        estatico={handleClickOpen}
+        pedido={true}
+      />
     </Grid>
   );
 };

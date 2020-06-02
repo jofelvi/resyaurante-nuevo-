@@ -25,7 +25,7 @@ export const signIn = (username, password) => (dispatch) => {
       authRef
         .signInWithEmailAndPassword(username, password)
         .then((user) => {
-          console.log(user.user.da);
+          // console.log(user.user.da);
           // const usuarioLogueado = {
           //   displayName: user.displayName,
           //   email: user.email,

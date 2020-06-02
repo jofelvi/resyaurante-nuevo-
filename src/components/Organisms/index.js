@@ -7,6 +7,7 @@ import BarList from "./BarList";
 import AllMenu from "./AllMenu";
 import FormIngredientes from "./FormIngredientes";
 import CategoryFilterMenu from "./CategoryFilterMenu";
+import Pedidos from "./Pedidos";
 
 export {
   CategoryFilter,
@@ -18,4 +19,5 @@ export {
   BarList,
   AllMenu,
   FormIngredientes,
+  Pedidos,
 };
