@@ -3,23 +3,16 @@ import React, { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Material UI
-import {
-  Grid,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
 
 import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
 // modales dnamicoQ
 
-import Modalbaseproteinas from "../../Molecules/ModalScreenDinamico/BasesYproteinas";
-import ModalMarinados from "../../Molecules/ModalScreenDinamico/Marinados";
-import ModalTopping from "../../Molecules/ModalScreenDinamico/Topping";
-import ModalEndings from "../../Molecules/ModalScreenDinamico/Ending";
-import ModalExtra from "../../Molecules/ModalScreenDinamico/Extra";
+// import Modalbaseproteinas from "../../Molecules/ModalScreenDinamico/BasesYproteinas";
+// import ModalMarinados from "../../Molecules/ModalScreenDinamico/Marinados";
+// import ModalTopping from "../../Molecules/ModalScreenDinamico/Topping";
+// import ModalEndings from "../../Molecules/ModalScreenDinamico/Ending";
+// import ModalExtra from "../../Molecules/ModalScreenDinamico/Extra";
 // Atoms
 import { FabButton } from "../../Atoms";
 
@@ -326,7 +319,7 @@ const MenuList = () => {
         mostrandoModal={mostrandoModal}
       />
 
-      {/* =================  modales dinamicos ================= */}
+      {/* =================  modales dinamicos =================
 
       {modalMostar.modal === "BasesProteinas" ? (
         <Modalbaseproteinas
@@ -372,7 +365,7 @@ const MenuList = () => {
         />
       ) : (
         ""
-      )}
+      )} */}
 
       <FabButton
         color="primary"

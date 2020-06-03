@@ -12,6 +12,10 @@ import Slide from "@material-ui/core/Slide";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector, useDispatch } from "react-redux";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import DialogContent from "@material-ui/core/DialogContent";
 import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
@@ -85,110 +89,79 @@ export default function FullScreenDialog({
     ];
 
     dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-    mostrandoModal("Topping");
-    handleClose();
+    // mostrandoModal("Topping");
+    // handleClose();
   };
 
   return (
-    <div>
-      <Dialog
-        fullWidth={true}
-        maxWidth="md"
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="max-width-dialog-title"
-        TransitionComponent={Transition}
+    <ExpansionPanel>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Marinados
+        <Typography className={classes.heading}>Marinados</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <div className="row">
+          <div className="col-12">
+            <Typography variant="h5" className={classes.title}>
+              Escoje un Marinado para tu Bowl
             </Typography>
-            <Button autoFocus color="inherit" onClick={siguientesModal}>
-              Siguiente
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <DialogContent>
-          <div className="justify-content-center col-12">
-            <List>
-              <div className="row p-4">
-                <div className="col-12">
-                  <Typography variant="h5" className={classes.title}>
-                    Escoje un Marinado para tu Bowl
-                  </Typography>
-                </div>
-                <div className="col-12 d-flex mt-2 flex-wrap">
-                  {productsProteinas.map((item, index) => (
-                    <div key={index} className="form-group col-4">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e) =>
-                              handleChangeCheckboxProteinas(
-                                item,
-                                e.target.checked
-                              )
-                            }
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={`${item.nombre}`}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="col-12">
-                  <Typography variant="h5" className={classes.title}>
-                    ¿Desea marinar su Proteina con cebolla roja y cebollin?
-                  </Typography>
-                </div>
-                <div className="col-12 d-flex mt-2 flex-wrap">
-                  <div className="form-group col-3 d-flex justify-content-between">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          // checked={state.checkedB}
-                          onChange={(e) =>
-                            marinarProteina(e.target.checked, "Si")
-                          }
-                          name="checkedT"
-                          color="primary"
-                        />
-                      }
-                      label="Si"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          // checked={state.checkedB}
-                          onChange={(e) =>
-                            marinarProteina(e.target.checked, "No")
-                          }
-                          name="checkedT"
-                          color="primary"
-                        />
-                      }
-                      label="No"
-                    />
-                  </div>
-                </div>
-              </div>
-            </List>
           </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+          <div className="col-12 d-flex mt-2 flex-wrap">
+            {productsProteinas.map((item, index) => (
+              <div key={index} className="form-group col-4">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      // checked={state.checkedB}
+                      onChange={(e) =>
+                        handleChangeCheckboxProteinas(item, e.target.checked)
+                      }
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label={`${item.nombre}`}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="col-12">
+            <Typography variant="h5" className={classes.title}>
+              ¿Desea marinar su Proteina con cebolla roja y cebollin?
+            </Typography>
+          </div>
+          <div className="col-12 d-flex mt-2 flex-wrap">
+            <div className="form-group col-3 d-flex justify-content-between">
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    // checked={state.checkedB}
+                    onChange={(e) => marinarProteina(e.target.checked, "Si")}
+                    name="checkedT"
+                    color="primary"
+                  />
+                }
+                label="Si"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    // checked={state.checkedB}
+                    onChange={(e) => marinarProteina(e.target.checked, "No")}
+                    name="checkedT"
+                    color="primary"
+                  />
+                }
+                label="No"
+              />
+            </div>
+          </div>
+        </div>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 }
