@@ -6,13 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
 
 import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
-// modales dnamicoQ
 
-// import Modalbaseproteinas from "../../Molecules/ModalScreenDinamico/BasesYproteinas";
-// import ModalMarinados from "../../Molecules/ModalScreenDinamico/Marinados";
-// import ModalTopping from "../../Molecules/ModalScreenDinamico/Topping";
-// import ModalEndings from "../../Molecules/ModalScreenDinamico/Ending";
-// import ModalExtra from "../../Molecules/ModalScreenDinamico/Extra";
 // Atoms
 import { FabButton } from "../../Atoms";
 
@@ -198,20 +192,12 @@ const MenuList = () => {
     }, 2500);
   };
 
-  const addOrden = () => {
-    console.log("=======================================================");
-    console.log("desde addOrden");
-    console.log("=======================================================");
-  };
-
   const eliminarItemArray = (producto) => {
     console.log("eliminar productos:  ", producto);
     const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
 
     setArrayMenu(nuevoArray);
   };
-
-  // const data = ["a", "a", "a", "a", "a", "a", "a", "a", "a"];
 
   return (
     <Grid container spacing={2}>
@@ -318,54 +304,6 @@ const MenuList = () => {
         handleClose={handleClose}
         mostrandoModal={mostrandoModal}
       />
-
-      {/* =================  modales dinamicos =================
-
-      {modalMostar.modal === "BasesProteinas" ? (
-        <Modalbaseproteinas
-          openModal={modalMostar.open}
-          handleClose={handleClose}
-          mostrandoModal={mostrandoModal}
-        />
-      ) : (
-        ""
-      )}
-      {modalMostar.modal === "Marinado" ? (
-        <ModalMarinados
-          openModal={modalMostar.open}
-          handleClose={handleClose}
-          mostrandoModal={mostrandoModal}
-        />
-      ) : (
-        ""
-      )}
-      {modalMostar.modal === "Topping" ? (
-        <ModalTopping
-          openModal={modalMostar.open}
-          handleClose={handleClose}
-          mostrandoModal={mostrandoModal}
-        />
-      ) : (
-        ""
-      )}
-      {modalMostar.modal === "Endings" ? (
-        <ModalEndings
-          openModal={modalMostar.open}
-          handleClose={handleClose}
-          mostrandoModal={mostrandoModal}
-        />
-      ) : (
-        ""
-      )}
-      {modalMostar.modal === "Extra" ? (
-        <ModalExtra
-          openModal={modalMostar.open}
-          handleClose={handleClose}
-          mostrandoModal={mostrandoModal}
-        />
-      ) : (
-        ""
-      )} */}
 
       <FabButton
         color="primary"

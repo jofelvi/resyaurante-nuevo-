@@ -17,9 +17,6 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import DialogContent from "@material-ui/core/DialogContent";
-import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -34,11 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  mostrandoModal,
-}) {
+export default function FullScreenDialog({ handleChangeCheckboxExtras }) {
   const classes = useStyles();
 
   const products = useSelector((state) => state.products.products);
@@ -46,38 +39,20 @@ export default function FullScreenDialog({
     (prod) => prod.categories === "Extras"
   );
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [selectBases, setselectBases] = useState({
-    proteina: [],
-  });
-
-  const lista_pedido_dinamico = useSelector(
-    (state) => state.addcuenta.menudinamicoorden
-  );
-  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
-
-  const handleChangeCheckboxProteinas = (extra, checked) => {
-    let quitarbase;
-    if (checked) {
-      setselectBases({
-        proteina: [...selectBases.proteina, extra],
-      });
-    }
-  };
-
-  const siguientesModal = () => {
-    const nombreTopping = selectBases.proteina.map((item) => item.nombre);
-    const ordenmodal = [
-      ...lista_pedido_dinamico,
-      {
-        Extras: nombreTopping,
-      },
-    ];
-    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl, true));
-    // mostrandoModal("Endings");
-    // handleClose();
-  };
+  // const siguientesModal = () => {
+  //   const nombreTopping = selectExtras.extras.map((item) => item.nombre);
+  //   const ordenmodal = [
+  //     ...lista_pedido_dinamico,
+  //     {
+  //       Extras: nombreTopping,
+  //     },
+  //   ];
+  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl, true));
+  //   // mostrandoModal("Endings");
+  //   // handleClose();
+  // };
 
   return (
     <ExpansionPanel>
@@ -103,7 +78,7 @@ export default function FullScreenDialog({
                     <Checkbox
                       // checked={state.checkedB}
                       onChange={(e) =>
-                        handleChangeCheckboxProteinas(item, e.target.checked)
+                        handleChangeCheckboxExtras(item, e.target.checked)
                       }
                       name="checkedB"
                       color="primary"

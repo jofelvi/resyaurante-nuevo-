@@ -11,8 +11,6 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -32,9 +30,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  mostrandoModal,
+  handleChangeCheckboxBases,
+  handleChangeCheckboxProteinas,
 }) {
   const classes = useStyles();
 
@@ -44,60 +41,23 @@ export default function FullScreenDialog({
     (prod) => prod.categories === "Proteinas"
   );
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [selectBases, setselectBases] = useState({
-    bases: [],
-    proteina: "",
-  });
+  // const lista_pedido_dinamico = useSelector(
+  //   (state) => state.addcuenta.menudinamicoorden
+  // );
+  // const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
 
-  const lista_pedido_dinamico = useSelector(
-    (state) => state.addcuenta.menudinamicoorden
-  );
-  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
-
-  const handleChangeCheckboxBases = (extra, checked) => {
-    let quitarbase;
-    if (checked) {
-      setselectBases({
-        ...selectBases,
-        bases: [...selectBases.bases, extra],
-      });
-    }
-    if (!checked) {
-      quitarbase = selectBases.bases.filter(
-        (item) => item.nombre !== extra.nombre
-      );
-      setselectBases({
-        ...selectBases,
-        bases: quitarbase,
-      });
-    }
-  };
-  const handleChangeCheckboxProteinas = (extra, checked) => {
-    if (checked) {
-      setselectBases({
-        ...selectBases,
-        proteina: extra,
-      });
-    }
-  };
-  useEffect(() => {
-    if (selectBases.bases.length === 2 && selectBases.proteina !== "") {
-      siguientesModal();
-    }
-  });
-
-  const siguientesModal = () => {
-    const ordenmodal = [
-      ...lista_pedido_dinamico,
-      { Bases: selectBases.bases },
-      { Proteina: selectBases.proteina.nombre },
-    ];
-    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-    // mostrandoModal("Marinado");
-    // handleClose();
-  };
+  // const siguientesModal = () => {
+  //   const ordenmodal = [
+  //     ...lista_pedido_dinamico,
+  //     { Bases: selectBases.bases },
+  //     { Proteina: selectBases.proteina.nombre },
+  //   ];
+  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
+  //   // mostrandoModal("Marinado");
+  //   // handleClose();
+  // };
 
   return (
     <Fragment>

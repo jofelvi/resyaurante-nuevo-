@@ -17,9 +17,6 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import DialogContent from "@material-ui/core/DialogContent";
-import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -35,9 +32,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  mostrandoModal,
+  tipoBowl,
+  handleChangeCheckboxEnding,
 }) {
   const classes = useStyles();
 
@@ -48,36 +44,18 @@ export default function FullScreenDialog({
 
   const dispatch = useDispatch();
 
-  const [selectBases, setselectBases] = useState({
-    proteina: [],
-  });
-
-  const lista_pedido_dinamico = useSelector(
-    (state) => state.addcuenta.menudinamicoorden
-  );
-  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
-
-  const handleChangeCheckboxProteinas = (extra, checked) => {
-    let quitarbase;
-    if (checked) {
-      setselectBases({
-        proteina: [...selectBases.proteina, extra],
-      });
-    }
-  };
-
-  const siguientesModal = () => {
-    const nombreTopping = selectBases.proteina.map((item) => item.nombre);
-    const ordenmodal = [
-      ...lista_pedido_dinamico,
-      {
-        Endings: nombreTopping,
-      },
-    ];
-    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-    // mostrandoModal("Extra");
-    // handleClose();
-  };
+  // const siguientesModal = () => {
+  //   const nombreTopping = selectEnding.ending.map((item) => item.nombre);
+  //   const ordenmodal = [
+  //     ...lista_pedido_dinamico,
+  //     {
+  //       Endings: nombreTopping,
+  //     },
+  //   ];
+  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
+  //   // mostrandoModal("Extra");
+  //   // handleClose();
+  // };
 
   let numeroProd;
   if (tipoBowl === "Pequeño") {
@@ -112,7 +90,7 @@ export default function FullScreenDialog({
                     <Checkbox
                       // checked={state.checkedB}
                       onChange={(e) =>
-                        handleChangeCheckboxProteinas(item, e.target.checked)
+                        handleChangeCheckboxEnding(item, e.target.checked)
                       }
                       name="checkedB"
                       color="primary"

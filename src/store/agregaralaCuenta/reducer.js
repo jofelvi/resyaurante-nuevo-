@@ -15,7 +15,6 @@ const initialState = {
   productsCuenta: 0,
   listaProducts: [],
   menudinamicoorden: [],
-  tipodebowl: "",
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -55,7 +54,6 @@ export default function (state = initialState, { type, payload }) {
         error: false,
         loading: false,
         menudinamicoorden: payload.products,
-        tipodebowl: payload.tipo,
         productsCuenta: payload.costoTotal,
       };
     }

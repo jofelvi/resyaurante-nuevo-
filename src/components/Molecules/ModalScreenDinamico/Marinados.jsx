@@ -17,9 +17,6 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import DialogContent from "@material-ui/core/DialogContent";
-import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -35,9 +32,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  mostrandoModal,
+  handleChangeCheckboxMarinado,
+  marinarProteina,
 }) {
   const classes = useStyles();
 
@@ -46,52 +42,22 @@ export default function FullScreenDialog({
     (prod) => prod.categories === "Marinado"
   );
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [selectBases, setselectBases] = useState({
-    proteina: "",
-  });
+  // const siguientesModal = () => {
+  //   const ordenmodal = [
+  //     ...lista_pedido_dinamico,
+  //     {
+  //       Marinado: selectMarinado.proteina.nombre,
+  //       marinarProteina:
+  //         marinar === "Si" ? "Marinar con Cebolla roja y Cebollin" : "",
+  //     },
+  //   ];
 
-  const lista_pedido_dinamico = useSelector(
-    (state) => state.addcuenta.menudinamicoorden
-  );
-  const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
-
-  const handleChangeCheckboxProteinas = (extra, checked) => {
-    let quitarbase;
-    if (checked) {
-      setselectBases({
-        proteina: extra,
-      });
-    }
-  };
-
-  const [marinar, setmarinar] = useState("Si");
-  const marinarProteina = (checked, tipo) => {
-    if (checked) {
-      if (tipo === "Si") {
-        setmarinar("Si");
-      } else if (tipo === "No") {
-        setmarinar("No");
-      }
-    } else {
-      setmarinar("");
-    }
-  };
-  const siguientesModal = () => {
-    const ordenmodal = [
-      ...lista_pedido_dinamico,
-      {
-        Marinado: selectBases.proteina.nombre,
-        marinarProteina:
-          marinar === "Si" ? "Marinar con Cebolla roja y Cebollin" : "",
-      },
-    ];
-
-    dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-    // mostrandoModal("Topping");
-    // handleClose();
-  };
+  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
+  //   // mostrandoModal("Topping");
+  //   // handleClose();
+  // };
 
   return (
     <ExpansionPanel>
@@ -117,7 +83,7 @@ export default function FullScreenDialog({
                     <Checkbox
                       // checked={state.checkedB}
                       onChange={(e) =>
-                        handleChangeCheckboxProteinas(item, e.target.checked)
+                        handleChangeCheckboxMarinado(item, e.target.checked)
                       }
                       name="checkedB"
                       color="primary"

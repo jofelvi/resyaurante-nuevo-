@@ -18,7 +18,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import DialogContent from "@material-ui/core/DialogContent";
 import { addProductosMenuDinamicos } from "../../../store/agregaralaCuenta/actions";
 import ModalBasesProteinas from "./BasesYproteinas";
 import ModalMariados from "./Marinados";
@@ -46,12 +45,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  menuItem = [],
-  mostrandoModal,
-}) {
+export default function FullScreenDialog({ openModal = false, handleClose }) {
   const classes = useStyles();
 
   const productsBase = [
@@ -75,34 +69,158 @@ export default function FullScreenDialog({
 
   const dispatch = useDispatch();
 
-  const [selectBases, setselectBases] = useState({
-    plato: "",
-  });
-
   const lista_pedido_dinamico = useSelector(
     (state) => state.addcuenta.menudinamicoorden
   );
-
-  const handleChangeCheckboxBases = (extra, checked) => {
+  const precioAcumulado = useSelector(
+    (state) => state.addcuenta.productsCuenta
+  );
+  // ("======================================================= Bowl
+  const [selectBowl, setselectBowl] = useState({
+    plato: "",
+  });
+  const handleChangeCheckboxBowl = (extra, checked) => {
     if (checked) {
-      setselectBases({
+      setselectBowl({
         plato: extra,
-        productselegidos: lista_pedido_dinamico,
       });
     }
   };
-  useEffect(() => {
-    if (selectBases.plato !== "") {
-      siguientesModal();
-    }
+  // ("=======================================================Bases y proteinas
+  const [selectBases, setselectBases] = useState({
+    bases: [],
+    proteina: "",
   });
 
+  const handleChangeCheckboxBases = (extra, checked) => {
+    let quitarbase;
+    if (checked) {
+      setselectBases({
+        ...selectBases,
+        bases: [...selectBases.bases, extra],
+      });
+    }
+    if (!checked) {
+      quitarbase = selectBases.bases.filter(
+        (item) => item.nombre !== extra.nombre
+      );
+      setselectBases({
+        ...selectBases,
+        bases: quitarbase,
+      });
+    }
+  };
+
+  const handleChangeCheckboxProteinas = (extra, checked) => {
+    if (checked) {
+      setselectBases({
+        ...selectBases,
+        proteina: extra,
+      });
+    }
+  };
+
+  // ("=======================================================Marinado
+  const [selectMarinado, setselectMarinado] = useState({
+    marinado: "",
+  });
+
+  const handleChangeCheckboxMarinado = (extra, checked) => {
+    if (checked) {
+      setselectMarinado({
+        marinado: extra,
+      });
+    }
+  };
+
+  const [marinar, setmarinar] = useState("Si");
+  const marinarProteina = (checked, tipo) => {
+    if (checked) {
+      if (tipo === "Si") {
+        setmarinar("Si");
+      } else if (tipo === "No") {
+        setmarinar("No");
+      }
+    } else {
+      setmarinar("");
+    }
+  };
+
+  // ("=======================================================Topping
+
+  const [selectTopping, setselectTopping] = useState({
+    topping: [],
+  });
+
+  const handleChangeCheckboxTopping = (extra, checked) => {
+    if (checked) {
+      setselectTopping({
+        topping: [...selectTopping.topping, extra],
+      });
+    }
+  };
+
+  // ("=======================================================Ending
+
+  const [selectEnding, setselectEnding] = useState({
+    ending: [],
+  });
+
+  const handleChangeCheckboxEnding = (extra, checked) => {
+    if (checked) {
+      setselectEnding({
+        ending: [...selectEnding.ending, extra],
+      });
+    }
+  };
+
+  // ("=======================================================Extras
+  const [selectExtras, setselectExtras] = useState({
+    extras: [],
+  });
+
+  const handleChangeCheckboxExtras = (extra, checked) => {
+    if (checked) {
+      setselectExtras({
+        extras: [...selectExtras.extras, extra],
+      });
+    }
+  };
+
   const siguientesModal = () => {
-    // mostrandoModal("BasesProteinas");
+    let toppings = selectTopping.topping.map((item) => item.nombre);
+    let endings = selectEnding.ending.map((item) => item.nombre);
+    let extras = selectExtras.extras.map((item) => item.nombre);
+    let precioProcesado = precioAcumulado;
+    if (selectExtras.extras) {
+      selectExtras.extras.map((item) => {
+        if (item.precioUnitario !== "") {
+          precioProcesado += Number(item.precioUnitario);
+        }
+      });
+    }
+
+    const pedidoDinamico = {
+      bowl: selectBowl.plato,
+      bases: selectBases.bases,
+      proteina: selectBases.proteina.nombre,
+      marinado: {
+        marinado: selectMarinado.marinado.nombre,
+        marinarProteina: marinar,
+      },
+      topping: toppings,
+      ending: endings,
+      extra: extras,
+    };
+
     dispatch(
-      addProductosMenuDinamicos(selectBases.productselegidos, selectBases.plato)
+      addProductosMenuDinamicos(
+        [...lista_pedido_dinamico, pedidoDinamico],
+        selectBowl.plato,
+        precioProcesado
+      )
     );
-    // handleClose();
+    handleClose();
   };
 
   return (
@@ -129,7 +247,7 @@ export default function FullScreenDialog({
               Diseña tu Bowl
             </Typography>
             <Button autoFocus color="inherit" onClick={siguientesModal}>
-              Siguiente
+              Aceptar
             </Button>
           </Toolbar>
         </AppBar>
@@ -154,7 +272,7 @@ export default function FullScreenDialog({
                         <Checkbox
                           // checked={state.checkedB}
                           onChange={(e) =>
-                            handleChangeCheckboxBases(
+                            handleChangeCheckboxBowl(
                               item.nombre,
                               e.target.checked
                             )
@@ -170,11 +288,23 @@ export default function FullScreenDialog({
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <ModalBasesProteinas />
-          <ModalMariados />
-          <ModalTopping />
-          <ModalEnding />
-          <ModalExtra />
+          <ModalBasesProteinas
+            handleChangeCheckboxBases={handleChangeCheckboxBases}
+            handleChangeCheckboxProteinas={handleChangeCheckboxProteinas}
+          />
+          <ModalMariados
+            handleChangeCheckboxMarinado={handleChangeCheckboxMarinado}
+            marinarProteina={marinarProteina}
+          />
+          <ModalTopping
+            handleChangeCheckboxTopping={handleChangeCheckboxTopping}
+            tipoBowl={selectBowl.plato}
+          />
+          <ModalEnding
+            handleChangeCheckboxEnding={handleChangeCheckboxEnding}
+            tipoBowl={selectBowl.plato}
+          />
+          <ModalExtra handleChangeCheckboxExtras={handleChangeCheckboxExtras} />
         </div>
       </Dialog>
     </div>

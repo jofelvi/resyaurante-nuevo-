@@ -70,30 +70,30 @@ export const addProductosCosto = (
 export const addProductosMenuDinamicos = (
   products_lista,
   plato,
-  precio = false
+  precioAnterior
 ) => (dispatch) => {
   dispatch({
     type: ADDALACUENTA_START,
   });
 
-  let precioPlato;
-  if (precio) {
-    if (plato === "Pequeño") {
-      precioPlato = 9.5;
-    } else if (plato === "Grande") {
-      precioPlato = 11.5;
-    } else if (plato === "Extra Grande") {
-      precioPlato = 12.5;
-    }
-  } else {
-    precioPlato = 0;
+  let precioPlato = precioAnterior;
+
+  if (plato === "Pequeño") {
+    precioPlato += 9.5;
+  } else if (plato === "Grande") {
+    precioPlato += 11.5;
+  } else if (plato === "Extra Grande") {
+    precioPlato += 12.5;
   }
+  console.log("=======================================================");
+  console.log("lista pedido dinamico  ", products_lista);
+  console.log("precio plato dinamico  ", precioPlato);
+  console.log("=======================================================");
 
   dispatch({
     type: SET_ADDALACUENTA_DINAMICO_SUCCESS,
     payload: {
       products: products_lista,
-      tipo: plato,
       costoTotal: precioPlato,
     },
   });
