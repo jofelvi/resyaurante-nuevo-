@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
   },
 }));
 
@@ -32,6 +33,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   handleChangeCheckboxBases,
   handleChangeCheckboxProteinas,
+  bases,
+  proteina,
 }) {
   const classes = useStyles();
 
@@ -41,24 +44,6 @@ export default function FullScreenDialog({
     (prod) => prod.categories === "Proteinas"
   );
 
-  // const dispatch = useDispatch();
-
-  // const lista_pedido_dinamico = useSelector(
-  //   (state) => state.addcuenta.menudinamicoorden
-  // );
-  // const tipoBowl = useSelector((state) => state.addcuenta.tipodebowl);
-
-  // const siguientesModal = () => {
-  //   const ordenmodal = [
-  //     ...lista_pedido_dinamico,
-  //     { Bases: selectBases.bases },
-  //     { Proteina: selectBases.proteina.nombre },
-  //   ];
-  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-  //   // mostrandoModal("Marinado");
-  //   // handleClose();
-  // };
-
   return (
     <Fragment>
       <ExpansionPanel>
@@ -67,11 +52,20 @@ export default function FullScreenDialog({
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={classes.heading}>Bases</Typography>
+          <div className="d-flex">
+            <Typography className={classes.heading}>Bases</Typography>
+            {bases ? (
+              <Typography variant="subtitle2" color="primary">
+                * {bases}
+              </Typography>
+            ) : (
+              ""
+            )}
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div className="row">
-            <div className="col-12 ">
+            <div className="col-12">
               <Typography variant="h6" className={classes.title}>
                 Escoje 2 bases para tu Bowl
               </Typography>
@@ -107,7 +101,17 @@ export default function FullScreenDialog({
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={classes.heading}>Proteinas</Typography>
+          <div className="d-flex">
+            <Typography className={classes.heading}>Proteinas</Typography>
+
+            {proteina ? (
+              <Typography variant="subtitle2" color="primary">
+                * {proteina}
+              </Typography>
+            ) : (
+              ""
+            )}
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div className="row">

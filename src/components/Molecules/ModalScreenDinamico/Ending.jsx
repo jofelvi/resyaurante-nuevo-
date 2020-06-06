@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,6 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   tipoBowl,
   handleChangeCheckboxEnding,
+  ending,
 }) {
   const classes = useStyles();
 
@@ -41,21 +47,6 @@ export default function FullScreenDialog({
   const productsProteinas = products.filter(
     (prod) => prod.categories === "Endings"
   );
-
-  const dispatch = useDispatch();
-
-  // const siguientesModal = () => {
-  //   const nombreTopping = selectEnding.ending.map((item) => item.nombre);
-  //   const ordenmodal = [
-  //     ...lista_pedido_dinamico,
-  //     {
-  //       Endings: nombreTopping,
-  //     },
-  //   ];
-  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-  //   // mostrandoModal("Extra");
-  //   // handleClose();
-  // };
 
   let numeroProd;
   if (tipoBowl === "Pequeño") {
@@ -73,7 +64,16 @@ export default function FullScreenDialog({
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Endings</Typography>
+        <div className="d-flex">
+          <Typography className={classes.heading}>Endings</Typography>
+          {ending ? (
+            <Typography variant="subtitle2" color="primary">
+              * {ending}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </div>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className="row">

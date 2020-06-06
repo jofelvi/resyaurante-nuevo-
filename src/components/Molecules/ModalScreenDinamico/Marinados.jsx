@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,6 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   handleChangeCheckboxMarinado,
   marinarProteina,
+  marinado,
 }) {
   const classes = useStyles();
 
@@ -42,23 +48,6 @@ export default function FullScreenDialog({
     (prod) => prod.categories === "Marinado"
   );
 
-  // const dispatch = useDispatch();
-
-  // const siguientesModal = () => {
-  //   const ordenmodal = [
-  //     ...lista_pedido_dinamico,
-  //     {
-  //       Marinado: selectMarinado.proteina.nombre,
-  //       marinarProteina:
-  //         marinar === "Si" ? "Marinar con Cebolla roja y Cebollin" : "",
-  //     },
-  //   ];
-
-  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-  //   // mostrandoModal("Topping");
-  //   // handleClose();
-  // };
-
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary
@@ -66,7 +55,16 @@ export default function FullScreenDialog({
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Marinados</Typography>
+        <div className="d-flex">
+          <Typography className={classes.heading}>Marinados</Typography>
+          {marinado ? (
+            <Typography variant="subtitle2" color="primary">
+              * {marinado}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </div>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className="row">

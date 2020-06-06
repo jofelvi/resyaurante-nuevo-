@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,9 +22,26 @@ const AllTables = () => {
     (state) => state.addcuenta.listaPedidosOrdenados
   );
 
+  const [alertPedido, setalertPedido] = useState({
+    alertSuccess: "",
+  });
+
   const productosAllPedido = [...productosAll, ...productosDinamicosPedido];
 
   const addPedido = (e) => {
+    if (productosAllPedido.length === 0) {
+      setalertPedido({
+        alertSuccess: "Debe haber un producto agregado",
+      });
+
+      setTimeout(() => {
+        setalertPedido({
+          alertSuccess: "",
+        });
+      }, 2500);
+      return;
+    }
+
     const pedido = {
       status: "pendiente",
       static: productosAll,
@@ -46,6 +63,16 @@ const AllTables = () => {
         </Typography>
       </div>
       <div className={classes.filtersContainer}>
+        {alertPedido.alertSuccess !== "" ? (
+          <div
+            className={`alert alert-danger text-center my-4 col-12`}
+            role="alert"
+          >
+            {alertPedido.alertSuccess}
+          </div>
+        ) : (
+          ""
+        )}
         {productosAllPedido.map((item) => (
           <div
             key={item.nombre}

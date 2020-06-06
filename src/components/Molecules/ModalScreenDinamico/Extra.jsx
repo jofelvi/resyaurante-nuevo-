@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -38,21 +43,6 @@ export default function FullScreenDialog({ handleChangeCheckboxExtras }) {
   const productsProteinas = products.filter(
     (prod) => prod.categories === "Extras"
   );
-
-  // const dispatch = useDispatch();
-
-  // const siguientesModal = () => {
-  //   const nombreTopping = selectExtras.extras.map((item) => item.nombre);
-  //   const ordenmodal = [
-  //     ...lista_pedido_dinamico,
-  //     {
-  //       Extras: nombreTopping,
-  //     },
-  //   ];
-  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl, true));
-  //   // mostrandoModal("Endings");
-  //   // handleClose();
-  // };
 
   return (
     <ExpansionPanel>

@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -34,6 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FullScreenDialog({
   tipoBowl,
   handleChangeCheckboxTopping,
+  topping,
 }) {
   const classes = useStyles();
 
@@ -41,21 +47,6 @@ export default function FullScreenDialog({
   const productsProteinas = products.filter(
     (prod) => prod.categories === "Topping"
   );
-
-  const dispatch = useDispatch();
-
-  // const siguientesModal = () => {
-  //   const nombreTopping = selectTopping.topping.map((item) => item.nombre);
-  //   const ordenmodal = [
-  //     ...lista_pedido_dinamico,
-  //     {
-  //       Topping: nombreTopping,
-  //     },
-  //   ];
-  //   dispatch(addProductosMenuDinamicos(ordenmodal, tipoBowl));
-  //   // mostrandoModal("Endings");
-  //   // handleClose();
-  // };
 
   let numeroProd;
   if (tipoBowl === "Pequeño") {
@@ -73,7 +64,16 @@ export default function FullScreenDialog({
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Topping</Typography>
+        <div className="d-flex">
+          <Typography className={classes.heading}>Topping</Typography>
+          {topping ? (
+            <Typography variant="subtitle2" color="primary">
+              * {topping}
+            </Typography>
+          ) : (
+            ""
+          )}
+        </div>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div className="row">

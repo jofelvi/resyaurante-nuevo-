@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
+    marginRight: 10,
   },
 }));
 
@@ -75,6 +76,7 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
   const precioAcumulado = useSelector(
     (state) => state.addcuenta.productsCuenta
   );
+
   // ("======================================================= Bowl
   const [selectBowl, setselectBowl] = useState({
     plato: "",
@@ -187,12 +189,63 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
       });
     }
   };
-
+  const [opcioneRequeridas, setopcioneRequeridas] = useState({
+    bowl: "",
+    bases: "",
+    proteinas: "",
+    marinados: "",
+    topping: "",
+    ending: "",
+  });
   const siguientesModal = () => {
     let toppings = selectTopping.topping.map((item) => item.nombre);
     let endings = selectEnding.ending.map((item) => item.nombre);
     let extras = selectExtras.extras.map((item) => item.nombre);
     let precioProcesado = precioAcumulado;
+
+    if (selectBowl.plato === "") {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        bowl: "Debe seleccionar un tipo de Bowl",
+      });
+      return;
+    }
+    if (selectBases.bases.length === 0) {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        bases: "Debe seleccionar 2 Bases",
+      });
+      return;
+    }
+    if (selectBases.proteina === "") {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        proteinas: "Debe seleccionar una Proteina",
+      });
+      return;
+    }
+    if (selectMarinado.marinado === "") {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        marinados: "Debe seleccionar un Marinado",
+      });
+      return;
+    }
+    if (toppings.length === 0) {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        topping: "Debe seleccionar un Topping",
+      });
+      return;
+    }
+    if (endings.length === 0) {
+      setopcioneRequeridas({
+        ...opcioneRequeridas,
+        ending: "Debe seleccionar un tipo de Bowl",
+      });
+      return;
+    }
+
     if (selectExtras.extras) {
       selectExtras.extras.map((item) => {
         if (item.precioUnitario !== "") {
@@ -215,6 +268,14 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
       extra: extras,
     };
 
+    setopcioneRequeridas({
+      bowl: "",
+      bases: "",
+      proteinas: "",
+      marinados: "",
+      topping: "",
+      ending: "",
+    });
     dispatch(
       addProductosMenuDinamicos(
         [...lista_pedido_dinamico, pedidoDinamico],
@@ -261,9 +322,18 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography className={classes.heading}>
-                Eliga un tamaño para su Orden
-              </Typography>
+              <div className="d-flex">
+                <Typography className={classes.heading}>
+                  Eliga un tamaño para su Orden
+                </Typography>
+                {opcioneRequeridas.bowl ? (
+                  <Typography variant="subtitle2" color="primary">
+                    * {opcioneRequeridas.bowl}
+                  </Typography>
+                ) : (
+                  ""
+                )}
+              </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div className="col-12 d-flex mt-2 flex-wrap">
@@ -287,19 +357,25 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
               </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+
           <ModalBasesProteinas
+            bases={opcioneRequeridas.bases}
+            proteina={opcioneRequeridas.proteinas}
             handleChangeCheckboxBases={handleChangeCheckboxBases}
             handleChangeCheckboxProteinas={handleChangeCheckboxProteinas}
           />
           <ModalMariados
+            marinado={opcioneRequeridas.marinados}
             handleChangeCheckboxMarinado={handleChangeCheckboxMarinado}
             marinarProteina={marinarProteina}
           />
           <ModalTopping
+            topping={opcioneRequeridas.topping}
             handleChangeCheckboxTopping={handleChangeCheckboxTopping}
             tipoBowl={selectBowl.plato}
           />
           <ModalEnding
+            ending={opcioneRequeridas.ending}
             handleChangeCheckboxEnding={handleChangeCheckboxEnding}
             tipoBowl={selectBowl.plato}
           />

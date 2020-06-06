@@ -37,7 +37,7 @@ const MenuList = () => {
   });
 
   const [tipoPedido, settipoPedido] = useState({
-    estatico: false,
+    estatico: true,
     dinamico: false,
   });
 
@@ -48,18 +48,10 @@ const MenuList = () => {
   });
 
   const handleClickOpen = (opcion) => {
-    if (opcion === "Menu") {
-      // setOpen(true);
-      settipoPedido({
-        estatico: true,
-        dinamico: false,
-      });
-    } else if (opcion === "Personalizado") {
-      settipoPedido({
-        estatico: false,
-        dinamico: true,
-      });
-    }
+    settipoPedido({
+      estatico: true,
+      dinamico: true,
+    });
   };
 
   // ===============================================
@@ -91,7 +83,7 @@ const MenuList = () => {
     setOpen(false);
     setopenProducto({ ...openProducto, open: false, menuItem: "" });
     settipoPedido({
-      estatico: false,
+      estatico: true,
       dinamico: false,
     });
     setmodalMostar({
@@ -279,6 +271,16 @@ const MenuList = () => {
         </div>
       </Grid>
 
+      <Grid item {...gridSize} onClick={() => handleClickOpen()}>
+        <ProductoCardRow
+          variant={viewVariant}
+          products={{
+            nombre: "Crear tu Bowl",
+            precioUnitario: "9,50",
+            descripcion: "Crea tu Bowl con los ingredientes que mas gustes",
+          }}
+        />
+      </Grid>
       {data.map((item, index) => (
         <Grid
           item
@@ -303,13 +305,6 @@ const MenuList = () => {
         openModal={tipoPedido.dinamico}
         handleClose={handleClose}
         mostrandoModal={mostrandoModal}
-      />
-
-      <FabButton
-        color="primary"
-        label="addProduct"
-        estatico={handleClickOpen}
-        pedido={true}
       />
     </Grid>
   );
