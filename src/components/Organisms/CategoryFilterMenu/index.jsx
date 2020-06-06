@@ -83,7 +83,6 @@ const AllTables = ({ data, posicion }) => {
         <Typography variant="subtitle2" color="primary">
           FILTRAR POR
         </Typography>
-        <Button className={classes.headerButtonReset}>Limpiar</Button>
       </div>
       <div className={classes.filtersContainer}>
         <FormControlLabel

@@ -16,6 +16,10 @@ const routes = [
         path: "/",
       },
       {
+        label: "Lista de Ordenes",
+        path: "/lista-ordenes",
+      },
+      {
         label: "Pedidos",
         path: "/pedidos",
       },

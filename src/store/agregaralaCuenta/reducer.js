@@ -6,6 +6,9 @@ import {
   ADDALACUENTA_EDIT,
   SET_ADDALACUENTA_SUCCESS,
   SET_ADDALACUENTA_DINAMICO_SUCCESS,
+  SET_LISTAPEDIDOSPENDIENTES,
+  GET_LISTAPEDIDOSPENDIENTES,
+  GET_PRODUCTSDETAILS,
 } from "./Constants";
 
 const initialState = {
@@ -15,6 +18,8 @@ const initialState = {
   productsCuenta: 0,
   listaProducts: [],
   menudinamicoorden: [],
+  listaPedidosOrdenados: [],
+  getListaPedidosPendientes: [],
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -48,6 +53,14 @@ export default function (state = initialState, { type, payload }) {
         listaProducts: payload.lista,
       };
     }
+    case GET_LISTAPEDIDOSPENDIENTES: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        getListaPedidosPendientes: payload,
+      };
+    }
     case SET_ADDALACUENTA_DINAMICO_SUCCESS: {
       return {
         ...state,
@@ -55,6 +68,27 @@ export default function (state = initialState, { type, payload }) {
         loading: false,
         menudinamicoorden: payload.products,
         productsCuenta: payload.costoTotal,
+      };
+    }
+    case GET_PRODUCTSDETAILS: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        listaProducts: payload.statico,
+        menudinamicoorden: payload.dinamico,
+        productsCuenta: payload.precio,
+      };
+    }
+    case SET_LISTAPEDIDOSPENDIENTES: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        listaPedidosOrdenados: payload,
+        listaProducts: [],
+        menudinamicoorden: [],
+        productsCuenta: 0,
       };
     }
     case ADDALACUENTA_EDIT: {

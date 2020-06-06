@@ -24,9 +24,6 @@ const Breadcrumb = (props) => {
           FOOD
         </Typography>
         <Breadcrumbs aria-label="Breadcrumb">
-          <Typography variant="subtitle2" color="textSecondary">
-            {`${costosAddCuenta} $`}
-          </Typography>
           <Link color="inherit" href="#" onClick={() => console.log("click")}>
             <Typography variant="subtitle2" color="textSecondary">
               Home

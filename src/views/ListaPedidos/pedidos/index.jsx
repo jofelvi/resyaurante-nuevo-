@@ -6,9 +6,8 @@ import { makeStyles } from "@material-ui/core";
 
 // Organisms
 import {
-  Pedidos,
   CategoryFilterMenu,
-  PedidosAllTable,
+  ListaOrdenes,
 } from "../../../components/Organisms";
 
 const styles = makeStyles({
@@ -23,9 +22,8 @@ const Menu = () => {
 
   return (
     <section className={classes.root}>
-      <CategoryFilterMenu data={data} posicion={true} icons={true} />
-      <Pedidos />
-      <PedidosAllTable />
+      {/* <CategoryFilterMenu data={data} posicion={true} icons={true} /> */}
+      <ListaOrdenes />
     </section>
   );
 };

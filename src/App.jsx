@@ -20,6 +20,7 @@ import { AllKitchens } from "./views/kitchen";
 import { AllBars } from "./views/bar";
 import { Error404 } from "./views/errors";
 import { Pedidos } from "./views/Pedidos";
+import { ListaPedidos } from "./views/ListaPedidos";
 
 const App = () => {
   // if (loggedIn) {
@@ -32,6 +33,11 @@ const App = () => {
             <ProtectedRouter exact path="/crear-menu" component={AllProducts} />
             <ProtectedRouter exact path="/all-menu" component={AllMenu} />
             <ProtectedRouter exact path="/pedidos" component={Pedidos} />
+            <ProtectedRouter
+              exact
+              path="/lista-ordenes"
+              component={ListaPedidos}
+            />
             <ProtectedRouter
               exact
               path="/ingredientes"

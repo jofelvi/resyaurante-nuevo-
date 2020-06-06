@@ -3,15 +3,13 @@ import React from "react";
 // Material UI
 import { Card, CardContent, Avatar, Typography } from "@material-ui/core";
 
-// Atoms
-import { DropdownMenu } from "../../../../components/Atoms";
-
 import styles from "./styles";
 
-const ProductCardViewList = ({ products }) => {
+const ProductCardViewList = ({ products, openModal }) => {
   const classes = styles();
+
   return (
-    <Card className={classes.marginxy}>
+    <Card className={classes.marginxy} onClick={() => openModal(products)}>
       <CardContent className={classes.contentList}>
         <div className={classes.infoContentList}>
           <Avatar className={classes.avatarList}>
@@ -27,7 +25,7 @@ const ProductCardViewList = ({ products }) => {
               align="left"
               className={classes.title}
             >
-              {products.nombre}
+              Codigo de pedido {products.id}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -35,32 +33,10 @@ const ProductCardViewList = ({ products }) => {
               align="left"
               className={classes.descriptionList}
             >
-              Comida rapida
+              Estado: {products.status}
             </Typography>
           </div>
-          <DropdownMenu
-            label="Opciones"
-            className={classes.options}
-            options={[
-              {
-                label: "Ver",
-              },
-              {
-                label: "Editar",
-              },
-              {
-                label: "Eliminar",
-              },
-            ]}
-          />
         </div>
-        <Typography
-          variant="subtitle2"
-          color="textPrimary"
-          className={classes.priceList}
-        >
-          {`$ ${products.sm}`}
-        </Typography>
       </CardContent>
     </Card>
   );

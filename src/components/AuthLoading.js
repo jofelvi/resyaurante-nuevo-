@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../store/Products/actions";
 import { getCategories, getCategoriesMenu } from "../store/Categories/actions";
 import { getAddMenu } from "../store/AgregarMenu/actions";
+import { getListaPedidos } from "../store/agregaralaCuenta/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function AuthLoading(props) {
     dispatch(getCategories());
     dispatch(getCategoriesMenu());
     dispatch(getAddMenu());
+    dispatch(getListaPedidos());
     // }
   }, [auth.info, dispatch]);
 

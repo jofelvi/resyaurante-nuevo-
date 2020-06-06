@@ -21,3 +21,7 @@ export const categoriesMenuEditRef = (id) =>
 
 export const addMenuRef = databaseRef.child("addmenu/");
 export const addMenuEditRef = (id) => databaseRef.child("addmenu/" + id);
+
+export const addListaPedidosRef = databaseRef.child("listpedidos/");
+export const addListaPedidosEditRef = (id) =>
+  databaseRef.child("listpedidos/" + id);

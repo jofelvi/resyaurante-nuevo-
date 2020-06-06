@@ -8,6 +8,8 @@ import AllMenu from "./AllMenu";
 import FormIngredientes from "./FormIngredientes";
 import CategoryFilterMenu from "./CategoryFilterMenu";
 import Pedidos from "./Pedidos";
+import PedidosAllTable from "./PedidosAllTable";
+import ListaOrdenes from "./ListaPedidos";
 
 export {
   CategoryFilter,
@@ -20,4 +22,6 @@ export {
   AllMenu,
   FormIngredientes,
   Pedidos,
+  PedidosAllTable,
+  ListaOrdenes,
 };

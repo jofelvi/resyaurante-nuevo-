@@ -1,4 +1,8 @@
-import { addMenuRef, addMenuEditRef } from "../../config/firebase";
+import {
+  addMenuRef,
+  addMenuEditRef,
+  addListaPedidosRef,
+} from "../../config/firebase";
 import {
   ADDALACUENTA_START,
   ADDALACUENTA_END,
@@ -7,36 +11,65 @@ import {
   ADDALACUENTA_EDIT,
   SET_ADDALACUENTA_SUCCESS,
   SET_ADDALACUENTA_DINAMICO_SUCCESS,
+  SET_LISTAPEDIDOSPENDIENTES,
+  GET_LISTAPEDIDOSPENDIENTES,
+  GET_PRODUCTSDETAILS,
 } from "./Constants";
 
-// export const getCuentas = () => (dispatch) => {
-//   dispatch({
-//     type: ADDMENU_START,
-//   });
-//   addMenuRef.on("value", (snapshot) => {
-//     if (snapshot.val()) {
-//       const data = snapshot.val();
+export const getListaPedidos = () => (dispatch) => {
+  dispatch({
+    type: ADDALACUENTA_START,
+  });
+  addListaPedidosRef.on("value", (snapshot) => {
+    if (snapshot.val()) {
+      const data = snapshot.val();
 
-//       const arr = Object.keys(data).map((i) => {
-//         data[i].id = i;
-//         return data[i];
-//       });
-//       dispatch({
-//         type: GET_ADDMENU_SUCCESS,
-//         payload: arr,
-//       });
-//     } else {
-//       dispatch({
-//         type: ADDMENU_FAIL,
-//         payload: "No hay productos disponibles",
-//       });
-//     }
-//   });
-//   dispatch({
-//     type: ADDMENU_END,
-//   });
-// };
+      const arr = Object.keys(data).map((i) => {
+        data[i].id = i;
+        return data[i];
+      });
+      dispatch({
+        type: GET_LISTAPEDIDOSPENDIENTES,
+        payload: arr,
+      });
+    }
+  });
+  dispatch({
+    type: ADDALACUENTA_END,
+  });
+};
 
+export const verproductodetails = (statico, dinamico, precio) => (dispatch) => {
+  dispatch({
+    type: ADDALACUENTA_START,
+  });
+  dispatch({
+    type: GET_PRODUCTSDETAILS,
+    payload: {
+      statico: statico,
+      dinamico: dinamico,
+      precio: precio,
+    },
+  });
+  dispatch({
+    type: ADDALACUENTA_END,
+  });
+};
+export const addListaPedidosPendientes = (products_lista) => (dispatch) => {
+  dispatch({
+    type: ADDALACUENTA_START,
+  });
+
+  dispatch({
+    type: SET_LISTAPEDIDOSPENDIENTES,
+    payload: products_lista,
+  });
+
+  addListaPedidosRef.push(products_lista);
+  dispatch({
+    type: ADDALACUENTA_END,
+  });
+};
 export const addProductosCosto = (
   products_lista,
   precioAnterior = 0,
@@ -85,10 +118,6 @@ export const addProductosMenuDinamicos = (
   } else if (plato === "Extra Grande") {
     precioPlato += 12.5;
   }
-  console.log("=======================================================");
-  console.log("lista pedido dinamico  ", products_lista);
-  console.log("precio plato dinamico  ", precioPlato);
-  console.log("=======================================================");
 
   dispatch({
     type: SET_ADDALACUENTA_DINAMICO_SUCCESS,

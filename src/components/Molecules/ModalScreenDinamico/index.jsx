@@ -82,7 +82,8 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
   const handleChangeCheckboxBowl = (extra, checked) => {
     if (checked) {
       setselectBowl({
-        plato: extra,
+        plato: extra.nombre,
+        precioUnitario: extra.precio,
       });
     }
   };
@@ -201,7 +202,8 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     }
 
     const pedidoDinamico = {
-      bowl: selectBowl.plato,
+      precioUnitario: selectBowl.precioUnitario,
+      nombre: `Bowl ${selectBowl.plato}`,
       bases: selectBases.bases,
       proteina: selectBases.proteina.nombre,
       marinado: {
@@ -272,10 +274,7 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
                         <Checkbox
                           // checked={state.checkedB}
                           onChange={(e) =>
-                            handleChangeCheckboxBowl(
-                              item.nombre,
-                              e.target.checked
-                            )
+                            handleChangeCheckboxBowl(item, e.target.checked)
                           }
                           name="checkedB"
                           color="primary"
