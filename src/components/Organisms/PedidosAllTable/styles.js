@@ -10,6 +10,9 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up("xs")]: {
       marginRight: theme.spacing(2),
     },
+    border: `1px solid #e2e2e2`,
+    borderRadius: 8,
+    marginLeft: 5,
   },
   header: {
     display: "flex",

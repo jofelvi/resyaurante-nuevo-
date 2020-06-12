@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,30 +17,25 @@ const MenuList = () => {
   const classes = styles();
   const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
-
   const arrayPedidos = useSelector(
     (state) => state.addcuenta.getListaPedidosPendientes
   );
 
   const [redireccionar, setredireccionar] = useState(false);
   const openModal = (item) => {
-    console.log("=======================================================");
-    console.log(item);
-    console.log("=======================================================");
     dispatch(verproductodetails(item.static, item.dinamic, item.precio));
     setredireccionar(true);
   };
   let gridSize = {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12,
+    xs: 6,
+    sm: 6,
+    md: 3,
+    lg: 3,
+    xl: 3,
   };
-
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <AppBar position="static" color="inherit">
           <Toolbar className={classes.toolbar}>
             <Typography variant="subtitle2" color="primary">
@@ -47,7 +43,7 @@ const MenuList = () => {
             </Typography>
           </Toolbar>
         </AppBar>
-      </Grid>
+      </Grid> */}
 
       {arrayPedidos.map((item, index) => (
         <Grid item {...gridSize} key={index}>
@@ -58,6 +54,16 @@ const MenuList = () => {
           />
         </Grid>
       ))}
+
+      {redireccionar ? (
+        <Redirect
+          to={{
+            pathname: "/pedidos",
+          }}
+        />
+      ) : (
+        ""
+      )}
     </Grid>
   );
 };

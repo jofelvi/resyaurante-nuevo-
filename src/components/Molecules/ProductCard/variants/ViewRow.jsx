@@ -1,7 +1,13 @@
 import React from "react";
 
 // Material UI
-import { Card, CardContent, Avatar, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Avatar,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 
 // Atoms
 import { DropdownMenu } from "../../../../components/Atoms";
@@ -10,9 +16,26 @@ import styles from "./styles";
 
 const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
   const classes = styles();
+
+  const rand1 = Math.ceil(Math.random() * 200);
+  const rand2 = Math.ceil(Math.random() * 200);
+  const rand3 = Math.ceil(Math.random() * 200);
+  const useStyles = makeStyles((theme) => ({
+    contentRow: {
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      paddingTop: theme.spacing(10),
+      paddingBottom: `${theme.spacing(4)}px !important`,
+      backgroundColor: `rgba(${rand1}, ${rand2}, ${rand3}, 1)`,
+    },
+  }));
+
+  const classes2 = useStyles();
+
   return (
-    <Card className={classes.marginxy}>
-      <CardContent className={classes.contentRow}>
+    <Card>
+      <CardContent className={classes2.contentRow}>
         <Typography
           variant="subtitle2"
           color="textPrimary"
@@ -37,12 +60,12 @@ const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
             },
           ]}
         />
-        <Avatar className={classes.avatarRow}>
+        {/* <Avatar className={classes.avatarRow}>
           <img
             src="https://img.icons8.com/color/48/000000/hot-dog.png"
             alt="img"
           />
-        </Avatar>
+        </Avatar> */}
         <div className={classes.textContent}>
           <Typography
             variant="body1"

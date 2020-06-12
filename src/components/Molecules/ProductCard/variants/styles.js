@@ -18,11 +18,11 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   priceList: {
-    backgroundColor: theme.palette.success.main,
+    // backgroundColor: theme.palette.success.main,
     borderRadius: 20,
     padding: "5px 12px",
     color: "#fff",
-    fontSize: 12,
+    fontSize: 16,
   },
   optionsList: {
     position: "absolute",
@@ -49,11 +49,11 @@ export default makeStyles((theme) => ({
     position: "absolute",
     top: 0,
     left: -5,
-    backgroundColor: theme.palette.success.main,
+    // backgroundColor: theme.palettes.success.main,
     borderRadius: "0 20px 20px 0",
     padding: "5px 12px",
     color: "#fff",
-    fontSize: 12,
+    fontSize: 16,
   },
   avatarRow: {
     width: 100,
@@ -67,19 +67,31 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    height: 120,
     justifyContent: "center",
-    position: "relative",
-    paddingTop: theme.spacing(10),
-    paddingBottom: `${theme.spacing(2)}px !important`,
+    backgroundColor: `rgba(${Math.random() * 100}, ${Math.random() * 100}, ${
+      Math.random() * 100
+    }, .8)`,
+    // position: "relative",
+    // paddingTop: theme.spacing(10),
+    // paddingBottom: `${theme.spacing(2)}px !important`,
   },
-  priceColumn: {
-    position: "absolute",
-    top: 0,
-    left: -5,
-    backgroundColor: theme.palette.success.main,
-    borderRadius: "0 20px 20px 0",
-    padding: "5px 12px",
-    color: "#fff",
+  // priceColumn: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: -5,
+  //   backgroundColor: theme.palette.success.main,
+  //   borderRadius: "0 20px 20px 0",
+  //   padding: "5px 12px",
+  //   color: "#fff",
+  //   fontSize: 12,
+  // },
+  priceColumnRight: {
+    position: "relative",
+    right: -60,
+    bottom: -25,
+    // borderRadius: "0 20px 20px 0",
+    // padding: "5px 12px",
     fontSize: 12,
   },
   avatarColumn: {
@@ -90,6 +102,7 @@ export default makeStyles((theme) => ({
   // Others
   title: {
     marginBottom: theme.spacing(2),
+    color: "#fff",
   },
   description: {
     fontSize: 14,

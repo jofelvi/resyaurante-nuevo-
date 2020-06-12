@@ -1,46 +1,47 @@
 import React from "react";
 
 // Material UI
-import { Card, CardContent, Avatar, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Avatar,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 
 import styles from "./styles";
 
 const ProductCardViewColumn = ({ products }) => {
+  const rand1 = Math.ceil(Math.random() * 200);
+  const rand2 = Math.ceil(Math.random() * 200);
+  const rand3 = Math.ceil(Math.random() * 200);
+  const useStyles = makeStyles((theme) => ({
+    contentColumn: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      height: 120,
+      justifyContent: "center",
+      backgroundColor: `rgba(${rand1}, ${rand2}, ${rand3}, 1)`,
+    },
+  }));
   const classes = styles();
+  const classes2 = useStyles();
   return (
     <Card>
-      <CardContent className={classes.contentColumn}>
-        <Typography
-          variant="subtitle2"
-          color="textPrimary"
-          className={classes.priceColumn}
-        >
-          {`$ ${
-            products.precioUnitario ? products.precioUnitario : products.precio
-          }`}
-        </Typography>
-
-        <Avatar className={classes.avatarColumn}>
-          <img
-            src="https://img.icons8.com/color/48/000000/pizza.png"
-            alt="img"
-          />
-        </Avatar>
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          className={classes.title}
-        >
+      <CardContent className={classes2.contentColumn}>
+        <Typography variant="body1" className={classes.title}>
           {products.nombre}
         </Typography>
         <Typography
           variant="subtitle1"
           color="textSecondary"
-          align="center"
-          paragraph
-          className={classes.description}
+          // paragraphs
+          className={classes.priceColumnRight}
         >
-          {products.descripcion ? products.descripcion : products.nombre}
+          {`$ ${
+            products.precioUnitario ? products.precioUnitario : products.precio
+          }`}
         </Typography>
       </CardContent>
     </Card>

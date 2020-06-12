@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core";
 export default makeStyles((theme) => ({
   root: {
     // width: "100%",
-    width: 250,
+    width: 100,
     height: "100%",
     [theme.breakpoints.up("xs")]: {
       marginRight: theme.spacing(2),
@@ -25,6 +25,9 @@ export default makeStyles((theme) => ({
   },
   filtersContainer: {
     padding: theme.spacing(4),
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   formControlLabel: {
     width: "100%",

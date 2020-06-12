@@ -2,12 +2,10 @@ import React, { useState, Fragment, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-// Material UI
-import { Card, Typography, Button } from "@material-ui/core";
-import { FormControlLabel, Checkbox } from "@material-ui/core";
-
 import { editcategorie } from "../../../store/Categories/actions";
 import { filterProducts } from "../../../store/Products/actions";
+
+import { Tooltip, Button } from "@material-ui/core";
 
 import styles from "./styles";
 
@@ -70,77 +68,53 @@ const AllTables = ({ data, posicion }) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <div className={classes.header}>
-        <Typography variant="subtitle2" color="primary">
-          FILTRAR POR
-        </Typography>
-        <Button className={classes.headerButtonReset}>Limpiar</Button>
-      </div>
+    <div className={classes.root}>
       <div className={classes.filtersContainer}>
-        <FormControlLabel
-          classes={{
-            root: classes.formControlLabel,
-          }}
-          control={
-            <Checkbox
-              // checked={state[item.label] ? state[item.label] : false}
-              // onChange={handleChange(item.label)}
-              checked={filterFil.productosAllFilter === "All" ? true : false}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setFilterFil({
-                    productosAllFilter: "All",
-                  });
-                }
-              }}
-              value="All"
-              color="primary"
-            />
-          }
-          label={
-            <div className={classes.filterOption}>
-              <Typography variant="body1" color="textPrimary" align="left">
-                Todos
-              </Typography>
-              {/* <Typography variant="body1" color="textPrimary" align="left">
-                  {index}
-                </Typography> */}
-            </div>
-          }
-        />
-        {data.map((item, index) => (
-          <FormControlLabel
-            classes={{
-              root: classes.formControlLabel,
+        <Tooltip title="Todos" arrow placement="right">
+          <Button
+            className="my-2"
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
             }}
-            key={index}
-            control={
-              <Checkbox
-                // checked={state[item.label] ? state[item.label] : false}
-                // onChange={handleChange(item.label)}
-                checked={
-                  filterFil.productosAllFilter === item.nombre ? true : false
-                }
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setFilterFil({
-                      productosAllFilter: item.nombre,
-                    });
-                  }
-                }}
-                value={item.label}
-                color="primary"
+            onClick={() => {
+              setFilterFil({
+                productosAllFilter: "All",
+              });
+            }}
+          >
+            <img
+              src={require("../../../assets/images/restaurant.png")}
+              alt="Todos"
+              style={{ width: 60, height: 60, textAlign: "center" }}
+            />
+          </Button>
+        </Tooltip>
+
+        {data.map((item, index) => (
+          <Tooltip title={item.nombre} arrow placement="right">
+            <Button
+              key={index}
+              className="my-2"
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+              onClick={() => {
+                setFilterFil({
+                  productosAllFilter: item.nombre,
+                });
+              }}
+            >
+              <img
+                src={item.img}
+                alt={item.nombre}
+                style={{ width: 60, height: 60, textAlign: "center" }}
               />
-            }
-            label={
-              <div className={classes.filterOption}>
-                <Typography variant="body1" color="textPrimary" align="left">
-                  {item.nombre}
-                </Typography>
-              </div>
-            }
-          />
+            </Button>
+          </Tooltip>
         ))}
       </div>
       {newCategoria.alertSuccess ? (
@@ -157,7 +131,7 @@ const AllTables = ({ data, posicion }) => {
       {newCategoria.agregar ? (
         <Fragment>
           <div className="form-group col-md-12">
-            <label for="inputZip">Nombre de la Categoria</label>
+            <label for="inputZip">Nombre</label>
             <input
               type="text"
               className="form-control"
@@ -171,12 +145,12 @@ const AllTables = ({ data, posicion }) => {
               }}
             />
           </div>
-          <div className="d-flex justify-content-end my-3 mr-2">
+          <div className="d-flex justify-content-center my-3 mr-2">
             <button
               onClick={() => addCategorie()}
               className="btn btn-success btn-sm"
             >
-              Agregar Categoria
+              Agregar
             </button>
           </div>
         </Fragment>
@@ -185,7 +159,7 @@ const AllTables = ({ data, posicion }) => {
       )}
 
       {!newCategoria.agregar && posicion ? (
-        <div className="d-flex justify-content-end my-3 mr-2">
+        <div className="d-flex justify-content-center my-3 mr-2">
           <button
             onClick={() =>
               setNuevaCategoria({
@@ -195,13 +169,13 @@ const AllTables = ({ data, posicion }) => {
             }
             className="btn btn-primary btn-sm"
           >
-            Nueva Categoria
+            Nueva
           </button>
         </div>
       ) : (
         ""
       )}
-    </Card>
+    </div>
   );
 };
 

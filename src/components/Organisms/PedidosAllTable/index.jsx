@@ -53,7 +53,7 @@ const AllTables = () => {
   };
 
   return (
-    <Card className={classes.root}>
+    <div className={classes.root}>
       <div className={`${classes.header} d-flex justify-content-between`}>
         <Typography variant="subtitle2" color="primary">
           Lista de Productos
@@ -93,7 +93,7 @@ const AllTables = () => {
           Crear Pedido
         </button>
       </div>
-    </Card>
+    </div>
   );
 };
 

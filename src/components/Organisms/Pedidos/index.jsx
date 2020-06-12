@@ -125,9 +125,9 @@ const MenuList = () => {
   let gridSize = {
     xs: 12,
     sm: 6,
-    md: 3,
-    lg: 3,
-    xl: 2,
+    md: 4,
+    lg: 4,
+    xl: 4,
   };
 
   const changeView = (variant) => () => {
@@ -194,15 +194,15 @@ const MenuList = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <AppBar position="static" color="inherit">
+        {/* <AppBar position="static" color="inherit">
           <Toolbar className={classes.toolbar}>
             <Typography variant="subtitle2" color="primary">
               LISTA MENU
             </Typography>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
-        <div className="col-12 mt-3">
+        <div className="col-12">
           {nombreCategore.alertSuccess ? (
             <div
               className={`alert ${nombreCategore.colorAlert} text-center my-4 col-12`}

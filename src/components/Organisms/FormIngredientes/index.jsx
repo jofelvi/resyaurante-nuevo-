@@ -164,29 +164,29 @@ const FormIngredientes = () => {
   return (
     <Grid container spacing={2} justify="center">
       <Grid item xs={12}>
-        <AppBar position="static" color="inherit">
-          <Toolbar className={classes.toolbar}>
-            <div className="d-flex justify-content-between col-12">
-              <Typography variant="subtitle2" color="primary">
-                Ingredientes
-              </Typography>
-              <button
-                type="buttom"
-                className="btn btn-success btn-sm ml-4"
-                onClick={() => {
-                  setForm({
-                    ...form,
-                    abrirProductoForm: true,
-                    nuevo: true,
-                    edit: false,
-                  });
-                }}
-              >
-                Nuevo Producto
-              </button>
-            </div>
-          </Toolbar>
-        </AppBar>
+        {/* <AppBar position="static" color="inherit">
+          <Toolbar className={classes.toolbar}> */}
+        <div className="d-flex justify-content-end col-12">
+          {/* <Typography variant="subtitle2" color="primary">
+            Ingredientes
+          </Typography> */}
+          <button
+            type="buttom"
+            className="btn btn-success btn-sm ml-4"
+            onClick={() => {
+              setForm({
+                ...form,
+                abrirProductoForm: true,
+                nuevo: true,
+                edit: false,
+              });
+            }}
+          >
+            Nuevo Producto
+          </button>
+        </div>
+        {/* </Toolbar>
+        </AppBar> */}
       </Grid>
       {form.alertSuccess ? (
         <div
