@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 // Material UI
 import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";

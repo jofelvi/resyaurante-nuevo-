@@ -1,16 +1,9 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
 // Material UI
-import {
-  Grid,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 // Atoms
 import { FabButton } from "../../Atoms";
@@ -20,11 +13,7 @@ import { ProductCard } from "../../Molecules";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
 
-import styles from "./styles";
-
 const ProductList = () => {
-  const classes = styles();
-  const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
 
   const dataProducts = useSelector((state) => state.products.productsFilter);
@@ -52,10 +41,6 @@ const ProductList = () => {
     md: 3,
     lg: 3,
     xl: 2,
-  };
-
-  const changeView = (variant) => () => {
-    setViewVariant(variant);
   };
 
   const menuarray = (producto) => {
@@ -111,7 +96,6 @@ const ProductList = () => {
   };
 
   const eliminarItemArray = (producto) => {
-    console.log("eliminar productos:  ", producto);
     const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
     setArrayMenu(nuevoArray);
   };
@@ -119,14 +103,6 @@ const ProductList = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        {/* <AppBar position="static" color="inherit">
-          <Toolbar className={classes.toolbar}>
-            <Typography variant="subtitle2" color="primary">
-              CREAR MENU
-            </Typography>
-          </Toolbar>
-        </AppBar> */}
-
         <div className="col-12">
           {nombreCategore.alertSuccess ? (
             <div
@@ -166,9 +142,7 @@ const ProductList = () => {
                       categories: e.target.value,
                     });
                   }}
-                  // defaultChecked={form.edit ? form.editData.categories : ""}
                   className="custom-select"
-                  // defaultValue={form.edit ? form.editData.categories : ""}
                 >
                   <option selected>Categoria...</option>
 
@@ -243,7 +217,7 @@ const ProductList = () => {
           key={index}
           onClick={() => (nombreCategore.agregar ? menuarray(item) : "")}
         >
-          <ProductCard variant={viewVariant} products={item} />
+          <ProductCard variant={"column"} products={item} />
         </Grid>
       ))}
       <FabButton color="primary" label="addProduct" addmenu={addmenu} />

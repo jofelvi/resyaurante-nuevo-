@@ -20,6 +20,8 @@ const initialState = {
   menudinamicoorden: [],
   listaPedidosOrdenados: [],
   getListaPedidosPendientes: [],
+  detailspedido: false,
+  idDetailsOrden: "",
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -78,6 +80,8 @@ export default function (state = initialState, { type, payload }) {
         listaProducts: payload.statico,
         menudinamicoorden: payload.dinamico,
         productsCuenta: payload.precio,
+        detailspedido: payload.detailspedido,
+        idDetailsOrden: payload.id,
       };
     }
     case SET_LISTAPEDIDOSPENDIENTES: {

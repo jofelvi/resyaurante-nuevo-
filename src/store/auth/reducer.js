@@ -7,10 +7,11 @@ import {
   END_LOADING,
   USER_SIGN_UP_SUCCESS,
   USER_UP_IN_FAILED,
+  USER_SIGN_IN_SUCCESS,
 } from "./Constants";
 
 export const INITIAL_STATE = {
-  info: true,
+  info: null,
   loading: false,
   error: {
     flag: false,
@@ -26,6 +27,13 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         loading: true,
       };
+    case USER_SIGN_IN_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        info: action.payload,
+      };
+    }
     case END_LOADING:
       return {
         ...state,
@@ -63,7 +71,11 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case USER_SIGN_OUT:
-      return INITIAL_STATE;
+      return {
+        ...state,
+        info: null,
+        loading: false,
+      };
     case CLEAR_LOGIN_ERROR:
       return {
         ...state,

@@ -23,10 +23,10 @@ const AllTables = ({ data, posicion }) => {
     dispatch(filterProducts(productosAll, filterFil.productosAllFilter));
   });
 
-  const [state, setState] = React.useState({
-    checkedA: false,
-    happy: false,
-  });
+  // const [state, setState] = React.useState({
+  //   checkedA: false,
+  //   happy: false,
+  // });
 
   const [newCategoria, setNuevaCategoria] = useState({
     agregar: false,
@@ -51,9 +51,9 @@ const AllTables = ({ data, posicion }) => {
     }, 2500);
   };
 
-  const handleChange = (name) => (event) => {
-    setState({ ...state, [name]: event.target.checked });
-  };
+  // const handleChange = (name) => (event) => {
+  //   setState({ ...state, [name]: event.target.checked });
+  // };
 
   const addCategorie = (e) => {
     // e.preventDefault();
@@ -70,7 +70,7 @@ const AllTables = ({ data, posicion }) => {
   return (
     <div className={classes.root}>
       <div className={classes.filtersContainer}>
-        <Tooltip title="Todos" arrow placement="right">
+        <Tooltip title="Todos" arrow="true" placement="right">
           <Button
             className="my-2"
             style={{
@@ -93,7 +93,12 @@ const AllTables = ({ data, posicion }) => {
         </Tooltip>
 
         {data.map((item, index) => (
-          <Tooltip title={item.nombre} arrow placement="right">
+          <Tooltip
+            title={item.nombre}
+            key={index}
+            arrow="true"
+            placement="right"
+          >
             <Button
               key={index}
               className="my-2"

@@ -1,15 +1,13 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Material UI
-import { Grid, AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
-import styles from "./styles";
 import { editproducts } from "../../../store/Products/actions";
 
 import TableProduct from "./table";
 
 const FormIngredientes = () => {
-  const classes = styles();
   const dataProducts = useSelector((state) => state.products);
 
   const dataCategories = useSelector((state) => state.categories.categories);
@@ -164,12 +162,7 @@ const FormIngredientes = () => {
   return (
     <Grid container spacing={2} justify="center">
       <Grid item xs={12}>
-        {/* <AppBar position="static" color="inherit">
-          <Toolbar className={classes.toolbar}> */}
         <div className="d-flex justify-content-end col-12">
-          {/* <Typography variant="subtitle2" color="primary">
-            Ingredientes
-          </Typography> */}
           <button
             type="buttom"
             className="btn btn-success btn-sm ml-4"
@@ -185,8 +178,6 @@ const FormIngredientes = () => {
             Nuevo Producto
           </button>
         </div>
-        {/* </Toolbar>
-        </AppBar> */}
       </Grid>
       {form.alertSuccess ? (
         <div
@@ -292,9 +283,6 @@ const FormIngredientes = () => {
                       defaultChecked={
                         form.editData ? form.editData.disponible : false
                       }
-                      // defaultValue={
-                      //   form.editData ? form.editData.presentaciones : false
-                      // }
                       onChange={(e) => {
                         setNuevoProd({
                           ...nuevoProd,
@@ -397,9 +385,6 @@ const FormIngredientes = () => {
                       defaultChecked={
                         form.editData ? form.editData.disponible : true
                       }
-                      // defaultValue={
-                      //   form.editData ? form.editData.disponible : ""
-                      // }
                       onChange={(e) => {
                         return setNuevoProd({
                           ...nuevoProd,

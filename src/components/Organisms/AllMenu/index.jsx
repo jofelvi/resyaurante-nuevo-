@@ -3,19 +3,9 @@ import React, { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Material UI
-import {
-  Grid,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
-
-// Atoms
-import { FabButton } from "../../Atoms";
 
 // Molecules
 
@@ -23,11 +13,7 @@ import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewColumn";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
 
-import styles from "./styles";
-
 const MenuList = () => {
-  const classes = styles();
-  const [viewVariant, setViewVariant] = React.useState("column");
   const dispatch = useDispatch();
 
   const dataProducts = useSelector((state) => state.addmenu.menufilter);
@@ -44,9 +30,6 @@ const MenuList = () => {
     menuItem: "",
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
     setOpen(false);
     setopenProducto(false);
@@ -75,19 +58,6 @@ const MenuList = () => {
     xl: 2,
   };
 
-  const changeView = (variant) => () => {
-    setViewVariant(variant);
-  };
-
-  const menuarray = (producto) => {
-    setArrayMenu([...arrayMenu, producto]);
-  };
-  const addmenu = () => {
-    return setNombreCategore({
-      ...nombreCategore,
-      agregar: true,
-    });
-  };
   const addmenubd = () => {
     if (nombreCategore.nombre === "" || arrayMenu.length < 2) {
       setNombreCategore({
@@ -129,31 +99,15 @@ const MenuList = () => {
     }, 2500);
   };
 
-  const addOrden = () => {
-    console.log("=======================================================");
-    console.log("desde addOrden");
-    console.log("=======================================================");
-  };
-
   const eliminarItemArray = (producto) => {
     const nuevoArray = arrayMenu.filter((item) => item.id !== producto.id);
 
     setArrayMenu(nuevoArray);
   };
 
-  // const data = ["a", "a", "a", "a", "a", "a", "a", "a", "a"];
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        {/* <AppBar position="static" color="inherit">
-          <Toolbar className={classes.toolbar}>
-            <Typography variant="subtitle2" color="primary">
-              LISTA MENU
-            </Typography>
-          </Toolbar>
-        </AppBar> */}
-
         <div className="col-12 ">
           {nombreCategore.alertSuccess ? (
             <div
@@ -230,7 +184,7 @@ const MenuList = () => {
           key={index}
           onClick={() => openMenuProduct(item)}
         >
-          <ProductoCardRow variant={viewVariant} products={item} />
+          <ProductoCardRow variant={"column"} products={item} />
         </Grid>
       ))}
       {openProducto.menuItem ? (
@@ -243,11 +197,6 @@ const MenuList = () => {
         ""
       )}
       <ModalScreenDinamico openModal={open} handleClose={handleClose} />
-      {/* <FabButton
-        color="primary"
-        label="addProduct"
-        addOrden={handleClickOpen}
-      /> */}
     </Grid>
   );
 };

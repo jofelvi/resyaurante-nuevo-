@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Material UI
 import {
@@ -23,10 +23,15 @@ import {
 
 import styles from "./styles";
 
-const NavBar = ({ handleOpenSideNav, userProfile }) => {
+const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const dispatch = useDispatch();
+  const signOut = async () => {
+    await dispatch(signOut());
+    history.push("/sign-in");
+  };
 
   const renderMenu = (
     <Menu
@@ -43,7 +48,7 @@ const NavBar = ({ handleOpenSideNav, userProfile }) => {
         <PersonOutline className={classes.icon} />
         Mi perfil
       </MenuItem>
-      <MenuItem component={Link} to="/sign-out">
+      <MenuItem onClick={signOut}>
         <PowerSettingsNew className={classes.icon} />
         Cerrar sesión
       </MenuItem>

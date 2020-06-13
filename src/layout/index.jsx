@@ -2,7 +2,6 @@ import React from "react";
 
 import NavBar from "./NavBar";
 import SideNav from "./SideNav";
-import Breadcrumb from "./Breadcrumb";
 
 import styles from "./styles";
 

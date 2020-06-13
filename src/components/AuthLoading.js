@@ -12,13 +12,13 @@ function AuthLoading(props) {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   useEffect(() => {
-    // if (auth.info) {
-    dispatch(getProduct());
-    dispatch(getCategories());
-    dispatch(getCategoriesMenu());
-    dispatch(getAddMenu());
-    dispatch(getListaPedidos());
-    // }
+    if (auth.info) {
+      dispatch(getProduct());
+      dispatch(getCategories());
+      dispatch(getCategoriesMenu());
+      dispatch(getAddMenu());
+      dispatch(getListaPedidos());
+    }
   }, [auth.info, dispatch]);
 
   return auth.loading ? <CircularLoading /> : props.children;

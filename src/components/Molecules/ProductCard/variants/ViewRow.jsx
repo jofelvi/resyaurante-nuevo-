@@ -1,13 +1,7 @@
 import React from "react";
 
 // Material UI
-import {
-  Card,
-  CardContent,
-  Avatar,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { CardContent, Typography, makeStyles, Card } from "@material-ui/core";
 
 // Atoms
 import { DropdownMenu } from "../../../../components/Atoms";

@@ -1,13 +1,7 @@
 import React from "react";
 
 // Material UI
-import {
-  Card,
-  CardContent,
-  Typography,
-  makeStyles,
-  Button,
-} from "@material-ui/core";
+import { CardContent, Typography, makeStyles, Button } from "@material-ui/core";
 
 import styles from "./styles";
 

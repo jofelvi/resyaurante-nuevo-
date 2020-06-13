@@ -1,11 +1,10 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
-import Slide from "@material-ui/core/Slide";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -25,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
   },
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function FullScreenDialog({
   handleChangeCheckboxBases,

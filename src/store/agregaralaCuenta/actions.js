@@ -2,13 +2,12 @@ import {
   addMenuRef,
   addMenuEditRef,
   addListaPedidosRef,
+  addListaPedidosEditRef,
 } from "../../config/firebase";
 import {
   ADDALACUENTA_START,
   ADDALACUENTA_END,
-  ADDALACUENTA_FAIL,
   ADDALACUENTA_SUCCESS,
-  ADDALACUENTA_EDIT,
   SET_ADDALACUENTA_SUCCESS,
   SET_ADDALACUENTA_DINAMICO_SUCCESS,
   SET_LISTAPEDIDOSPENDIENTES,
@@ -39,7 +38,9 @@ export const getListaPedidos = () => (dispatch) => {
   });
 };
 
-export const verproductodetails = (statico, dinamico, precio) => (dispatch) => {
+export const verproductodetails = (statico, dinamico, precio, id) => (
+  dispatch
+) => {
   dispatch({
     type: ADDALACUENTA_START,
   });
@@ -49,23 +50,43 @@ export const verproductodetails = (statico, dinamico, precio) => (dispatch) => {
       statico: statico,
       dinamico: dinamico,
       precio: precio,
+      id: id,
+      detailspedido: true,
     },
   });
   dispatch({
     type: ADDALACUENTA_END,
   });
 };
-export const addListaPedidosPendientes = (products_lista) => (dispatch) => {
+export const addListaPedidosPendientes = (products_lista, method) => (
+  dispatch
+) => {
   dispatch({
     type: ADDALACUENTA_START,
   });
 
-  dispatch({
-    type: SET_LISTAPEDIDOSPENDIENTES,
-    payload: products_lista,
-  });
+  if (method === "add") {
+    dispatch({
+      type: SET_LISTAPEDIDOSPENDIENTES,
+      payload: products_lista,
+    });
 
-  addListaPedidosRef.push(products_lista);
+    addListaPedidosRef.push(products_lista);
+  } else if (method === "editar") {
+    dispatch({
+      type: SET_LISTAPEDIDOSPENDIENTES,
+      payload: products_lista,
+    });
+
+    addListaPedidosEditRef(products_lista.id).set(products_lista);
+  } else if (method === "eliminar") {
+    addListaPedidosEditRef(products_lista.id).remove();
+    dispatch({
+      type: SET_LISTAPEDIDOSPENDIENTES,
+      payload: "",
+    });
+  }
+
   dispatch({
     type: ADDALACUENTA_END,
   });
@@ -138,15 +159,10 @@ export const filterMenu = (products, filter) => async (dispatch) => {
 
   let filtrado;
   if (filter !== "All") {
-    filtrado = products.filter((item, index) => item.categories === filter);
+    filtrado = products.filter((item) => item.categories === filter);
   } else {
     filtrado = products;
   }
-
-  // dispatch({
-  //   type: MENU_FILTER,
-  //   payload: filtrado,
-  // });
 };
 
 export const editMenuCosto = (addMenu, method) => async (dispatch) => {

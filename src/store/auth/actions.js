@@ -12,6 +12,7 @@ import {
   START_LOADING,
   END_LOADING,
   USER_SIGN_UP_SUCCESS,
+  USER_SIGN_IN_SUCCESS,
 } from "./Constants";
 
 export const signIn = (username, password) => (dispatch) => {
@@ -25,13 +26,10 @@ export const signIn = (username, password) => (dispatch) => {
       authRef
         .signInWithEmailAndPassword(username, password)
         .then((user) => {
-          // console.log(user.user.da);
-          // const usuarioLogueado = {
-          //   displayName: user.displayName,
-          //   email: user.email,
-          //   emailVerified: user.emailVerified,
-          //   // tokenId: user.
-          // };
+          dispatch({
+            type: USER_SIGN_IN_SUCCESS,
+            payload: user,
+          });
           dispatch({
             type: END_LOADING,
             payload: null,

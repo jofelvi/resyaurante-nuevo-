@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,14 +17,18 @@ import styles from "./styles";
 
 import SignInForm from "./form";
 
-const SignInView = () => {
+const SignInView = (props) => {
   const classes = styles();
   const dataLogin = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const onSubmit = async (value) => {
-    // console.log(value);
+  useEffect(() => {
+    if (dataLogin.info) {
+      props.history.push("/");
+    }
+  });
 
+  const onSubmit = async (value) => {
     await dispatch(signIn(value.email, value.password));
   };
 

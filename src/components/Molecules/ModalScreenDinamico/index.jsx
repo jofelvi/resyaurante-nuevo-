@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -76,114 +76,108 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
   const precioAcumulado = useSelector(
     (state) => state.addcuenta.productsCuenta
   );
-  const AllIngredientesProd = useSelector((state) => state.products.products);
-  const arrayMenuDinamico = [
-    {
-      nombre: "Hamburguesa",
-      dimensiones: {
-        sm: 10.0,
-        md: 12.0,
-        lg: 14.0,
-      },
-      base: {
-        cantidad: 1,
-        ingrediente: "Bases",
-        default: "Pan",
-      },
-      proteinas: {
-        cantidad: 2,
-        ingrediente: "Proteinas",
-      },
-      salsa: {
-        cantidad: 3,
-        ingrediente: "Salsas",
-      },
-      vegetales: {
-        cantidad: 3,
-        ingrediente: "Vegetales",
-      },
-      charcuteria: {
-        cantidad: 2,
-        ingrediente: "Charcuteria",
-      },
-    },
-    {
-      nombre: "Pizza",
-      dimensiones: {
-        sm: 10.0,
-        md: 12.0,
-        lg: 14.0,
-      },
-      base: {
-        cantidad: 1,
-        ingrediente: "Bases",
-        default: "Masa",
-      },
-      proteinas: {
-        cantidad: 1,
-        ingrediente: "Proteinas",
-      },
-      salsa: {
-        cantidad: 1,
-        ingrediente: "Salsas",
-      },
-      vegetales: {
-        cantidad: 3,
-        ingrediente: "Vegetales",
-      },
-      charcuteria: {
-        cantidad: 2,
-        ingrediente: "Charcuteria",
-      },
-    },
-    {
-      nombre: "Paella",
-      dimensiones: {
-        sm: 10.0,
-        md: 12.0,
-        lg: 14.0,
-      },
-      base: {
-        cantidad: 1,
-        ingrediente: "Bases",
-        default: "arroz",
-      },
-      proteinas: {
-        cantidad: 3,
-        ingrediente: "Proteinas",
-      },
-      salsa: {
-        cantidad: 2,
-        ingrediente: "Salsas",
-      },
-      vegetales: {
-        cantidad: 3,
-        ingrediente: "Vegetales",
-      },
-    },
-  ];
+  // const AllIngredientesProd = useSelector((state) => state.products.products);
+  // const arrayMenuDinamico = [
+  //   {
+  //     nombre: "Hamburguesa",
+  //     dimensiones: {
+  //       sm: 10.0,
+  //       md: 12.0,
+  //       lg: 14.0,
+  //     },
+  //     base: {
+  //       cantidad: 1,
+  //       ingrediente: "Bases",
+  //       default: "Pan",
+  //     },
+  //     proteinas: {
+  //       cantidad: 2,
+  //       ingrediente: "Proteinas",
+  //     },
+  //     salsa: {
+  //       cantidad: 3,
+  //       ingrediente: "Salsas",
+  //     },
+  //     vegetales: {
+  //       cantidad: 3,
+  //       ingrediente: "Vegetales",
+  //     },
+  //     charcuteria: {
+  //       cantidad: 2,
+  //       ingrediente: "Charcuteria",
+  //     },
+  //   },
+  //   {
+  //     nombre: "Pizza",
+  //     dimensiones: {
+  //       sm: 10.0,
+  //       md: 12.0,
+  //       lg: 14.0,
+  //     },
+  //     base: {
+  //       cantidad: 1,
+  //       ingrediente: "Bases",
+  //       default: "Masa",
+  //     },
+  //     proteinas: {
+  //       cantidad: 1,
+  //       ingrediente: "Proteinas",
+  //     },
+  //     salsa: {
+  //       cantidad: 1,
+  //       ingrediente: "Salsas",
+  //     },
+  //     vegetales: {
+  //       cantidad: 3,
+  //       ingrediente: "Vegetales",
+  //     },
+  //     charcuteria: {
+  //       cantidad: 2,
+  //       ingrediente: "Charcuteria",
+  //     },
+  //   },
+  //   {
+  //     nombre: "Paella",
+  //     dimensiones: {
+  //       sm: 10.0,
+  //       md: 12.0,
+  //       lg: 14.0,
+  //     },
+  //     base: {
+  //       cantidad: 1,
+  //       ingrediente: "Bases",
+  //       default: "arroz",
+  //     },
+  //     proteinas: {
+  //       cantidad: 3,
+  //       ingrediente: "Proteinas",
+  //     },
+  //     salsa: {
+  //       cantidad: 2,
+  //       ingrediente: "Salsas",
+  //     },
+  //     vegetales: {
+  //       cantidad: 3,
+  //       ingrediente: "Vegetales",
+  //     },
+  //   },
+  // ];
 
-  for (const key in arrayMenuDinamico) {
-    if (arrayMenuDinamico.length >= 0) {
-      Object.keys(arrayMenuDinamico[key]).map((index) => {
-        console.log("=======================================================");
-
-        if (index == "dimensiones") {
-        } else {
-          if (arrayMenuDinamico[key][index].ingrediente) {
-            const array = AllIngredientesProd.filter(
-              (state) =>
-                state.categories === arrayMenuDinamico[key][index].ingrediente
-            );
-            console.log(array);
-          }
-        }
-
-        // console.log(arrayMenuDinamico[key][index].ingrediente);
-        console.log("=======================================================");
-      });
-    }
-  }
+  // for (const key in arrayMenuDinamico) {
+  //   if (arrayMenuDinamico.length >= 0) {
+  //     Object.keys(arrayMenuDinamico[key]).map((index) => {
+  //       if (index == "dimensiones") {
+  //       } else {
+  //         if (arrayMenuDinamico[key][index].ingrediente) {
+  //           const array = AllIngredientesProd.filter(
+  //             (state) =>
+  //               state.categories === arrayMenuDinamico[key][index].ingrediente
+  //           );
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
 
   // ("======================================================= Bowl
   const [selectBowl, setselectBowl] = useState({

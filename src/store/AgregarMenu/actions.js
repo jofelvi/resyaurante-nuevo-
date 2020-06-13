@@ -4,7 +4,6 @@ import {
   ADDMENU_END,
   ADDMENU_FAIL,
   ADDMENU_SUCCESS,
-  ADDMENU_EDIT,
   GET_ADDMENU_SUCCESS,
   MENU_FILTER,
 } from "./Constants";
@@ -62,10 +61,6 @@ export const editAddMenu = (addMenu, method) => async (dispatch) => {
   });
 
   if (method === "Add") {
-    // console.log("=======================================================");
-    // console.log(addMenu);
-    // console.log("=======================================================");
-    // return;
     addMenuRef.push(addMenu);
 
     dispatch({
@@ -73,10 +68,6 @@ export const editAddMenu = (addMenu, method) => async (dispatch) => {
       payload: "Se creo correctamente",
     });
   } else if (method === "Delete") {
-    // console.log("===========================");
-    // console.log(products.id);
-    // console.log("===========================");
-    // return;
     dispatch({
       type: ADDMENU_SUCCESS,
       payload: "Se borro correctamente",

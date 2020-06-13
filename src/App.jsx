@@ -9,7 +9,7 @@ import ProtectedRouter from "./components/ProtectedRoute";
 import AuthLoading from "./components/AuthLoading";
 
 // Views
-import { SignInView, SignUpView, SignOutView } from "./views/auth";
+import { SignInView, SignUpView } from "./views/auth";
 import DashboardView from "./views/dashboard";
 import { AllProducts } from "./views/product";
 import { AllMenu } from "./views/allMenu";
@@ -47,7 +47,6 @@ const App = () => {
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />
             <ProtectedRouter exact path="/bars" component={AllBars} />
-            {/* <ProtectedRouter exact path="/sign-out" component={SignOutView} /> */}
             <Route exact path="/sign-in" component={SignInView} />
             <Route exact path="/sign-up" component={SignUpView} />
             <Route component={Error404} />
@@ -56,22 +55,6 @@ const App = () => {
       </AuthLoading>
     </Provider>
   );
-  // } else {
-  //   routes = (
-  //     <Switch>
-  //       <Route exact path="/sign-in" component={SignInView} />
-  //       <Route exact path="/sign-up" component={SignUpView} />
-  //       <Redirect path="/sign-out" to="/" />
-  //       <Redirect path="/" to="/sign-in" />
-  //       <Route component={Error404} />
-  //     </Switch>
-  //   );
-  // }
-  // return routes;
 };
-
-// const mapStateToProps = ({ firebase }) => ({
-//   loggedIn: firebase.auth.uid ? true : null,
-// });
 
 export default App;

@@ -5,6 +5,7 @@ import Layout from "../layout";
 
 function ProtectedRoute({ component: Component, ...rest }) {
   const auth = useSelector((state) => state.auth);
+
   return (
     <Route
       {...rest}
