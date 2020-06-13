@@ -129,7 +129,7 @@ const AllTables = () => {
             onClick={() => editarPedido("cancelar")}
             className="btn btn-danger btn-sm"
           >
-            Cancelar
+            Eliminar
           </button>
           <button
             onClick={() => editarPedido("editar")}
