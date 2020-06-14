@@ -6,6 +6,7 @@ import BarCard from "./BarCard";
 import ModalScreenEstatico from "./ModalScreenEstatico";
 import ModalScreenDinamico from "./ModalScreenDinamico";
 import ModalScreenProducto from "./ModalScreenProdcuto";
+import ModalScreenNuevoProd from "./ModalScreenNuevoProd";
 
 export {
   ProductCard,
@@ -16,4 +17,5 @@ export {
   ModalScreenEstatico,
   ModalScreenDinamico,
   ModalScreenProducto,
+  ModalScreenNuevoProd,
 };
