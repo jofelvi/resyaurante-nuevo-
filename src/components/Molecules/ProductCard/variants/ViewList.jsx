@@ -44,6 +44,16 @@ const ProductCardViewList = ({ products, openModal }) => {
             >
               Estado: {products.status}
             </Typography>
+
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              align="left"
+              className={classes.descriptionList}
+            >
+              Tiempo: {products.tiempoinicial}
+            </Typography>
+
             <Typography
               variant="subtitle1"
               color="textSecondary"

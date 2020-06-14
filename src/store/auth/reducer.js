@@ -11,7 +11,7 @@ import {
 } from "./Constants";
 
 export const INITIAL_STATE = {
-  info: null,
+  info: true,
   loading: false,
   error: {
     flag: false,

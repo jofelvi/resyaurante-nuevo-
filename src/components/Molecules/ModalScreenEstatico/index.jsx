@@ -73,6 +73,7 @@ export default function FullScreenDialog({
       nombre: menuItem.nombre,
       base: selectBases.nombre ? selectBases.nombre : "Sin base",
       extras: selectExtras,
+      cantidad: 1,
     };
     const productoslista = [...listaProducts, menuNuevo];
 

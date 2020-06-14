@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 import NavBar from "./NavBar";
 import SideNav from "./SideNav";
 
@@ -8,6 +8,7 @@ import styles from "./styles";
 const Layout = ({ children, profile }) => {
   const classes = styles();
 
+  const auth = useSelector((state) => state.auth.info);
   let [mobileOpen, setMobileOpen] = React.useState(false);
 
   function handleOpenSideNav() {
@@ -18,7 +19,7 @@ const Layout = ({ children, profile }) => {
     <div className={classes.root}>
       <NavBar
         handleOpenSideNav={handleOpenSideNav}
-        userProfile={"carlos matute"}
+        userProfile={auth.userName}
       />
       <SideNav open={mobileOpen} handleOpen={handleOpenSideNav} />
 

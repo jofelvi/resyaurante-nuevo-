@@ -9,6 +9,7 @@ import {
   SET_LISTAPEDIDOSPENDIENTES,
   GET_LISTAPEDIDOSPENDIENTES,
   GET_PRODUCTSDETAILS,
+  EDIT_LISTA_PRODUCTOS,
 } from "./Constants";
 
 const initialState = {
@@ -70,6 +71,14 @@ export default function (state = initialState, { type, payload }) {
         loading: false,
         menudinamicoorden: payload.products,
         productsCuenta: payload.costoTotal,
+      };
+    }
+    case EDIT_LISTA_PRODUCTOS: {
+      return {
+        ...state,
+        menudinamicoorden: payload.new,
+        listaProducts: payload.old,
+        productsCuenta: payload.total,
       };
     }
     case GET_PRODUCTSDETAILS: {

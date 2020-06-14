@@ -357,7 +357,7 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     }
 
     const pedidoDinamico = {
-      precioUnitario: selectBowl.precioUnitario,
+      precioUnitario: `${selectBowl.precioUnitario}`,
       nombre: `Bowl ${selectBowl.plato}`,
       bases: selectBases.bases,
       proteina: selectBases.proteina.nombre,
@@ -368,6 +368,7 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
       topping: toppings,
       ending: endings,
       extra: extras,
+      cantidad: 1,
     };
 
     setopcioneRequeridas({

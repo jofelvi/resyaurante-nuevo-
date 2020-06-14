@@ -69,6 +69,7 @@ const MenuList = () => {
       precioUnitario: prod.precioUnitario ? prod.precioUnitario : prod.precio,
       categories: prod.categories,
       nombre: prod.nombre,
+      cantidad: 1,
     };
     const productoslista = [...listaProducts, menuNuevo];
 
@@ -78,8 +79,8 @@ const MenuList = () => {
   let gridSize = {
     xs: 12,
     sm: 6,
-    md: 4,
-    lg: 4,
+    md: 5,
+    lg: 5,
     xl: 4,
   };
 

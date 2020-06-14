@@ -13,6 +13,7 @@ import {
   SET_LISTAPEDIDOSPENDIENTES,
   GET_LISTAPEDIDOSPENDIENTES,
   GET_PRODUCTSDETAILS,
+  EDIT_LISTA_PRODUCTOS,
 } from "./Constants";
 
 export const getListaPedidos = () => (dispatch) => {
@@ -36,6 +37,32 @@ export const getListaPedidos = () => (dispatch) => {
   dispatch({
     type: ADDALACUENTA_END,
   });
+};
+
+export const eliminarListaProductos = (
+  listaProductosOld,
+  nueva,
+  method,
+  total
+) => (dispatch) => {
+  if (method === "dinamico") {
+    dispatch({
+      type: EDIT_LISTA_PRODUCTOS,
+      payload: {
+        old: listaProductosOld,
+        new: nueva,
+      },
+    });
+  } else {
+    dispatch({
+      type: EDIT_LISTA_PRODUCTOS,
+      payload: {
+        old: nueva,
+        new: listaProductosOld,
+        total: total,
+      },
+    });
+  }
 };
 
 export const verproductodetails = (statico, dinamico, precio, id) => (

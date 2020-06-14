@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 // Material UI
 import {
@@ -28,9 +29,14 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const dispatch = useDispatch();
+
+  const [redireccionar, setredireccionar] = useState(false);
   const signOut = async () => {
-    await dispatch(signOut());
-    history.push("/sign-in");
+    // dispatch(signOut());
+    // localStorage.removeItem("user");
+    localStorage.removeItem("user");
+    setredireccionar(true);
+    // history.push("/sign-in");
   };
 
   const renderMenu = (
@@ -48,7 +54,7 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
         <PersonOutline className={classes.icon} />
         Mi perfil
       </MenuItem>
-      <MenuItem onClick={signOut}>
+      <MenuItem onClick={() => signOut()}>
         <PowerSettingsNew className={classes.icon} />
         Cerrar sesión
       </MenuItem>
@@ -64,38 +70,54 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
   }
 
   return (
-    <AppBar position="fixed" color="inherit" className={classes.grow}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="Open drawer"
-          edge="start"
-          onClick={handleOpenSideNav}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" noWrap>
-          Restaurant System
-        </Typography>
-        <div className={classes.grow} />
-        <div className={classes.menu}>
-          <Button
-            onClick={handleOpenMenu}
+    <Fragment>
+      <AppBar position="fixed" color="inherit" className={classes.grow}>
+        <Toolbar>
+          <IconButton
             color="inherit"
-            className={classes.user}
+            aria-label="Open drawer"
+            edge="start"
+            onClick={handleOpenSideNav}
+            className={classes.menuButton}
           >
-            {/* <Avatar className={classes.avatar}>E</Avatar> */}
-            <Typography variant="subtitle2" noWrap className={classes.username}>
-              {/* {userProfile.firstName} {userProfile.lastName} */}
-              {userProfile}
-            </Typography>
-            <ExpandMore className={classes.arrow} />
-          </Button>
-        </div>
-        {renderMenu}
-      </Toolbar>
-    </AppBar>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Restaurant System
+          </Typography>
+          <div className={classes.grow} />
+          <div className={classes.menu}>
+            <Button
+              onClick={handleOpenMenu}
+              color="inherit"
+              className={classes.user}
+            >
+              {/* <Avatar className={classes.avatar}>E</Avatar> */}
+              <Typography
+                variant="subtitle2"
+                noWrap
+                className={classes.username}
+              >
+                {/* {userProfile.firstName} {userProfile.lastName} */}
+                {userProfile}
+              </Typography>
+              <ExpandMore className={classes.arrow} />
+            </Button>
+          </div>
+          {renderMenu}
+        </Toolbar>
+      </AppBar>
+
+      {redireccionar ? (
+        <Redirect
+          to={{
+            pathname: "/sign-in",
+          }}
+        />
+      ) : (
+        ""
+      )}
+    </Fragment>
   );
 };
 

@@ -7,17 +7,22 @@ import { getProduct } from "../store/Products/actions";
 import { getCategories, getCategoriesMenu } from "../store/Categories/actions";
 import { getAddMenu } from "../store/AgregarMenu/actions";
 import { getListaPedidos } from "../store/agregaralaCuenta/actions";
+import { fetchuserlogin } from "../store/auth/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const userlocalstorage = localStorage.getItem("user");
+
   useEffect(() => {
-    if (auth.info) {
+    if (auth.info !== "") {
       dispatch(getProduct());
       dispatch(getCategories());
       dispatch(getCategoriesMenu());
       dispatch(getAddMenu());
       dispatch(getListaPedidos());
+    } else if (auth.info === "") {
+      dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }
   }, [auth.info, dispatch]);
 

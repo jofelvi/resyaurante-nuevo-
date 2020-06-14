@@ -38,9 +38,9 @@ const ProductList = () => {
   let gridSize = {
     xs: 12,
     sm: 6,
-    md: 3,
-    lg: 3,
-    xl: 2,
+    md: 5,
+    lg: 4,
+    xl: 4,
   };
 
   const menuarray = (producto) => {

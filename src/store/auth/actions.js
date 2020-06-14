@@ -1,8 +1,4 @@
-import {
-  authRef,
-  // singleUserRef,
-  FIREBASE_AUTH_PERSIST,
-} from "../../config/firebase";
+import { authRef, FIREBASE_AUTH_PERSIST } from "../../config/firebase";
 import * as firebase from "firebase";
 import {
   USER_SIGN_IN,
@@ -15,21 +11,37 @@ import {
   USER_SIGN_IN_SUCCESS,
 } from "./Constants";
 
+export const fetchuserlogin = (usuariologueado) => async (dispatch) => {
+  await dispatch({
+    type: USER_SIGN_IN_SUCCESS,
+    payload: usuariologueado,
+  });
+};
+
 export const signIn = (username, password) => (dispatch) => {
   dispatch({
     type: USER_SIGN_IN,
     payload: null,
   });
+
   authRef
     .setPersistence(FIREBASE_AUTH_PERSIST)
     .then(function () {
       authRef
         .signInWithEmailAndPassword(username, password)
+        // .signInWithEmailAndPassword("kelon@gmail.com", "123456")
         .then((user) => {
+          const usuariologueado = {
+            email: user.user.email,
+            userName: user.user.displayName,
+          };
+
+          localStorage.setItem("user", JSON.stringify(usuariologueado));
           dispatch({
             type: USER_SIGN_IN_SUCCESS,
-            payload: user,
+            payload: usuariologueado,
           });
+
           dispatch({
             type: END_LOADING,
             payload: null,

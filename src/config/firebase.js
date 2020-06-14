@@ -9,6 +9,9 @@ const databaseRef = firebase.database().ref();
 export const authRef = firebase.auth();
 
 export const FIREBASE_AUTH_PERSIST = firebase.auth.Auth.Persistence.LOCAL;
+
+export const userRef = databaseRef.child("users/");
+
 export const productsRef = databaseRef.child("products/");
 export const productsEditRef = (id) => databaseRef.child("products/" + id);
 
