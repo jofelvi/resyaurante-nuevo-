@@ -8,6 +8,7 @@ import "@sandstreamdev/react-swipeable-list/dist/styles.css";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import { useDispatch, useSelector } from "react-redux";
+import { ExpandMore } from "@material-ui/icons";
 
 // Material UI
 import { Typography, Button } from "@material-ui/core";
@@ -18,9 +19,14 @@ import {
 import styles from "./styles";
 
 import ModalScreenProducto from "../../Molecules/ModalScreenProdcuto";
+import MenuOptionsPedidos from "../../Molecules/MenuOptionsPedidos";
 
 const AllTables = () => {
   const classes = styles();
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
 
   const dispatch = useDispatch();
   let productosAll = useSelector((state) => state.addcuenta.listaProducts);
@@ -225,15 +231,25 @@ const AllTables = () => {
 
   return (
     <div className={classes.root}>
-      <div className={`${classes.header} d-flex justify-content-between`}>
+      <div
+        className={`${classes.header} d-flex justify-content-between align-items-center`}
+      >
         <Typography variant="subtitle2" color="primary">
           Lista de Productos
         </Typography>
-        <Typography variant="subtitle2" color="primary">
-          {`$ ${precioAcumulado}`}
-        </Typography>
+        <Button
+          onClick={handleChange}
+          style={{
+            color: "#1e3a56",
+            padding: 0,
+            margin: 0,
+          }}
+          className="d-flex justify-content-center"
+        >
+          <ExpandMore />
+        </Button>
       </div>
-      <div className={classes.filtersContainer}>
+      <div>
         {alertPedido.alertSuccess !== "" ? (
           <div
             className={`alert alert-danger text-center my-4 col-12`}
@@ -244,6 +260,9 @@ const AllTables = () => {
         ) : (
           ""
         )}
+
+        <MenuOptionsPedidos checked={checked} />
+
         {productosAllPedido.map((item, index) => (
           <SwipeableList key={index}>
             <SwipeableListItem
@@ -277,6 +296,14 @@ const AllTables = () => {
             </SwipeableListItem>
           </SwipeableList>
         ))}
+        <div className={`${classes.header} d-flex justify-content-between`}>
+          <Typography variant="subtitle2" color="primary">
+            Total
+          </Typography>
+          <Typography variant="subtitle2" color="primary">
+            {`$ ${precioAcumulado}`}
+          </Typography>
+        </div>
       </div>
 
       <ModalScreenProducto

@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
     },
   },
   filtersContainer: {
-    padding: theme.spacing(4),
+    // padding: theme.spacing(4),
   },
   formControlLabel: {
     width: "100%",
