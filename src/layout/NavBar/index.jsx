@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 // Material UI
@@ -28,15 +27,11 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const dispatch = useDispatch();
 
   const [redireccionar, setredireccionar] = useState(false);
   const signOut = async () => {
-    // dispatch(signOut());
-    // localStorage.removeItem("user");
     localStorage.removeItem("user");
     setredireccionar(true);
-    // history.push("/sign-in");
   };
 
   const renderMenu = (

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // Material UI
 import { Grid } from "@material-ui/core";
@@ -11,7 +11,6 @@ import TableProduct from "./table";
 const FormIngredientes = () => {
   const dataProducts = useSelector((state) => state.products);
 
-  const dataCategories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({

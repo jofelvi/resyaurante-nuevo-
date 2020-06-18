@@ -10,6 +10,9 @@ import CategoryFilterMenu from "./CategoryFilterMenu";
 import Pedidos from "./Pedidos";
 import PedidosAllTable from "./PedidosAllTable";
 import ListaOrdenes from "./ListaPedidos";
+import CalculadoraListPedidos from "./CalculadoraListPedidos";
+import Calculadora from "./Calculadora";
+import TableOrdenPagar from "./TableOrdenPagar";
 
 export {
   CategoryFilter,
@@ -24,4 +27,7 @@ export {
   Pedidos,
   PedidosAllTable,
   ListaOrdenes,
+  CalculadoraListPedidos,
+  Calculadora,
+  TableOrdenPagar,
 };

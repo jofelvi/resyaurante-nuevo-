@@ -3,14 +3,16 @@ import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
   root: {
-    // width: "100%",
-    width: 80,
+    width: "100%",
+    minWidth: 230,
+    maxWidth: 230,
     height: "100%",
-    // [theme.breakpoints.up("xs")]: {
-    //   marginRight: theme.spacing(2),
-    // },
-    padding: 0,
-    margin: 0,
+    [theme.breakpoints.up("xs")]: {
+      marginRight: theme.spacing(2),
+    },
+    border: `1px solid #e2e2e2`,
+    borderRadius: 8,
+    marginLeft: 5,
   },
   header: {
     display: "flex",
@@ -26,10 +28,7 @@ export default makeStyles((theme) => ({
     },
   },
   filtersContainer: {
-    padding: 0,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    // padding: theme.spacing(4),
   },
   formControlLabel: {
     width: "100%",

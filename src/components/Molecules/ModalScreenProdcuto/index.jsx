@@ -10,8 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 
-import { useDispatch } from "react-redux";
-
 import DialogContent from "@material-ui/core/DialogContent";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +32,6 @@ export default function FullScreenDialog({
   menuItem = [],
 }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const [menuproducto, setmenuproducto] = useState(menuItem);
 

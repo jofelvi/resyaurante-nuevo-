@@ -8,7 +8,6 @@ import "@sandstreamdev/react-swipeable-list/dist/styles.css";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import { useDispatch, useSelector } from "react-redux";
-import { ExpandMore, Payment, EuroSymbol } from "@material-ui/icons";
 
 // Material UI
 import { Typography, Button } from "@material-ui/core";
@@ -51,7 +50,15 @@ const AllTables = () => {
     alertSuccess: "",
   });
 
-  const productosAllPedido = [...productosAll, ...productosDinamicosPedido];
+  const productosAllPedido = [
+    { precioUnitario: 2, nombre: "manteca" },
+    { precioUnitario: 2, nombre: "manteca" },
+    { precioUnitario: 2, nombre: "manteca" },
+    { precioUnitario: 2, nombre: "manteca" },
+    { precioUnitario: 2, nombre: "manteca" },
+  ];
+
+  // [...productosAll, ...productosDinamicosPedido];
 
   const eliminarProductolist = (prod) => {
     if (prod.bases) {
@@ -220,37 +227,13 @@ const AllTables = () => {
   return (
     <div className={classes.root}>
       <div
-        className={`${classes.header} d-flex justify-content-between align-items-center`}
+        className={`${classes.header} d-flex justify-content-start align-items-center`}
       >
         <Typography variant="subtitle2" color="primary">
           Lista de Productos
         </Typography>
-        <Button
-          onClick={handleChange}
-          style={{
-            color: "#1e3a56",
-            padding: 0,
-            margin: 0,
-          }}
-          className="d-flex justify-content-center"
-        >
-          <ExpandMore />
-        </Button>
       </div>
       <div>
-        {alertPedido.alertSuccess !== "" ? (
-          <div
-            className={`alert alert-danger text-center my-4 col-12`}
-            role="alert"
-          >
-            {alertPedido.alertSuccess}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <MenuOptionsPedidos checked={checked} />
-
         {productosAllPedido.map((item, index) => (
           <SwipeableList key={index}>
             <SwipeableListItem
@@ -275,7 +258,7 @@ const AllTables = () => {
                 onClick={() => setopenProducto({ menuItem: item, open: true })}
               >
                 <Typography variant="body1" color="textPrimary" align="left">
-                  {item.nombre}
+                  1 x {item.nombre}
                 </Typography>
                 <Typography variant="body1" color="textPrimary" align="left">
                   {item.precioUnitario}
@@ -301,50 +284,6 @@ const AllTables = () => {
         handleClose={handleClose}
         menuItem={openProducto.menuItem}
       />
-
-      <Fragment>
-        <div className="d-flex justify-content-between border-bottom mx-2">
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "efectivo")
-            }
-            className="btn btn-sm py-3 d-flex flex-column align-items-center"
-          >
-            <EuroSymbol />
-            Efectivo
-          </button>
-          <button
-            onClick={() =>
-              editarPedido(
-                detailspedidos ? "editar" : "agregar",
-                "tarjeta de credito"
-              )
-            }
-            className="btn btn-sm py-3 d-flex flex-column align-items-center"
-          >
-            <Payment />
-            Tarjeta de credito
-          </button>
-        </div>
-        <div className="d-flex justify-content-between mx-2">
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "cobrar")
-            }
-            className="btn btn-sm py-3 text-primary "
-          >
-            Cobrar
-          </button>
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "enviar")
-            }
-            className="btn btn-sm py-3 text-success"
-          >
-            Enviar
-          </button>
-        </div>
-      </Fragment>
     </div>
   );
 };

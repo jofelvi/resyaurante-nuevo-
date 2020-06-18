@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
   root: {
-    width: 100,
+    width: 80,
     height: "100%",
-    [theme.breakpoints.up("xs")]: {
-      marginRight: theme.spacing(2),
-    },
+    // [theme.breakpoints.up("xs")]: {
+    //   marginRight: theme.spacing(2),
+    // },
   },
   header: {
     display: "flex",
@@ -23,7 +23,7 @@ export default makeStyles((theme) => ({
     },
   },
   filtersContainer: {
-    padding: theme.spacing(4),
+    padding: 0,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",

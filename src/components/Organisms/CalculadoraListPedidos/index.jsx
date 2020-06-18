@@ -2,8 +2,8 @@ import React, { useState, Fragment, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { editcategorie } from "../../../store/Categories/actions";
-import { filterProducts } from "../../../store/Products/actions";
+import { editcategorieMenu } from "../../../store/Categories/actions";
+import { filterMenu } from "../../../store/AgregarMenu/actions";
 
 import { Tooltip, Button } from "@material-ui/core";
 
@@ -13,20 +13,24 @@ const AllTables = ({ data, posicion }) => {
   const classes = styles();
 
   const dispatch = useDispatch();
-  const productosAll = useSelector((state) => state.products.products);
+  const productosAllmenu = useSelector((state) => state.addmenu.addmenu);
+  const productosIngredientes = useSelector((state) => state.products.products);
+
+  const filterIngredientes = productosIngredientes.filter(
+    (item) =>
+      item.categories === "Bebidas" ||
+      item.categories === "Postres" ||
+      item.categories === "Extras"
+  );
+  const productosAll = [...filterIngredientes, ...productosAllmenu];
 
   const [filterFil, setFilterFil] = useState({
     productosAllFilter: "All",
     checked: false,
   });
   useEffect(() => {
-    dispatch(filterProducts(productosAll, filterFil.productosAllFilter));
+    dispatch(filterMenu(productosAll, filterFil.productosAllFilter));
   });
-
-  // const [state, setState] = React.useState({
-  //   checkedA: false,
-  //   happy: false,
-  // });
 
   const [newCategoria, setNuevaCategoria] = useState({
     agregar: false,
@@ -51,19 +55,13 @@ const AllTables = ({ data, posicion }) => {
     }, 2500);
   };
 
-  // const handleChange = (name) => (event) => {
-  //   setState({ ...state, [name]: event.target.checked });
-  // };
-
   const addCategorie = (e) => {
-    // e.preventDefault();
-
     const { nombreCategoria } = newCategoria;
 
     if (nombreCategoria === "") {
       return;
     }
-    dispatch(editcategorie({ nombre: nombreCategoria }, "Add"));
+    dispatch(editcategorieMenu({ nombre: nombreCategoria }, "Add"));
     crearAlertaExito("Se a creado la categoria con exito");
   };
 
@@ -164,7 +162,7 @@ const AllTables = ({ data, posicion }) => {
       )}
 
       {!newCategoria.agregar && posicion ? (
-        <div className="d-flex justify-content-center my-3">
+        <div className="d-flex justify-content-center my-3 mr-2">
           <button
             onClick={() =>
               setNuevaCategoria({
