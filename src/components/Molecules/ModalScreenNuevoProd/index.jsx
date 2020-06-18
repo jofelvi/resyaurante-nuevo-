@@ -48,7 +48,7 @@ export default function FullScreenDialog({
     <div>
       <Dialog
         fullWidth={true}
-        maxWidth="md"
+        maxWidth="xs"
         open={openModal}
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
@@ -71,7 +71,7 @@ export default function FullScreenDialog({
               <Button
                 autoFocus
                 color="inherit"
-                style={{ fontSize: 18, marginLeft: 10 }}
+                style={{ fontSize: 16, marginLeft: 10 }}
                 onClick={
                   form.nuevo === true ? crearNuevoProducto : editarProducts
                 }
@@ -88,7 +88,7 @@ export default function FullScreenDialog({
                 <Grid item md={12}>
                   <div className="row justify-content-center">
                     <form
-                      className="my-4  col-md-6"
+                      className="my-4  col-12"
                       // onSubmit={}
                     >
                       <div className="form-row justify-content-center">

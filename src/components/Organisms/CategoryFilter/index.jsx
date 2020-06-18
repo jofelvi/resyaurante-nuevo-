@@ -1,6 +1,10 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import List from "@material-ui/core/List";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
 
 import { editcategorie } from "../../../store/Categories/actions";
 import { filterProducts } from "../../../store/Products/actions";
@@ -133,9 +137,18 @@ const AllTables = ({ data, posicion }) => {
         ""
       )}
 
-      {newCategoria.agregar ? (
-        <Fragment>
-          <div className="form-group col-md-12">
+      <Dialog
+        onClose={() => {
+          setNuevaCategoria({ ...newCategoria, agregar: false });
+        }}
+        aria-labelledby="simple-dialog-title"
+        open={newCategoria.agregar}
+      >
+        <DialogTitle id="simple-dialog-title">
+          Agregar Nueva Categoria
+        </DialogTitle>
+        <List>
+          <div className="form-group col-md-12 d-flex flex-column">
             <label for="inputZip">Nombre</label>
             <input
               type="text"
@@ -158,10 +171,8 @@ const AllTables = ({ data, posicion }) => {
               Agregar
             </button>
           </div>
-        </Fragment>
-      ) : (
-        ""
-      )}
+        </List>
+      </Dialog>
 
       {!newCategoria.agregar && posicion ? (
         <div className="d-flex justify-content-center my-3">
