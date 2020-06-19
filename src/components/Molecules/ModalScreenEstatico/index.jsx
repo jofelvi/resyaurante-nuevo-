@@ -64,6 +64,8 @@ export default function FullScreenDialog({
     setselectBases(extra);
   };
 
+  const [menuproducto, setmenuproducto] = useState(menuItem);
+
   const siguientesModal = () => {
     const menuNuevo = {
       precioUnitario: menuItem.precioUnitario
@@ -73,12 +75,36 @@ export default function FullScreenDialog({
       nombre: menuItem.nombre,
       base: selectBases.nombre ? selectBases.nombre : "Sin base",
       extras: selectExtras,
-      cantidad: 1,
+      cantidad: menuproducto.cantidad ? menuproducto.cantidad : 1,
+      comentario: menuproducto.comentario ? menuproducto.comentario : "",
     };
     const productoslista = [...listaProducts, menuNuevo];
 
     dispatch(addProductosCosto(productoslista, costosAddCuenta, menuNuevo));
     handleClose();
+  };
+
+  const mas = () => {
+    setmenuproducto({
+      ...menuItem,
+      cantidad: menuproducto.cantidad ? Number(menuproducto.cantidad) + 1 : 1,
+    });
+  };
+  const menos = () => {
+    setmenuproducto({
+      ...menuproducto,
+      cantidad: menuproducto.cantidad
+        ? menuproducto.cantidad !== 1
+          ? Number(menuproducto.cantidad) - 1
+          : 1
+        : 1,
+    });
+  };
+  const agregarComentario = (e) => {
+    setmenuproducto({
+      ...menuproducto,
+      comentario: e,
+    });
   };
 
   return (
@@ -91,28 +117,50 @@ export default function FullScreenDialog({
         aria-labelledby="max-width-dialog-title"
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
+        {/* <AppBar className={classes.appBar}> */}
+        <div className="d-flex justify-content-between align-items-center col-12 py-2 px-4">
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h5" className={classes.title}>
+            {menuItem.nombre}
+          </Typography>
+
+          <div className="d-flex align-items-center">
+            <Button
+              autoFocus
               color="inherit"
-              onClick={handleClose}
-              aria-label="close"
+              style={{ fontSize: 20 }}
+              onClick={menos}
             >
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              {menuItem.nombre}
-            </Typography>
-            <Button autoFocus color="inherit" onClick={siguientesModal}>
-              Aceptar
+              -
             </Button>
-          </Toolbar>
-        </AppBar>
-        <DialogContent>
-          <div className="justify-content-center col-12">
+            <Typography variant="h6" className={classes.title}>
+              {menuproducto.cantidad ? menuproducto.cantidad : 1}
+            </Typography>
+            <Button
+              autoFocus
+              color="inherit"
+              style={{ fontSize: 20, marginLeft: 10 }}
+              onClick={mas}
+            >
+              +
+            </Button>
+          </div>
+          {/* <Button autoFocus color="inherit" onClick={siguientesModal}>
+            Aceptar
+          </Button> */}
+        </div>
+        {/* </AppBar> */}
+        <DialogContent className="p-0">
+          <div className="justify-content-center col-12 bg-light">
             <List>
-              <div className="row p-4">
+              {/* <div className="row p-4">
                 <div className="col-12">
                   <Typography variant="h5" className={classes.title}>
                     Ingredientes:
@@ -129,8 +177,8 @@ export default function FullScreenDialog({
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="row p-4">
+              </div> */}
+              <div className="row p-0">
                 <div className="col-12">
                   <Typography variant="h5" className={classes.title}>
                     Elige un acompañante:
@@ -138,20 +186,24 @@ export default function FullScreenDialog({
                 </div>
                 <div className="col-12 d-flex mt-2 flex-wrap">
                   {productsBase.map((item, index) => (
-                    <div key={index} className="form-group col-4">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e) =>
-                              handleChangeCheckboxBases(item, e.target.checked)
-                            }
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={`${item.nombre}  $${item.precioUnitario}`}
-                      />
+                    <div
+                      key={index}
+                      className="form-group btn col-4 p-1 border-0"
+                      onChange={(e) =>
+                        handleChangeCheckboxBases(item, e.target.checked)
+                      }
+                    >
+                      <div
+                        className="border d-flex justify-content-center align-items-center"
+                        style={{
+                          height: 70,
+                          width: "100%",
+                          borderRadius: 12,
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.nombre} $ {item.precioUnitario}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -164,22 +216,53 @@ export default function FullScreenDialog({
                 </div>
                 <div className="col-12 d-flex mt-2 flex-wrap">
                   {IngredientesExtras.map((item, index) => (
-                    <div key={index} className="form-group col-4">
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            // checked={state.checkedB}
-                            onChange={(e) =>
-                              handleChangeCheckbox(item, e.target.checked)
-                            }
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={`${item.nombre}  $${item.precioUnitario}`}
-                      />
+                    <div
+                      key={index}
+                      className="form-group btn col-4 p-1 border-0"
+                      onChange={(e) =>
+                        handleChangeCheckbox(item, e.target.checked)
+                      }
+                    >
+                      <div
+                        className="border d-flex justify-content-center align-items-center"
+                        style={{
+                          height: 70,
+                          width: "100%",
+                          borderRadius: 12,
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.nombre} $ {item.precioUnitario}
+                      </div>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className="col-12 p-4">
+                <div className="col-12">
+                  <Typography variant="h5" className={classes.title}>
+                    Comentario:
+                  </Typography>
+
+                  <textarea
+                    style={{
+                      width: "100%",
+                      minHeight: 100,
+                      maxHeight: 100,
+                      backgroundColor: "#fff",
+                      borderRadius: 8,
+                      padding: 15,
+                    }}
+                    onChange={(e) => agregarComentario(e.target.value)}
+                  ></textarea>
+                </div>
+                <div
+                  className="col-12 d-flex mt-2 p-2 btn btn-primary justify-content-center"
+                  onClick={siguientesModal}
+                >
+                  Agregar {menuproducto.cantidad ? menuproducto.cantidad : 1}{" "}
+                  {menuItem.nombre}
                 </div>
               </div>
             </List>

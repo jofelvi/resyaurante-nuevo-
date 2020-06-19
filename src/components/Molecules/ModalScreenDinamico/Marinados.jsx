@@ -37,7 +37,7 @@ export default function FullScreenDialog({
   );
 
   return (
-    <ExpansionPanel>
+    <ExpansionPanel className="bg-light">
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

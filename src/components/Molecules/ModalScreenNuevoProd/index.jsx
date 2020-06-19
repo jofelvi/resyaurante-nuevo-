@@ -54,35 +54,37 @@ export default function FullScreenDialog({
         aria-labelledby="max-width-dialog-title"
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
+        <div className="d-flex justify-content-between align-items-center col-12 py-2 px-4">
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => handleClose(menuproducto)}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Agregar nuevo Ingrediente
+          </Typography>
+          <div className="d-flex align-items-center">
+            <Button
+              autoFocus
               color="inherit"
-              onClick={() => handleClose(menuproducto)}
-              aria-label="close"
+              style={{ fontSize: 16, marginLeft: 10 }}
+              onClick={
+                form.nuevo === true ? crearNuevoProducto : editarProducts
+              }
             >
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Agregar nuevo Ingrediente
-            </Typography>
-            <div className="d-flex align-items-center">
-              <Button
-                autoFocus
-                color="inherit"
-                style={{ fontSize: 16, marginLeft: 10 }}
-                onClick={
-                  form.nuevo === true ? crearNuevoProducto : editarProducts
-                }
-              >
-                {form.nuevo ? "Agregar" : "Editar"}
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-        <DialogContent>
-          <div className="justify-content-center col-12">
+              {form.nuevo ? "Agregar" : "Editar"}
+            </Button>
+          </div>
+          {/* <Button autoFocus color="inherit" onClick={siguientesModal}>
+            Aceptar
+          </Button> */}
+        </div>
+
+        <DialogContent className="p-0">
+          <div className="justify-content-center col-12 bg-light">
             <List>
               <div className="row p-4">
                 <Grid item md={12}>

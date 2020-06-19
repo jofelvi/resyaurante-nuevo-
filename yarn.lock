@@ -9762,6 +9762,11 @@ react-app-polyfill@^1.0.2:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-calculator@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-calculator/-/react-calculator-0.0.2.tgz#d2a4ebd62ddde1cdaab00ec731871e5b4f50db6e"
+  integrity sha1-0qTr1i3d4c2qsA7HMYceW09Q224=
+
 react-dev-utils@^9.0.3:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"

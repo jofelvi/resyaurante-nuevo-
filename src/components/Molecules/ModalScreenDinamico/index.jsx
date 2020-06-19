@@ -299,6 +299,11 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     topping: "",
     ending: "",
   });
+
+  const [menuproducto, setmenuproducto] = useState({
+    cantidad: 1,
+    comentario: "",
+  });
   const siguientesModal = () => {
     let toppings = selectTopping.topping.map((item) => item.nombre);
     let endings = selectEnding.ending.map((item) => item.nombre);
@@ -368,7 +373,8 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
       topping: toppings,
       ending: endings,
       extra: extras,
-      cantidad: 1,
+      cantidad: menuproducto.cantidad ? menuproducto.cantidad : 1,
+      comentario: menuproducto.comentario ? menuproducto.comentario : "",
     };
 
     setopcioneRequeridas({
@@ -389,6 +395,29 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     handleClose();
   };
 
+  const mas = () => {
+    setmenuproducto({
+      ...menuproducto,
+      cantidad: menuproducto.cantidad ? Number(menuproducto.cantidad) + 1 : 1,
+    });
+  };
+  const menos = () => {
+    setmenuproducto({
+      ...menuproducto,
+      cantidad: menuproducto.cantidad
+        ? menuproducto.cantidad !== 1
+          ? Number(menuproducto.cantidad) - 1
+          : 1
+        : 1,
+    });
+  };
+  const agregarComentario = (e) => {
+    setmenuproducto({
+      ...menuproducto,
+      comentario: e,
+    });
+  };
+
   return (
     <div>
       <Dialog
@@ -399,27 +428,43 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
         aria-labelledby="max-width-dialog-title"
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Diseña tu Bowl
-            </Typography>
-            <Button autoFocus color="inherit" onClick={siguientesModal}>
-              Aceptar
-            </Button>
-          </Toolbar>
-        </AppBar>
+        <div className="d-flex justify-content-between align-items-center col-12 py-2 px-4">
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h5" className={classes.title}>
+            Diseña tu Bowl
+          </Typography>
 
-        <div className={classes.root}>
-          <ExpansionPanel>
+          <div className="d-flex align-items-center">
+            <Button
+              autoFocus
+              color="inherit"
+              style={{ fontSize: 20 }}
+              onClick={menos}
+            >
+              -
+            </Button>
+            <Typography variant="h6" className={classes.title}>
+              {menuproducto.cantidad ? menuproducto.cantidad : 1}
+            </Typography>
+            <Button
+              autoFocus
+              color="inherit"
+              style={{ fontSize: 20, marginLeft: 10 }}
+              onClick={mas}
+            >
+              +
+            </Button>
+          </div>
+        </div>
+        <div className={`${classes.root} bg-light`}>
+          <ExpansionPanel className="bg-light">
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -483,6 +528,31 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
             tipoBowl={selectBowl.plato}
           />
           <ModalExtra handleChangeCheckboxExtras={handleChangeCheckboxExtras} />
+        </div>{" "}
+        <div className=" col-12 p-1 bg-light d-flex flex-column align-items-center">
+          <div className="col-11">
+            <Typography variant="h5" className={classes.title}>
+              Comentario:
+            </Typography>
+
+            <textarea
+              style={{
+                width: "100%",
+                minHeight: 100,
+                maxHeight: 100,
+                backgroundColor: "#fff",
+                borderRadius: 8,
+                padding: 15,
+              }}
+              onChange={(e) => agregarComentario(e.target.value)}
+            ></textarea>
+          </div>
+          <div
+            className="col-11 d-flex mt-2 p-2 btn btn-primary justify-content-center"
+            onClick={siguientesModal}
+          >
+            Agregar tu Bowl
+          </div>
         </div>
       </Dialog>
     </div>

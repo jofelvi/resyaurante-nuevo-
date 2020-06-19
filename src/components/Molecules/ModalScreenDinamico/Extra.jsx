@@ -34,7 +34,7 @@ export default function FullScreenDialog({ handleChangeCheckboxExtras }) {
   );
 
   return (
-    <ExpansionPanel>
+    <ExpansionPanel className="bg-light">
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

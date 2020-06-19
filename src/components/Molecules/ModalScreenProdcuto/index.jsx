@@ -68,44 +68,44 @@ export default function FullScreenDialog({
         aria-labelledby="max-width-dialog-title"
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
+        <div className="d-flex justify-content-between align-items-center col-12 py-2 px-4">
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => handleClose(menuproducto)}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h5" className={classes.title}>
+            {menuItem.nombre}
+          </Typography>
+
+          <div className="d-flex align-items-center">
+            <Button
+              autoFocus
               color="inherit"
-              onClick={() => handleClose(menuproducto)}
-              aria-label="close"
+              style={{ fontSize: 20 }}
+              onClick={menos}
             >
-              <CloseIcon />
-            </IconButton>
+              -
+            </Button>
             <Typography variant="h6" className={classes.title}>
-              {menuItem.nombre}
+              {menuproducto.cantidad ? menuproducto.cantidad : 1}
             </Typography>
-            <div className="d-flex align-items-center">
-              <Button
-                autoFocus
-                color="inherit"
-                style={{ fontSize: 20 }}
-                onClick={menos}
-              >
-                -
-              </Button>
-              <Typography variant="h6" className={classes.title}>
-                {menuproducto.cantidad ? menuproducto.cantidad : 1}
-              </Typography>
-              <Button
-                autoFocus
-                color="inherit"
-                style={{ fontSize: 20, marginLeft: 10 }}
-                onClick={mas}
-              >
-                +
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
+            <Button
+              autoFocus
+              color="inherit"
+              style={{ fontSize: 20, marginLeft: 10 }}
+              onClick={mas}
+            >
+              +
+            </Button>
+          </div>
+        </div>
+
         <DialogContent>
-          <div className="justify-content-center col-12">
+          <div className="justify-content-center col-12 bg-light">
             <List>
               <div className="row p-4">
                 <div className="col-12">
@@ -125,7 +125,13 @@ export default function FullScreenDialog({
                     onChange={(e) => agregarComentario(e.target.value)}
                   ></textarea>
                 </div>
-                <div className="col-12 d-flex mt-2 flex-wrap"></div>
+                {/* <div
+                  className="col-12 d-flex mt-2 p-2 btn btn-primary justify-content-center"
+                  onClick={siguientesModal}
+                >
+                  Agregar {menuproducto.cantidad ? menuproducto.cantidad : 1}{" "}
+                  {menuItem.nombre}
+                </div> */}
               </div>
             </List>
           </div>

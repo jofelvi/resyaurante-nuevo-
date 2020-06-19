@@ -40,8 +40,8 @@ export default function FullScreenDialog({
   );
 
   return (
-    <Fragment>
-      <ExpansionPanel>
+    <Fragment className="bg-light">
+      <ExpansionPanel className="bg-light">
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
@@ -90,7 +90,7 @@ export default function FullScreenDialog({
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel>
+      <ExpansionPanel className="bg-light">
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"

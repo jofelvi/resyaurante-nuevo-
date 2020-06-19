@@ -20,13 +20,11 @@ const styles = makeStyles({
 });
 const MenuList = () => {
   const classStyles = styles();
-  let gridSize = {
-    xs: 12,
-    sm: 6,
-    md: 5,
-    lg: 4,
-    xl: 4,
-  };
+
+  const borderRight =
+    "col-3 py-3 d-flex justify-content-center border-right rounded-0";
+  const paddingYjustify = "col-3 py-3 d-flex justify-content-center";
+  const borderBottom = "col-12 d-flex p-0 border-bottom";
 
   return (
     <Grid container>
@@ -55,91 +53,37 @@ const MenuList = () => {
             </p>
           </div>
         </div>
-        <div className="mt-3 border">
-          <div
-            className="col-12 d-flex p-0 border-bottom"
-            // style={{ border: `1px solid #b2b2b2` }}
-          >
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              C
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              /2
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              /3
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center ">
-              /
-            </Button>
+
+        <div className="mt-1 border">
+          <div className={borderBottom}>
+            <Button className={borderRight}>C</Button>
+            <Button className={borderRight}>/2</Button>
+            <Button className={borderRight}>/3</Button>
+            <Button className={paddingYjustify}>/</Button>
           </div>
-          <div
-            className="col-12 d-flex p-0 border-bottom"
-            // style={{ border: `1px solid #b2b2b2` }}
-          >
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              7
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              8
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              9
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center ">
-              x
-            </Button>
+          <div className={borderBottom}>
+            <Button className={borderRight}>7</Button>
+            <Button className={borderRight}>8</Button>
+            <Button className={borderRight}>9</Button>
+            <Button className={paddingYjustify}>x</Button>
           </div>
-          <div
-            className="col-12 d-flex p-0 border-bottom"
-            // style={{ border: `1px solid #b2b2b2` }}
-          >
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              4
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              5
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              6
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center ">
-              -
-            </Button>
+          <div className={borderBottom}>
+            <Button className={borderRight}>4</Button>
+            <Button className={borderRight}>5</Button>
+            <Button className={borderRight}>6</Button>
+            <Button className={paddingYjustify}>-</Button>
           </div>
-          <div
-            className="col-12 d-flex p-0 border-bottom"
-            // style={{ border: `1px solid #b2b2b2` }}
-          >
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              1
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0 ">
-              2
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              3
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center ">
-              +
-            </Button>
+          <div className={borderBottom}>
+            <Button className={borderRight}>1</Button>
+            <Button className={borderRight}>2</Button>
+            <Button className={borderRight}>3</Button>
+            <Button className={paddingYjustify}>+</Button>
           </div>
-          <div
-            className="col-12 p-0 d-flex"
-            // style={{ border: `1px solid #b2b2b2` }}
-          >
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              00
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              0
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center border-right rounded-0">
-              =
-            </Button>
-            <Button className="col-3 py-3 d-flex justify-content-center ">
-              #
-            </Button>
+          <div className="col-12 p-0 d-flex">
+            <Button className={borderRight}>00</Button>
+            <Button className={borderRight}>0</Button>
+            <Button className={borderRight}>=</Button>
+            <Button className={paddingYjustify}>#</Button>
           </div>
         </div>
       </div>
