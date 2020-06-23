@@ -5,11 +5,8 @@ import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
 // Organisms
-import {
-  Calculadora,
-  CalculadoraListPedidos,
-  TableOrdenPagar,
-} from "../../../components/Organisms";
+import { Calculadora, TableOrdenPagar } from "../../../components/Organisms";
+import MethodPayment from "../../../components/Molecules/methodPayment";
 
 const styles = makeStyles({
   root: {
@@ -25,7 +22,7 @@ const CalculadoraPago = () => {
     <section className={classes.root}>
       <TableOrdenPagar />
       <Calculadora />
-      <CalculadoraListPedidos data={data} posicion={true} icons={true} />
+      <MethodPayment />
     </section>
   );
 };

@@ -13,7 +13,7 @@ const styles = makeStyles({
     fontWeight: "bold",
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: "normal",
     textAlign: "end",
   },
@@ -35,7 +35,7 @@ const MenuList = () => {
             style={{ height: 70, border: `1px solid #b2b2b2` }}
           >
             <p className={classStyles.title} style={{ color: "#b2b2b2" }}>
-              Falta por Pagar
+              Por Pagar
             </p>
             <p className={classStyles.subtitle} style={{ color: "#b2b2b2" }}>
               291.20

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import {
   SwipeableListItem,
   SwipeableList,
@@ -6,19 +6,16 @@ import {
 
 import "@sandstreamdev/react-swipeable-list/dist/styles.css";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { Payment, EuroSymbol } from "@material-ui/icons";
 
 import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
 import { Typography, Button } from "@material-ui/core";
-import {
-  addListaPedidosPendientes,
-  eliminarListaProductos,
-} from "../../../store/agregaralaCuenta/actions";
+import { eliminarListaProductos } from "../../../store/agregaralaCuenta/actions";
 import styles from "./styles";
 
 import ModalScreenProducto from "../../Molecules/ModalScreenProdcuto";
-import MenuOptionsPedidos from "../../Molecules/MenuOptionsPedidos";
 
 const AllTables = () => {
   const classes = styles();
@@ -27,202 +24,144 @@ const AllTables = () => {
     setChecked((prev) => !prev);
   };
 
-  const dispatch = useDispatch();
-  let productosAll = useSelector((state) => state.addcuenta.listaProducts);
+  // const dispatch = useDispatch();
+  // let productosAll = useSelector((state) => state.addcuenta.listaProducts);
 
-  if (!productosAll) {
-    productosAll = [];
-  }
+  // if (!productosAll) {
+  //   productosAll = [];
+  // }
 
-  let productosDinamicosPedido = useSelector(
-    (state) => state.addcuenta.menudinamicoorden
+  // let productosDinamicosPedido = useSelector(
+  //   (state) => state.addcuenta.menudinamicoorden
+  // );
+  // if (!productosDinamicosPedido) {
+  //   productosDinamicosPedido = [];
+  // }
+  const precioPagado = useSelector(
+    (state) => state.listaPorPagar.productsPagados
   );
-  if (!productosDinamicosPedido) {
-    productosDinamicosPedido = [];
-  }
   const precioAcumulado = useSelector(
-    (state) => state.addcuenta.productsCuenta
+    (state) => state.listaPorPagar.productsCuenta
   );
 
-  const detailspedidos = useSelector((state) => state.addcuenta.detailspedido);
-  const idDetailsOrden = useSelector((state) => state.addcuenta.idDetailsOrden);
-  const [alertPedido, setalertPedido] = useState({
-    alertSuccess: "",
-  });
+  const productosAllPedido = useSelector(
+    (state) => state.listaPorPagar.listaProducts
+  );
 
-  const productosAllPedido = [
-    { precioUnitario: 2, nombre: "manteca" },
-    { precioUnitario: 2, nombre: "manteca" },
-    { precioUnitario: 2, nombre: "manteca" },
-    { precioUnitario: 2, nombre: "manteca" },
-    { precioUnitario: 2, nombre: "manteca" },
-  ];
+  // const eliminarProductolist = (prod) => {
+  //   if (prod.bases) {
+  //     const nuevoArrayDinamico = productosDinamicosPedido.filter(
+  //       (item) => item.nombre !== prod.nombre
+  //     );
 
-  // [...productosAll, ...productosDinamicosPedido];
+  //     const arrayall = [...nuevoArrayDinamico, ...productosAll];
 
-  const eliminarProductolist = (prod) => {
-    if (prod.bases) {
-      const nuevoArrayDinamico = productosDinamicosPedido.filter(
-        (item) => item.nombre !== prod.nombre
-      );
+  //     let total = 0;
+  //     for (const key in arrayall) {
+  //       total += arrayall[key].precioUnitario
+  //         ? Number(arrayall[key].precioUnitario)
+  //         : 0;
+  //       console.log(total);
+  //     }
 
-      const arrayall = [...nuevoArrayDinamico, ...productosAll];
+  //     dispatch(
+  //       eliminarListaProductos(
+  //         productosAll,
+  //         nuevoArrayDinamico,
+  //         "dinamico",
+  //         total
+  //       )
+  //     );
+  //   } else {
+  //     const nuevoArray = productosAll.filter(
+  //       (item) => item.nombre !== prod.nombre
+  //     );
 
-      let total = 0;
-      for (const key in arrayall) {
-        total += arrayall[key].precioUnitario
-          ? Number(arrayall[key].precioUnitario)
-          : 0;
-        console.log(total);
-      }
+  //     const arrayall = [...nuevoArray, ...productosDinamicosPedido];
 
-      dispatch(
-        eliminarListaProductos(
-          productosAll,
-          nuevoArrayDinamico,
-          "dinamico",
-          total
-        )
-      );
-    } else {
-      const nuevoArray = productosAll.filter(
-        (item) => item.nombre !== prod.nombre
-      );
+  //     let total = 0;
+  //     for (const key in arrayall) {
+  //       total += Number(arrayall[key].precioUnitario);
+  //       console.log(total);
+  //     }
 
-      const arrayall = [...nuevoArray, ...productosDinamicosPedido];
-
-      let total = 0;
-      for (const key in arrayall) {
-        total += Number(arrayall[key].precioUnitario);
-        console.log(total);
-      }
-
-      dispatch(
-        eliminarListaProductos(
-          productosDinamicosPedido,
-          nuevoArray,
-          "estatico",
-          total
-        )
-      );
-    }
-  };
-
-  const editarPedido = (e, method) => {
-    if (productosAllPedido.length === 0) {
-      setalertPedido({
-        alertSuccess: "Debe haber un producto agregado",
-      });
-
-      setTimeout(() => {
-        setalertPedido({
-          alertSuccess: "",
-        });
-      }, 2500);
-      return;
-    }
-    if (e === "agregar") {
-      const hora = new Date();
-      const pedido = {
-        status: "pendiente",
-        static: productosAll,
-        dinamic: productosDinamicosPedido,
-        precio: precioAcumulado,
-        method: method,
-        tiempoinicial:
-          hora.getHours() + ":" + hora.getMinutes() + ":" + hora.getSeconds(),
-      };
-
-      dispatch(addListaPedidosPendientes(pedido, "add"));
-    } else if (e === "editar") {
-      const hora = new Date();
-      const pedido = {
-        status: "aprovado",
-        static: productosAll,
-        dinamic: productosDinamicosPedido,
-        precio: precioAcumulado,
-        method: method,
-        id: idDetailsOrden,
-        tiempoinicial:
-          hora.getHours() + ":" + hora.getMinutes() + ":" + hora.getSeconds(),
-      };
-
-      dispatch(addListaPedidosPendientes(pedido, "editar"));
-    } else if (e === "cancelar") {
-      const pedido = {
-        id: idDetailsOrden,
-      };
-
-      dispatch(addListaPedidosPendientes(pedido, "eliminar"));
-    }
-  };
+  //     dispatch(
+  //       eliminarListaProductos(
+  //         productosDinamicosPedido,
+  //         nuevoArray,
+  //         "estatico",
+  //         total
+  //       )
+  //     );
+  //   }
+  // };
 
   const [openProducto, setopenProducto] = useState({
     open: false,
     menuItem: "",
   });
 
-  const handleClose = (prod) => {
-    if (prod.bases) {
-      const nuevoArrayDinamico = productosDinamicosPedido.filter(
-        (item) => item.nombre !== prod.nombre
-      );
-      nuevoArrayDinamico.push(prod);
+  // const handleClose = (prod) => {
+  //   if (prod.bases) {
+  //     const nuevoArrayDinamico = productosDinamicosPedido.filter(
+  //       (item) => item.nombre !== prod.nombre
+  //     );
+  //     nuevoArrayDinamico.push(prod);
 
-      const arrayall = [...nuevoArrayDinamico, ...productosAll];
+  //     const arrayall = [...nuevoArrayDinamico, ...productosAll];
 
-      let total = 0;
+  //     let total = 0;
 
-      for (const key in arrayall) {
-        let cantidad = arrayall[key].cantidad
-          ? Number(arrayall[key].cantidad)
-          : 1;
+  //     for (const key in arrayall) {
+  //       let cantidad = arrayall[key].cantidad
+  //         ? Number(arrayall[key].cantidad)
+  //         : 1;
 
-        total += Number(arrayall[key].precioUnitario) * cantidad;
-        console.log(total);
-      }
+  //       total += Number(arrayall[key].precioUnitario) * cantidad;
+  //       console.log(total);
+  //     }
 
-      dispatch(
-        eliminarListaProductos(
-          productosAll,
-          nuevoArrayDinamico,
-          "dinamico",
-          total
-        )
-      );
-    } else {
-      const nuevoArray = productosAll.filter(
-        (item) => item.nombre !== prod.nombre
-      );
-      nuevoArray.push(prod);
+  //     dispatch(
+  //       eliminarListaProductos(
+  //         productosAll,
+  //         nuevoArrayDinamico,
+  //         "dinamico",
+  //         total
+  //       )
+  //     );
+  //   } else {
+  //     const nuevoArray = productosAll.filter(
+  //       (item) => item.nombre !== prod.nombre
+  //     );
+  //     nuevoArray.push(prod);
 
-      const arrayall = [...nuevoArray, ...productosDinamicosPedido];
+  //     const arrayall = [...nuevoArray, ...productosDinamicosPedido];
 
-      let total = 0;
+  //     let total = 0;
 
-      for (const key in arrayall) {
-        let cantidad = arrayall[key].cantidad
-          ? Number(arrayall[key].cantidad)
-          : 1;
+  //     for (const key in arrayall) {
+  //       let cantidad = arrayall[key].cantidad
+  //         ? Number(arrayall[key].cantidad)
+  //         : 1;
 
-        total += Number(arrayall[key].precioUnitario) * cantidad;
-        console.log(total);
-      }
+  //       total += Number(arrayall[key].precioUnitario) * cantidad;
+  //       console.log(total);
+  //     }
 
-      dispatch(
-        eliminarListaProductos(
-          productosDinamicosPedido,
-          nuevoArray,
-          "estatico",
-          total
-        )
-      );
-    }
+  //     dispatch(
+  //       eliminarListaProductos(
+  //         productosDinamicosPedido,
+  //         nuevoArray,
+  //         "estatico",
+  //         total
+  //       )
+  //     );
+  //   }
 
-    setopenProducto({
-      open: false,
-    });
-  };
+  //   setopenProducto({
+  //     open: false,
+  //   });
+  // };
 
   return (
     <div className={classes.root}>
@@ -246,7 +185,7 @@ const AllTables = () => {
                     <DeleteForeverIcon />
                   </div>
                 ),
-                action: () => eliminarProductolist(item),
+                // action: () => eliminarProductolist(item),
               }}
             >
               <Button
@@ -255,10 +194,10 @@ const AllTables = () => {
                   backgroundColor: "#f5f8fa",
                 }}
                 className="d-flex justify-content-between py-2"
-                onClick={() => setopenProducto({ menuItem: item, open: true })}
+                // onClick={() => setopenProducto({ menuItem: item, open: true })}
               >
                 <Typography variant="body1" color="textPrimary" align="left">
-                  1 x {item.nombre}
+                  {item.cantidad} x {item.nombre}
                 </Typography>
                 <Typography variant="body1" color="textPrimary" align="left">
                   {item.precioUnitario}
@@ -267,6 +206,17 @@ const AllTables = () => {
             </SwipeableListItem>
           </SwipeableList>
         ))}
+
+        <div className="d-flex justify-content-between border-bottom border-top mx-2">
+          <div className=" py-2 d-flex flex-column align-items-center">
+            <p className="p-0 m-0">Pagado:</p>
+            <p className="p-0 m-0 text-success"> {`$ ${precioPagado}`}</p>
+          </div>
+          <div className=" py-2 d-flex flex-column align-items-center">
+            <p className="p-0 m-0">Restante:</p>
+            <p className="p-0 m-0 text-danger">{`$ ${precioAcumulado}`}</p>
+          </div>
+        </div>
         <div
           className={`${classes.header} d-flex justify-content-between border-bottom py-1`}
         >
@@ -279,11 +229,11 @@ const AllTables = () => {
         </div>
       </div>
 
-      <ModalScreenProducto
+      {/* <ModalScreenProducto
         openModal={openProducto.open}
         handleClose={handleClose}
         menuItem={openProducto.menuItem}
-      />
+      /> */}
     </div>
   );
 };

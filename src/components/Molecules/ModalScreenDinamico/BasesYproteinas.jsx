@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
@@ -40,7 +40,7 @@ export default function FullScreenDialog({
   );
 
   return (
-    <Fragment className="bg-light">
+    <div className="bg-light">
       <ExpansionPanel className="bg-light">
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
@@ -137,6 +137,6 @@ export default function FullScreenDialog({
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    </Fragment>
+    </div>
   );
 }

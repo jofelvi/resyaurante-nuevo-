@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import {
   SwipeableListItem,
   SwipeableList,
@@ -16,12 +17,14 @@ import {
   addListaPedidosPendientes,
   eliminarListaProductos,
 } from "../../../store/agregaralaCuenta/actions";
+
+import { addProductosCosto } from "../../../store/cobrarPedidos/actions";
 import styles from "./styles";
 
 import ModalScreenProducto from "../../Molecules/ModalScreenProdcuto";
 import MenuOptionsPedidos from "../../Molecules/MenuOptionsPedidos";
 
-const AllTables = () => {
+const AllTables = ({ history }) => {
   const classes = styles();
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
@@ -217,6 +220,14 @@ const AllTables = () => {
     });
   };
 
+  const [redireccionar, setredireccionar] = useState(false);
+  const cobrarOrden = () => {
+    if (productosAllPedido) {
+      dispatch(addProductosCosto(productosAllPedido));
+      setredireccionar(true);
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div
@@ -304,47 +315,58 @@ const AllTables = () => {
 
       <Fragment>
         <div className="d-flex justify-content-between border-bottom mx-2">
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "efectivo")
-            }
-            className="btn btn-sm py-3 d-flex flex-column align-items-center"
+          <div
+            // onClick={() =>
+            //   editarPedido(detailspedidos ? "editar" : "agregar", "efectivo")
+            // }
+            className=" py-3 d-flex flex-column align-items-center"
           >
             <EuroSymbol />
             Efectivo
-          </button>
-          <button
-            onClick={() =>
-              editarPedido(
-                detailspedidos ? "editar" : "agregar",
-                "tarjeta de credito"
-              )
-            }
-            className="btn btn-sm py-3 d-flex flex-column align-items-center"
+          </div>
+          <div
+            // onClick={() =>
+            //   editarPedido(
+            //     detailspedidos ? "editar" : "agregar",
+            //     "tarjeta de credito"
+            //   )
+            // }
+            className=" py-3 d-flex flex-column align-items-center"
           >
             <Payment />
             Tarjeta de credito
-          </button>
+          </div>
         </div>
-        <div className="d-flex justify-content-between mx-2">
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "cobrar")
-            }
-            className="btn btn-sm py-3 text-primary "
-          >
-            Cobrar
-          </button>
-          <button
-            onClick={() =>
-              editarPedido(detailspedidos ? "editar" : "agregar", "enviar")
-            }
-            className="btn btn-sm py-3 text-success"
-          >
-            Enviar
-          </button>
+        <div className="mx-2 d-flex justify-content-center col-12">
+          {"mesero" ? (
+            <button
+              onClick={() => cobrarOrden()}
+              className="btn py-3 text-primary col-12"
+            >
+              Cobrar
+            </button>
+          ) : (
+            <button
+              // onClick={() =>
+              //   editarPedido(detailspedidos ? "editar" : "agregar", "enviar")
+              // }
+              className="btn py-3 text-success col-12"
+            >
+              Enviar
+            </button>
+          )}
         </div>
       </Fragment>
+
+      {redireccionar ? (
+        <Redirect
+          to={{
+            pathname: "/calcular-pago",
+          }}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
