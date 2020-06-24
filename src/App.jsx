@@ -22,6 +22,7 @@ import { Error404 } from "./views/errors";
 import { Pedidos } from "./views/Pedidos";
 import { ListaPedidos } from "./views/ListaPedidos";
 import { Calculadora } from "./views/Calculadora";
+import Clients from "./views/clients";
 
 const App = () => {
   // if (loggedIn) {
@@ -49,6 +50,7 @@ const App = () => {
               path="/calcular-pago"
               component={Calculadora}
             />
+            <ProtectedRouter exact path="/clients" component={Clients} />
             <ProtectedRouter exact path="/tables" component={AllTables} />
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />

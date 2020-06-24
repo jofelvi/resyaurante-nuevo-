@@ -28,3 +28,6 @@ export const addMenuEditRef = (id) => databaseRef.child("addmenu/" + id);
 export const addListaPedidosRef = databaseRef.child("listpedidos/");
 export const addListaPedidosEditRef = (id) =>
   databaseRef.child("listpedidos/" + id);
+
+export const addClientRef = databaseRef.child("clients/");
+export const addClientEditRef = (id) => databaseRef.child("clients/" + id);

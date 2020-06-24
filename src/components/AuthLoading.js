@@ -8,6 +8,7 @@ import { getCategories, getCategoriesMenu } from "../store/Categories/actions";
 import { getAddMenu } from "../store/AgregarMenu/actions";
 import { getListaPedidos } from "../store/agregaralaCuenta/actions";
 import { fetchuserlogin } from "../store/auth/actions";
+import { fecthClients } from "../store/Clients/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function AuthLoading(props) {
       dispatch(getCategoriesMenu());
       dispatch(getAddMenu());
       dispatch(getListaPedidos());
+      dispatch(fecthClients());
     } else if (auth.info === "") {
       dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }
