@@ -78,7 +78,7 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Restaurant System
+            LidyRestobar
           </Typography>
           <div className={classes.grow} />
           <div className={classes.menu}>
@@ -110,8 +110,8 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
           }}
         />
       ) : (
-        ""
-      )}
+          ""
+        )}
     </Fragment>
   );
 };
