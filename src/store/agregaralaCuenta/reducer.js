@@ -10,6 +10,7 @@ import {
   GET_LISTAPEDIDOSPENDIENTES,
   GET_PRODUCTSDETAILS,
   EDIT_LISTA_PRODUCTOS,
+  SET_PARA_PRODUCTOS,
 } from "./Constants";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   getListaPedidosPendientes: [],
   detailspedido: false,
   idDetailsOrden: "",
+  recibirOrden: {},
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -39,6 +41,9 @@ export default function (state = initialState, { type, payload }) {
       return { ...state, error: payload };
     }
 
+    case SET_PARA_PRODUCTOS: {
+      return { ...state, recibirOrden: payload };
+    }
     case ADDALACUENTA_SUCCESS: {
       return {
         ...state,

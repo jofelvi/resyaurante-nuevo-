@@ -23,6 +23,8 @@ import { Pedidos } from "./views/Pedidos";
 import { ListaPedidos } from "./views/ListaPedidos";
 import { Calculadora } from "./views/Calculadora";
 import Clients from "./views/clients";
+import Reportes from "./views/resports";
+import Usuarios from "./views/users";
 
 const App = () => {
   // if (loggedIn) {
@@ -35,6 +37,7 @@ const App = () => {
             <ProtectedRouter exact path="/crear-menu" component={AllProducts} />
             <ProtectedRouter exact path="/all-menu" component={AllMenu} />
             <ProtectedRouter exact path="/pedidos" component={Pedidos} />
+            <ProtectedRouter exact path="/users" component={Usuarios} />
             <ProtectedRouter
               exact
               path="/lista-ordenes"
@@ -51,6 +54,8 @@ const App = () => {
               component={Calculadora}
             />
             <ProtectedRouter exact path="/clients" component={Clients} />
+
+            <ProtectedRouter exact path="/reportes" component={Reportes} />
             <ProtectedRouter exact path="/tables" component={AllTables} />
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />

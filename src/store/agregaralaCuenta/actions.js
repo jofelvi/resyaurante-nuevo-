@@ -14,6 +14,7 @@ import {
   GET_LISTAPEDIDOSPENDIENTES,
   GET_PRODUCTSDETAILS,
   EDIT_LISTA_PRODUCTOS,
+  SET_PARA_PRODUCTOS,
 } from "./Constants";
 
 export const getListaPedidos = () => (dispatch) => {
@@ -33,6 +34,19 @@ export const getListaPedidos = () => (dispatch) => {
         payload: arr,
       });
     }
+  });
+  dispatch({
+    type: ADDALACUENTA_END,
+  });
+};
+
+export const personaParaOrden = (usuario) => (dispatch) => {
+  dispatch({
+    type: ADDALACUENTA_START,
+  });
+  dispatch({
+    type: SET_PARA_PRODUCTOS,
+    payload: usuario,
   });
   dispatch({
     type: ADDALACUENTA_END,

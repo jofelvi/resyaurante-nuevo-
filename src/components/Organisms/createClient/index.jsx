@@ -15,6 +15,8 @@ const SeachClients = () => {
     ciudad: "",
     codigoPostal: "",
     comentario: "",
+    dni: "",
+    rol: "cliente",
     loading: false,
   });
   const addCliente = (method) => {
@@ -31,6 +33,12 @@ const SeachClients = () => {
       document.getElementById("form-client").reset();
     }, 500);
   };
+  const dataroles = [
+    { nombre: "cliente" },
+    { nombre: "mesonero" },
+    { nombre: "cajero" },
+    { nombre: "cocinero" },
+  ];
 
   return (
     <div className="col-7 border">
@@ -103,6 +111,45 @@ const SeachClients = () => {
                     });
                   }}
                 />
+              </div>
+            </div>
+            <div className="d-flex justify-content-between col-12">
+              <div className="form-group col-6">
+                <label for="inputEmail1">Dni</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputEmail1"
+                  placeholder="Dni"
+                  onChange={(e) => {
+                    return setDataCliente({
+                      ...dataClient,
+                      dni: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+              <div className="form-group col-6">
+                <label>rol de Usuario</label>
+                <select
+                  onChange={(e) => {
+                    return setDataCliente({
+                      ...dataClient,
+                      rol: e.target.value,
+                    });
+                  }}
+                  defaultChecked={dataClient.rol}
+                  className="custom-select"
+                  defaultValue={dataClient.rol}
+                >
+                  <option selected>Tipo de usuario...</option>
+
+                  {dataroles.map((item, index) => (
+                    <option key={index} value={item.nombre}>
+                      {item.nombre}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="d-flex justify-content-center col-12">

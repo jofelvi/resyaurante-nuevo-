@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 // Material UI
 import { makeStyles } from "@material-ui/core";
@@ -16,7 +15,6 @@ const styles = makeStyles({
 
 const CalculadoraPago = () => {
   const classes = styles();
-  const data = useSelector((state) => state.categories.categoriesMenu);
 
   return (
     <section className={classes.root}>

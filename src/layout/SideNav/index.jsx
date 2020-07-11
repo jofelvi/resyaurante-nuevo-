@@ -60,6 +60,10 @@ const routes = [
         label: "Usuarios",
         path: "/users",
       },
+      {
+        label: "Reportes",
+        path: "/reportes",
+      },
     ],
   },
 ];
@@ -69,7 +73,7 @@ const SideNav = (props) => {
   const { open, handleOpen, location } = props;
 
   return (
-    <nav className={classes.drawer}>
+    <nav className={`${classes.drawer}`}>
       {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
       <Hidden smUp implementation="css">
         <Drawer
@@ -86,7 +90,7 @@ const SideNav = (props) => {
           <Menu routes={routes} location={location} />
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
+      {/* <Hidden smDown implementation="css">
         <Drawer
           classes={{
             paper: classes.drawerPaperDesktop,
@@ -99,7 +103,7 @@ const SideNav = (props) => {
         >
           <Menu routes={routes} location={location} />
         </Drawer>
-      </Hidden>
+      </Hidden> */}
     </nav>
   );
 };

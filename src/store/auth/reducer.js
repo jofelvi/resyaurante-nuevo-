@@ -8,16 +8,25 @@ import {
   USER_SIGN_UP_SUCCESS,
   USER_UP_IN_FAILED,
   USER_SIGN_IN_SUCCESS,
+  USER_FETCH_SUCCESS,
 } from "./Constants";
 
 export const INITIAL_STATE = {
-  info: true,
+  info: {
+    email: "adsd@dsas.com",
+    firstName: "sjjdsjd",
+    id: "u46k33xNkPeq9ZuaRKxHqMt25oi1",
+    lastName: "sjdjd",
+    rol: "ADMIN_MASTER",
+    verify: "Activo",
+  },
   loading: false,
   error: {
     flag: false,
     msg: null,
   },
   register: false,
+  users: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -84,6 +93,12 @@ export default (state = INITIAL_STATE, action) => {
           msg: null,
         },
       };
+    case USER_FETCH_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
     default:
       return state;
   }

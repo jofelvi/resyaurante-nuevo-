@@ -9,7 +9,7 @@ import { Paper, Typography, Button, Link, Divider } from "@material-ui/core";
 import logo from "../../../assets/images/restaurant.png";
 
 // Actions
-import { signIn } from "../../../store/auth/actions";
+import { signIn, verifyUserSignIn } from "../../../store/auth/actions";
 // Atoms
 import FormSubmitLoader from "../../../components/Atoms/FormSubmitLoader";
 
@@ -24,7 +24,18 @@ const SignInView = (props) => {
 
   useEffect(() => {
     if (dataLogin.info) {
-      props.history.push("/");
+      const user = dataLogin.users.filter(
+        (item) => item.email === dataLogin.info.email
+      );
+
+      if (user) {
+        if (user.rol !== "SIN_ROL" || user.verify === "Activo") {
+          props.history.push("/");
+          dispatch(verifyUserSignIn(...user, true));
+        } else {
+          dispatch(verifyUserSignIn("Usted no puede acceder al panel", false));
+        }
+      }
     }
   });
 

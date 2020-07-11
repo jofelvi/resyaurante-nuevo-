@@ -17,10 +17,7 @@ const Layout = ({ children, profile }) => {
 
   return (
     <div className={classes.root}>
-      <NavBar
-        handleOpenSideNav={handleOpenSideNav}
-        userProfile={auth.userName}
-      />
+      <NavBar handleOpenSideNav={handleOpenSideNav} userProfile={auth} />
       <SideNav open={mobileOpen} handleOpen={handleOpenSideNav} />
 
       <main className={classes.main}>

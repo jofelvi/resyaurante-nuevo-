@@ -9,7 +9,9 @@ const initialState = {
   error: null,
   loading: false,
   msg: "",
+  msgmesas: "",
   clients: [],
+  mesas: [],
 };
 
 export default function (state = initialState, { type, payload }) {

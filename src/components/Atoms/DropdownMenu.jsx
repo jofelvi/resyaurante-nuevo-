@@ -26,13 +26,12 @@ const DropdownMenu = ({
   };
 
   const handleItemMenuOnClick = (label) => () => {
-    // if (cb) {
-    //   cb();
-    // }
     if (label === "Editar") {
       edit(products);
     } else if (label === "Eliminar") {
       eliminarProducts(products);
+    } else {
+      edit(products, label);
     }
     handleCloseMenu();
   };

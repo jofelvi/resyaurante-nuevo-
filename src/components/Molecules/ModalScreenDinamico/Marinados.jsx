@@ -28,6 +28,7 @@ export default function FullScreenDialog({
   handleChangeCheckboxMarinado,
   marinarProteina,
   marinado,
+  marcaMarinado,
 }) {
   const classes = useStyles();
 
@@ -63,20 +64,28 @@ export default function FullScreenDialog({
           </div>
           <div className="col-12 d-flex mt-2 flex-wrap">
             {productsProteinas.map((item, index) => (
-              <div key={index} className="form-group col-4">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      // checked={state.checkedB}
-                      onChange={(e) =>
-                        handleChangeCheckboxMarinado(item, e.target.checked)
-                      }
-                      name="checkedB"
-                      color="primary"
-                    />
-                  }
-                  label={`${item.nombre}`}
-                />
+              <div
+                key={index}
+                className="form-group btn col-4 p-1 border-0"
+                onClick={(e) =>
+                  handleChangeCheckboxMarinado(item, e.target.checked)
+                }
+              >
+                <div
+                  className="border d-flex justify-content-center align-items-center"
+                  style={{
+                    height: 70,
+                    width: "100%",
+                    borderRadius: 12,
+                    fontSize: 14,
+                    background:
+                      item.nombre === marcaMarinado.nombre ? "#1e3a56" : "",
+                    color:
+                      item.nombre === marcaMarinado.nombre ? "#fff" : "#000",
+                  }}
+                >
+                  {`${item.nombre}`}
+                </div>
               </div>
             ))}
           </div>

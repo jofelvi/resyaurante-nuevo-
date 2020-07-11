@@ -11,6 +11,7 @@ export const authRef = firebase.auth();
 export const FIREBASE_AUTH_PERSIST = firebase.auth.Auth.Persistence.LOCAL;
 
 export const userRef = databaseRef.child("users/");
+export const userEditRef = (id) => databaseRef.child("users/" + id);
 
 export const productsRef = databaseRef.child("products/");
 export const productsEditRef = (id) => databaseRef.child("products/" + id);
@@ -31,3 +32,9 @@ export const addListaPedidosEditRef = (id) =>
 
 export const addClientRef = databaseRef.child("clients/");
 export const addClientEditRef = (id) => databaseRef.child("clients/" + id);
+
+export const addMesasRef = databaseRef.child("mesas/");
+export const addMesasEditRef = (id) => databaseRef.child("mesas/" + id);
+
+export const gastosRef = databaseRef.child("gastos/");
+export const gastosEditRef = (id) => databaseRef.child("gastos/" + id);
