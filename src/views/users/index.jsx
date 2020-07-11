@@ -18,7 +18,7 @@ const Users = () => {
   const listUsers = useSelector((state) => state.auth.users);
 
   const edit = (option, method) => {
-    const rol = ["MESONERO", "CAJA", "COCINA"];
+    const rol = ["MESONERO", "CAJA", "COCINA", "ADMIN", "CLIENTE"];
     const verify = ["Activo", "Inactivo"];
 
     if (rol.indexOf(method) !== -1) {
