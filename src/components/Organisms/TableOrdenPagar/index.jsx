@@ -3,6 +3,7 @@ import React from "react";
 import "@sandstreamdev/react-swipeable-list/dist/styles.css";
 
 import { useDispatch, useSelector } from "react-redux";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 // Material UI
 import { Typography, Button } from "@material-ui/core";
@@ -56,6 +57,29 @@ const AllTables = () => {
             );
           }
         })}
+        <div className="pt-2">
+          {listaPorPagar.listaProducts.map((item, index) => {
+            if (item.estado === "pagado") {
+              return (
+                <Button
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#f5f8fa",
+                  }}
+                  className="d-flex justify-content-between py-2 "
+                >
+                  <Typography variant="body1" color="textPrimary" align="left">
+                    <CheckCircleIcon style={{ color: "rgba(29, 139, 5, 1)" }} />{" "}
+                    {item.cantidad} x {item.nombre}
+                  </Typography>
+                  <Typography variant="body1" color="textPrimary" align="left">
+                    {item.precioUnitario}
+                  </Typography>
+                </Button>
+              );
+            }
+          })}
+        </div>
 
         <div className="d-flex justify-content-between border-bottom border-top mx-2">
           <div className=" py-2 d-flex flex-column align-items-center">

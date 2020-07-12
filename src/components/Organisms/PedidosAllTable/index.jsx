@@ -279,56 +279,64 @@ const AllTables = ({ history }) => {
 
         <MenuOptionsPedidos checked={checked} />
 
-        {productosAllPedido.map((item, index) => (
-          <SwipeableList key={index}>
-            <SwipeableListItem
-              swipeLeft={{
-                content: (
-                  <div
-                    style={{ height: 40, color: "#fff", fontSize: 16 }}
-                    className="bg-danger col-12  d-flex justify-content-end align-items-center "
-                  >
-                    <DeleteForeverIcon />
-                  </div>
-                ),
-                action: () => eliminarProductolist(item),
-              }}
-            >
-              <Button
-                style={{
-                  width: "100%",
-                  backgroundColor: "#f5f8fa",
+        {productosAllPedido.map((item, index) => {
+          return (
+            <SwipeableList key={index}>
+              <SwipeableListItem
+                swipeLeft={{
+                  content: (
+                    <div
+                      style={{ height: 40, color: "#fff", fontSize: 16 }}
+                      className="bg-danger col-12  d-flex justify-content-end align-items-center "
+                    >
+                      <DeleteForeverIcon />
+                    </div>
+                  ),
+                  action: () => eliminarProductolist(item),
                 }}
-                className="d-flex justify-content-between py-2"
-                onClick={() => setopenProducto({ menuItem: item, open: true })}
               >
-                <div className="d-flex">
-                  <div
-                    style={{
-                      width: 22,
-                      height: 24,
-                      background: "rgba(29, 139, 5, 1)",
-                      borderRadius: 5,
-                      marginRight: 10,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "#fff",
-                    }}
-                    className="p-0"
-                  >
-                    {item.cantidad}
+                <Button
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#f5f8fa",
+                  }}
+                  className="py-2 d-flex justify-content-between col-12 px-1 m-0"
+                  onClick={() =>
+                    setopenProducto({ menuItem: item, open: true })
+                  }
+                >
+                  <div className="d-flex">
+                    <div
+                      style={{
+                        width: 22,
+                        height: 24,
+                        background: "rgba(29, 139, 5, 1)",
+                        borderRadius: 5,
+                        marginRight: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#fff",
+                      }}
+                      className="p-0"
+                    >
+                      {item.cantidad}
+                    </div>
+                    <Typography
+                      variant="body1"
+                      color="textPrimary"
+                      align="left"
+                    >
+                      {item.nombre}
+                    </Typography>
                   </div>
                   <Typography variant="body1" color="textPrimary" align="left">
-                    {item.nombre}
+                    {item.precioUnitario}
                   </Typography>
-                </div>
-                <Typography variant="body1" color="textPrimary" align="left">
-                  {item.precioUnitario}
-                </Typography>
-              </Button>
-            </SwipeableListItem>
-          </SwipeableList>
-        ))}
+                </Button>
+              </SwipeableListItem>
+            </SwipeableList>
+          );
+        })}
         <div
           className={`${classes.header} d-flex justify-content-between border-bottom py-1`}
         >

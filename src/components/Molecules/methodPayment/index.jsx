@@ -8,7 +8,7 @@ import { addProductosPagados } from "../../../store/cobrarPedidos/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "60%",
+    width: "40%",
     backgroundColor: "#1e3a56",
     padding: 0,
   },

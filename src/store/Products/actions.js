@@ -53,13 +53,43 @@ export const filterProducts = (products, filter) => async (dispatch) => {
   });
 };
 
-export const editproducts = (products, method) => async (dispatch) => {
+export const editproducts = (products, method, fileImg) => async (dispatch) => {
   dispatch({
     type: PRODUCT_START,
     payload: method,
   });
 
   if (method === "Add") {
+    let imgdbServer;
+    if (fileImg.archivo.name) {
+      const formData = new FormData();
+      formData.append("archivo", fileImg.archivo, fileImg.archivo.name);
+      console.log("=======================================================");
+      console.log("forData", formData);
+      console.log("=======================================================");
+
+      // if (blob.size / 1000000 > 2) {
+      //   this.setState({ loading: false }, () => {
+      //     alert(languageJSON.image_size_error);
+      //   });
+      // } else {
+      //   var timestamp = new Date().getTime();
+      //   var imageRef = await firebase
+      //     .storage()
+      //     .ref()
+      //     .child(`productos/` + timestamp + `/`);
+      //   const image = await imageRef
+      //     .put(blob)
+      //     .then(() => {
+      //       blob.close();
+      //       return imageRef.getDownloadURL();
+      //     })
+      //     .then((dwnldurl) => {
+      //       imgdbServer = dwnldurl;
+      //     });
+      // }
+    }
+
     productsRef.push(products);
     dispatch({
       type: PRODUCT_SUCCESS,
