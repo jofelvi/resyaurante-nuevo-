@@ -25,7 +25,6 @@ import { Calculadora } from "./views/Calculadora";
 import Clients from "./views/clients";
 import Reportes from "./views/resports";
 import Usuarios from "./views/users";
-import EcommerceHome from "./views/ecommerHome/EcommerceHome";
 
 const App = () => {
   // if (loggedIn) {
@@ -61,7 +60,6 @@ const App = () => {
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />
             <ProtectedRouter exact path="/bars" component={AllBars} />
-            <ProtectedRouter exact path="/home" component={EcommerceHome} />
             <Route exact path="/sign-in" component={SignInView} />
             <Route exact path="/sign-up" component={SignUpView} />
             <Route component={Error404} />

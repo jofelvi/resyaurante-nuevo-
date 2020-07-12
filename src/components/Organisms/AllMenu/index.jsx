@@ -117,8 +117,8 @@ const MenuList = () => {
               {nombreCategore.alertSuccess}
             </div>
           ) : (
-              ""
-            )}
+            ""
+          )}
 
           {nombreCategore.agregar ? (
             <Fragment>
@@ -160,8 +160,8 @@ const MenuList = () => {
               </div>
             </Fragment>
           ) : (
-              ""
-            )}
+            ""
+          )}
 
           {arrayMenu.map((producto) => {
             return (
@@ -184,7 +184,6 @@ const MenuList = () => {
           key={index}
           onClick={() => openMenuProduct(item)}
         >
-          SASS
           <ProductoCardRow variant={"column"} products={item} />
         </Grid>
       ))}
@@ -195,8 +194,8 @@ const MenuList = () => {
           menuItem={openProducto.menuItem}
         />
       ) : (
-          ""
-        )}
+        ""
+      )}
       <ModalScreenDinamico openModal={open} handleClose={handleClose} />
     </Grid>
   );

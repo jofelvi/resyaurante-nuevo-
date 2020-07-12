@@ -76,7 +76,7 @@ export default function FullScreenDialog({
         : menuItem.precio,
       categories: menuItem.categories,
       nombre: menuItem.nombre,
-      base: selectBases.nombre ? selectBases.nombre : "Sin base",
+      base: selectBases.nombre ? [selectBases.nombre] : ["Sin base"],
       extras: selectExtras,
       cantidad: menuproducto.cantidad ? menuproducto.cantidad : 1,
       comentario: menuproducto.comentario ? menuproducto.comentario : "",

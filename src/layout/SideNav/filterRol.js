@@ -6,7 +6,6 @@ export const filterUserRol = (userRol) => {
     "COCINA",
     "ADMIN",
     "ADMIN_MASTER",
-    "CLIENTE_ECOMMERCE"
   ];
   const mesero = ["/", "/lista-ordenes", "/pedidos"];
   const cajero = [
@@ -61,34 +60,6 @@ export const filterUserRol = (userRol) => {
       path: "/bars",
     },
   ];
-
-  const routesEcommer = [
-    {
-      label: "Dashboard",
-      path: "/",
-    },
-    {
-      label: "Lista de Ordenes",
-      path: "/lista-ordenes",
-    },
-    {
-      label: "Pedidos",
-      path: "/pedidos",
-    },
-    {
-      label: "Menu Lista",
-      path: "/all-menu",
-    },
-    {
-      label: "Home ecommerce",
-      path: "/home",
-    },
-    {
-      label: "Crear menu",
-      path: "/crear-menu",
-    },
-  ];
-
   let authorizationRoutes;
   let authorizationUser = roles.indexOf(userRol) !== -1 ? userRol : false;
 
@@ -110,10 +81,6 @@ export const filterUserRol = (userRol) => {
       (items) => clients.indexOf(items.path) !== -1
     );
   }
-  if (authorizationUser === "CLIENTE_ECOMMERCE")
-    authorizationRoutes = routesEcommer;
-
-
 
   return authorizationRoutes;
 };

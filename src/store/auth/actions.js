@@ -190,17 +190,20 @@ export const signUp = (regData) => (dispatch) => {
 };
 
 export const signOut = () => (dispatch) => {
-  authRef
-    .signOut()
-    .then(() => {
-      dispatch({
-        type: USER_SIGN_OUT,
-        payload: null,
-      });
-    })
-    .catch((error) => {
-      //console.log(error);
-    });
+  dispatch({
+    type: START_LOADING,
+  });
+
+  dispatch({
+    type: USER_FETCH_SUCCESS,
+    payload: {
+      info: null,
+    },
+  });
+
+  dispatch({
+    type: END_LOADING,
+  });
 };
 
 export const clearLoginError = () => (dispatch) => {

@@ -9,7 +9,7 @@ import { Grid } from "@material-ui/core";
 import { FabButton } from "../../Atoms";
 
 // Molecules
-import { ProductCard } from "../../Molecules";
+import { ProductCard, ModalScreenCreateMenu } from "../../Molecules";
 
 import { editAddMenu } from "../../../store/AgregarMenu/actions";
 
@@ -34,6 +34,14 @@ const ProductList = () => {
     alertSuccess: "",
     colorAlert: "",
   });
+  const handleClose = () => {
+    setNombreCategore({
+      nombre: "",
+      agregar: false,
+      alertSuccess: "",
+    });
+    setArrayMenu([]);
+  };
 
   let gridSize = {
     xs: 12,
@@ -115,86 +123,13 @@ const ProductList = () => {
             ""
           )}
 
-          {nombreCategore.agregar ? (
-            <Fragment>
-              <div className="form-group col-md-6 mb-3">
-                <label for="inputZip">Nombre para el menu</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputZip"
-                  placeholder="Nombre"
-                  onChange={(e) => {
-                    return setNombreCategore({
-                      ...nombreCategore,
-                      nombre: e.target.value,
-                    });
-                  }}
-                />
-              </div>
-
-              <div className="form-group col-md-6">
-                <label for="inputZip">Categoria</label>
-                <select
-                  onChange={(e) => {
-                    return setNombreCategore({
-                      ...nombreCategore,
-                      categories: e.target.value,
-                    });
-                  }}
-                  className="custom-select"
-                >
-                  <option selected>Categoria...</option>
-
-                  {dataCategories.map((item, index) => (
-                    <option key={index} value={item.nombre}>
-                      {item.nombre}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group col-md-6 mb-3">
-                <label for="inputZip">Precio</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputZip"
-                  placeholder="Precio"
-                  onChange={(e) => {
-                    return setNombreCategore({
-                      ...nombreCategore,
-                      precio: e.target.value,
-                    });
-                  }}
-                />
-              </div>
-
-              <div className="d-flex justify-content-end my-3 mr-2 col-md-6">
-                <button
-                  onClick={() => {
-                    setNombreCategore({
-                      nombre: "",
-                      agregar: false,
-                      alertSuccess: "",
-                    });
-                    setArrayMenu([]);
-                  }}
-                  className="btn btn-danger btn-sm mr-3"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={() => addmenubd()}
-                  className="btn btn-success btn-sm"
-                >
-                  Agregar al menu
-                </button>
-              </div>
-            </Fragment>
-          ) : (
-            ""
-          )}
+          <ModalScreenCreateMenu
+            setNombreCategore={setNombreCategore}
+            nombreCategore={nombreCategore}
+            addmenubd={addmenubd}
+            openModal={nombreCategore.agregar}
+            handleClose={handleClose}
+          />
 
           {arrayMenu.map((producto) => {
             return (

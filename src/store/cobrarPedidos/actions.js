@@ -17,7 +17,8 @@ export const addProductosCosto = (products_lista, precioAnterior = 0) => (
       let number = products_lista[key].precioUnitario
         ? Number(products_lista[key].precioUnitario)
         : 0;
-      products_lista[key].estado = "pendiente";
+      products_lista[key].estado =
+        products_lista[key].estado === "pagado" ? "pagado" : "pendiente";
       preciototal += number;
     }
   }
@@ -73,6 +74,7 @@ export const addProductosPagados = (
   });
 
   let preciototal = precioPagado;
+
   if (products_lista) {
     for (const key in products_lista) {
       let number = products_lista[key].precioUnitario

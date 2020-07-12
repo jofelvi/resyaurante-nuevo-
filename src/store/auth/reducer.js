@@ -13,11 +13,11 @@ import {
 
 export const INITIAL_STATE = {
   info: {
-    email: "test_ecommerce@dsas.com",
-    firstName: "TEst",
+    email: "adsd@dsas.com",
+    firstName: "sjjdsjd",
     id: "u46k33xNkPeq9ZuaRKxHqMt25oi1",
     lastName: "sjdjd",
-    rol: "CLIENTE_ECOMMERCE",
+    rol: "ADMIN_MASTER",
     verify: "Activo",
   },
   loading: false,
