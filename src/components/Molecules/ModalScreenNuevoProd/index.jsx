@@ -26,7 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
+export default function ModalScreenNuevoProd({
   openModal = false,
   handleClose,
   menuItem = [],
@@ -46,7 +46,7 @@ export default function FullScreenDialog({
     <div>
       <Dialog
         fullWidth={true}
-        maxWidth="xs"
+        maxWidth="xl"
         open={openModal}
         onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
@@ -62,7 +62,7 @@ export default function FullScreenDialog({
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Agregar nuevo Ingrediente
+            Agregar nuevo Producto
           </Typography>
           <div className="d-flex align-items-center">
             <Button
@@ -81,7 +81,7 @@ export default function FullScreenDialog({
           </Button> */}
         </div>
 
-        <DialogContent className="p-0">
+        <DialogContent className="p-0" style={{ 'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto' }}>
           <div className="justify-content-center col-12 bg-light">
             <List>
               <div className="row p-4">
@@ -89,7 +89,7 @@ export default function FullScreenDialog({
                   <div className="row justify-content-center">
                     <form
                       className="my-4  col-12"
-                      // onSubmit={}
+                    // onSubmit={}
                     >
                       <div className="form-row justify-content-center">
                         <div className="form-group col-10">
@@ -185,7 +185,7 @@ export default function FullScreenDialog({
                         </div>
 
                         <div className="form-group col-10">
-                          <label for="inputZip3">Cantidad</label>
+                          <label for="inputZip3">Stock Total</label>
                           <input
                             type="text"
                             className="form-control"
@@ -198,6 +198,45 @@ export default function FullScreenDialog({
                               return setNuevoProd({
                                 ...nuevoProd,
                                 stock: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Minimo</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Cantidad"
+                            defaultValue={
+                              form.editData ? form.editData.stock : ""
+                            }
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMin: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Maximo</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Cantidad"
+                            defaultValue={
+                              form.editData ? form.editData.stock : ""
+                            }
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMax: e.target.value,
                               });
                             }}
                           />
@@ -293,29 +332,49 @@ export default function FullScreenDialog({
                             </div>
                           </Fragment>
                         ) : (
-                          <Fragment>
-                            <div className="form-group col-10 d-flex aling-item-center">
-                              <label for="inputZip7">Precio unitario:</label>
-                              <input
-                                type="text"
-                                className="form-control col-8 ml-3"
-                                id="inputZip7"
-                                placeholder="Precio"
-                                defaultValue={
-                                  form.editData
-                                    ? form.editData.precioUnitario
-                                    : ""
-                                }
-                                onChange={(e) => {
-                                  return setNuevoProd({
-                                    ...nuevoProd,
-                                    precioUnitario: e.target.value,
-                                  });
-                                }}
-                              />
-                            </div>
-                          </Fragment>
-                        )}
+                            <Fragment>
+                              <div className="form-group col-10 d-flex aling-item-center">
+                                <label for="inputZip7">Precio unitario:</label>
+                                <input
+                                  type="text"
+                                  className="form-control col-8 ml-3"
+                                  id="inputZip7"
+                                  placeholder="Precio"
+                                  defaultValue={
+                                    form.editData
+                                      ? form.editData.precioUnitario
+                                      : ""
+                                  }
+                                  onChange={(e) => {
+                                    return setNuevoProd({
+                                      ...nuevoProd,
+                                      precioUnitario: e.target.value,
+                                    });
+                                  }}
+                                />
+                              </div>
+                              <div className="form-group col-10 d-flex aling-item-center">
+                                <label for="inputZip7">Precio Full</label>
+                                <input
+                                  type="text"
+                                  className="form-control col-8 ml-3"
+                                  id="inputZip7"
+                                  placeholder="Precio"
+                                  defaultValue={
+                                    form.editData
+                                      ? form.editData.precioUnitario
+                                      : ""
+                                  }
+                                  onChange={(e) => {
+                                    return setNuevoProd({
+                                      ...nuevoProd,
+                                      precioUnitario: e.target.value,
+                                    });
+                                  }}
+                                />
+                              </div>
+                            </Fragment>
+                          )}
                         <div className="form-group col-10">
                           <div className="custom-control custom-switch">
                             <input
@@ -348,8 +407,8 @@ export default function FullScreenDialog({
                             {form.msjalertError}
                           </div>
                         ) : (
-                          ""
-                        )}
+                            ""
+                          )}
                       </div>
                     </form>
                   </div>

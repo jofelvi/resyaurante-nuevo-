@@ -6,6 +6,7 @@ import {
   ADDMENU_EDIT,
   GET_ADDMENU_SUCCESS,
   MENU_FILTER,
+  MENU_FILTER_ONLINE
 } from "./Constants";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   msg: "",
   addmenu: [],
   menufilter: [],
+  menuFilterOnline: [],
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -52,6 +54,14 @@ export default function (state = initialState, { type, payload }) {
         error: false,
         loading: false,
         menufilter: payload,
+      };
+    }
+    case MENU_FILTER_ONLINE: {
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        menuFilterOnline: payload,
       };
     }
     case ADDMENU_EDIT: {

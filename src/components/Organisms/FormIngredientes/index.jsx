@@ -33,6 +33,8 @@ const FormIngredientes = () => {
     // md: "no disponible",
     // lg: "no disponible",
     stock: 0,
+    stockMin: 0,
+    StockMax: 0
   });
 
   const eliminarDatos = () => {
@@ -205,8 +207,8 @@ const FormIngredientes = () => {
           {form.alertSuccess}
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
 
       <ModalScreenNuevoProd
         openModal={form.abrirProductoForm}

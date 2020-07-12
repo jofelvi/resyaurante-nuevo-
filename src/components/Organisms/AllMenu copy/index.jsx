@@ -59,6 +59,9 @@ const MenuList = () => {
   };
 
   const addmenubd = () => {
+
+    console.log("aqui esta el estado")
+    console.log(arrayMenu)
     if (nombreCategore.nombre === "" || arrayMenu.length < 2) {
       setNombreCategore({
         ...nombreCategore,
@@ -80,6 +83,7 @@ const MenuList = () => {
       nombre: nombreCategore.nombre,
       products: arrayMenu,
     };
+
     dispatch(editAddMenu(menuListo, "Add"));
 
     setArrayMenu([]);
@@ -184,7 +188,6 @@ const MenuList = () => {
           key={index}
           onClick={() => openMenuProduct(item)}
         >
-          SASS
           <ProductoCardRow variant={"column"} products={item} />
         </Grid>
       ))}

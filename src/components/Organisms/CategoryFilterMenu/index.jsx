@@ -100,6 +100,7 @@ const AllTables = ({ data, posicion }) => {
             arrow="true"
             placement="right"
           >
+
             <Button
               key={index}
               className="my-2"
@@ -131,8 +132,8 @@ const AllTables = ({ data, posicion }) => {
           {newCategoria.alertSuccess}
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
 
       <Dialog
         onClose={() => {
@@ -186,8 +187,8 @@ const AllTables = ({ data, posicion }) => {
           </button>
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
     </div>
   );
 };
