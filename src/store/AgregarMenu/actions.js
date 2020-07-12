@@ -6,7 +6,8 @@ import {
   ADDMENU_SUCCESS,
   GET_ADDMENU_SUCCESS,
   MENU_FILTER,
-  MENU_FILTER_ONLINE
+  MENU_FILTER_ONLINE,
+
 } from "./Constants";
 
 export const getAddMenu = () => (dispatch) => {
@@ -52,12 +53,16 @@ export const filterMenu = (products, filter) => async (dispatch) => {
     type: MENU_FILTER,
     payload: filtrado,
   });
+
+
 };
 
 export const filterMenuOnline = (products, filter) => async (dispatch) => {
-
+  dispatch({
+    type: ADDMENU_START,
+  });
   let filtrado;
-  if (filter) {
+  if (filter == "online") {
     filtrado = products.filter((item, index) => item.categories === filter);
   } else {
     filtrado = products;
