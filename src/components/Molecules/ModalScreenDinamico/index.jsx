@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
+import createHash from "hash-generator";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -76,153 +74,57 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
   const precioAcumulado = useSelector(
     (state) => state.addcuenta.productsCuenta
   );
-  // const AllIngredientesProd = useSelector((state) => state.products.products);
-  // const arrayMenuDinamico = [
-  //   {
-  //     nombre: "Hamburguesa",
-  //     dimensiones: {
-  //       sm: 10.0,
-  //       md: 12.0,
-  //       lg: 14.0,
-  //     },
-  //     base: {
-  //       cantidad: 1,
-  //       ingrediente: "Bases",
-  //       default: "Pan",
-  //     },
-  //     proteinas: {
-  //       cantidad: 2,
-  //       ingrediente: "Proteinas",
-  //     },
-  //     salsa: {
-  //       cantidad: 3,
-  //       ingrediente: "Salsas",
-  //     },
-  //     vegetales: {
-  //       cantidad: 3,
-  //       ingrediente: "Vegetales",
-  //     },
-  //     charcuteria: {
-  //       cantidad: 2,
-  //       ingrediente: "Charcuteria",
-  //     },
-  //   },
-  //   {
-  //     nombre: "Pizza",
-  //     dimensiones: {
-  //       sm: 10.0,
-  //       md: 12.0,
-  //       lg: 14.0,
-  //     },
-  //     base: {
-  //       cantidad: 1,
-  //       ingrediente: "Bases",
-  //       default: "Masa",
-  //     },
-  //     proteinas: {
-  //       cantidad: 1,
-  //       ingrediente: "Proteinas",
-  //     },
-  //     salsa: {
-  //       cantidad: 1,
-  //       ingrediente: "Salsas",
-  //     },
-  //     vegetales: {
-  //       cantidad: 3,
-  //       ingrediente: "Vegetales",
-  //     },
-  //     charcuteria: {
-  //       cantidad: 2,
-  //       ingrediente: "Charcuteria",
-  //     },
-  //   },
-  //   {
-  //     nombre: "Paella",
-  //     dimensiones: {
-  //       sm: 10.0,
-  //       md: 12.0,
-  //       lg: 14.0,
-  //     },
-  //     base: {
-  //       cantidad: 1,
-  //       ingrediente: "Bases",
-  //       default: "arroz",
-  //     },
-  //     proteinas: {
-  //       cantidad: 3,
-  //       ingrediente: "Proteinas",
-  //     },
-  //     salsa: {
-  //       cantidad: 2,
-  //       ingrediente: "Salsas",
-  //     },
-  //     vegetales: {
-  //       cantidad: 3,
-  //       ingrediente: "Vegetales",
-  //     },
-  //   },
-  // ];
-
-  // for (const key in arrayMenuDinamico) {
-  //   if (arrayMenuDinamico.length >= 0) {
-  //     Object.keys(arrayMenuDinamico[key]).map((index) => {
-  //       if (index == "dimensiones") {
-  //       } else {
-  //         if (arrayMenuDinamico[key][index].ingrediente) {
-  //           const array = AllIngredientesProd.filter(
-  //             (state) =>
-  //               state.categories === arrayMenuDinamico[key][index].ingrediente
-  //           );
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
 
   // ("======================================================= Bowl
   const [selectBowl, setselectBowl] = useState({
     plato: "",
+    precioUnitario: "",
   });
   const handleChangeCheckboxBowl = (extra, checked) => {
-    if (checked) {
-      setselectBowl({
-        plato: extra.nombre,
-        precioUnitario: extra.precio,
-      });
-    }
+    setselectBowl({
+      plato: extra.nombre,
+      precioUnitario: extra.precio,
+    });
   };
   // ("=======================================================Bases y proteinas
   const [selectBases, setselectBases] = useState({
     bases: [],
     proteina: "",
   });
-
+  const [arrayMarcaBases, setarrayMarcaBases] = useState([]);
   const handleChangeCheckboxBases = (extra, checked) => {
-    let quitarbase;
-    if (checked) {
-      setselectBases({
-        ...selectBases,
-        bases: [...selectBases.bases, extra],
-      });
+    if (arrayMarcaBases.length === 2) {
+      arrayMarcaBases.shift();
     }
-    if (!checked) {
-      quitarbase = selectBases.bases.filter(
-        (item) => item.nombre !== extra.nombre
+
+    setselectBases({
+      ...selectBases,
+      bases: [...selectBases.bases, extra],
+    });
+
+    setarrayMarcaBases([...arrayMarcaBases, extra]);
+
+    const arraynuevo = selectBases.bases.filter((item) => item === extra);
+    if (arraynuevo.length === 1) {
+      const nuevoArrayBases = selectBases.bases.filter(
+        (item) => item !== extra
       );
+      let marcado = arrayMarcaBases.filter((item) => item !== extra);
+      setarrayMarcaBases(marcado);
       setselectBases({
         ...selectBases,
-        bases: quitarbase,
+        bases: nuevoArrayBases,
       });
     }
   };
 
   const handleChangeCheckboxProteinas = (extra, checked) => {
-    if (checked) {
-      setselectBases({
-        ...selectBases,
-        proteina: extra,
-      });
-    }
+    // if (checked) {
+    setselectBases({
+      ...selectBases,
+      proteina: extra,
+    });
+    // }
   };
 
   // ("=======================================================Marinado
@@ -231,11 +133,11 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
   });
 
   const handleChangeCheckboxMarinado = (extra, checked) => {
-    if (checked) {
-      setselectMarinado({
-        marinado: extra,
-      });
-    }
+    // if (checked) {
+    setselectMarinado({
+      marinado: extra,
+    });
+    // }
   };
 
   const [marinar, setmarinar] = useState("Si");
@@ -257,10 +159,29 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     topping: [],
   });
 
-  const handleChangeCheckboxTopping = (extra, checked) => {
-    if (checked) {
+  const [arrayMarcaTopping, setarrayMarcaTopping] = useState([]);
+  const handleChangeCheckboxTopping = (extra, limit) => {
+    if (arrayMarcaTopping.length === limit) {
+      arrayMarcaTopping.shift();
+    }
+
+    setselectTopping({
+      topping: [...selectTopping.topping, extra],
+    });
+    setarrayMarcaTopping([...arrayMarcaTopping, extra.nombre]);
+
+    const arraynuevo = selectTopping.topping.filter(
+      (item) => item.nombre === extra.nombre
+    );
+    if (arraynuevo.length === 1) {
+      const nuevoArrayBases = selectTopping.topping.filter(
+        (item) => item.nombre !== extra.nombre
+      );
+      let marcado = arrayMarcaTopping.filter((item) => item !== extra.nombre);
+      setarrayMarcaTopping(marcado);
+
       setselectTopping({
-        topping: [...selectTopping.topping, extra],
+        topping: nuevoArrayBases,
       });
     }
   };
@@ -271,10 +192,29 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     ending: [],
   });
 
-  const handleChangeCheckboxEnding = (extra, checked) => {
-    if (checked) {
+  const [arrayMarcaEnding, setarrayMarcaEnding] = useState([]);
+  const handleChangeCheckboxEnding = (extra, limit) => {
+    if (arrayMarcaEnding.length === limit) {
+      arrayMarcaEnding.shift();
+    }
+
+    setselectEnding({
+      ending: [...selectEnding.ending, extra],
+    });
+    setarrayMarcaEnding([...arrayMarcaEnding, extra.nombre]);
+
+    const arraynuevo = selectEnding.ending.filter(
+      (item) => item.nombre === extra.nombre
+    );
+    if (arraynuevo.length === 1) {
+      const nuevoArrayBases = selectEnding.ending.filter(
+        (item) => item.nombre !== extra.nombre
+      );
+      let marcado = arrayMarcaEnding.filter((item) => item !== extra.nombre);
+      setarrayMarcaEnding(marcado);
+
       setselectEnding({
-        ending: [...selectEnding.ending, extra],
+        ending: nuevoArrayBases,
       });
     }
   };
@@ -284,10 +224,25 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
     extras: [],
   });
 
-  const handleChangeCheckboxExtras = (extra, checked) => {
-    if (checked) {
+  const [arrayMarcaExtras, setarrayMarcaExtras] = useState([]);
+  const handleChangeCheckboxExtras = (extra) => {
+    setselectExtras({
+      extras: [...selectExtras.extras, extra],
+    });
+    setarrayMarcaExtras([...arrayMarcaExtras, extra.nombre]);
+
+    const arraynuevo = selectExtras.extras.filter(
+      (item) => item.nombre === extra.nombre
+    );
+    if (arraynuevo.length === 1) {
+      const nuevoArrayBases = selectExtras.extras.filter(
+        (item) => item.nombre !== extra.nombre
+      );
+      let marcado = arrayMarcaExtras.filter((item) => item !== extra.nombre);
+      setarrayMarcaExtras(marcado);
+
       setselectExtras({
-        extras: [...selectExtras.extras, extra],
+        extras: nuevoArrayBases,
       });
     }
   };
@@ -375,6 +330,7 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
       extra: extras,
       cantidad: menuproducto.cantidad ? menuproducto.cantidad : 1,
       comentario: menuproducto.comentario ? menuproducto.comentario : "",
+      id: createHash(12),
     };
 
     setopcioneRequeridas({
@@ -486,20 +442,28 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
             <ExpansionPanelDetails>
               <div className="col-12 d-flex mt-2 flex-wrap">
                 {productsBase.map((item, index) => (
-                  <div key={index} className="form-group col-4">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          // checked={state.checkedB}
-                          onChange={(e) =>
-                            handleChangeCheckboxBowl(item, e.target.checked)
-                          }
-                          name="checkedB"
-                          color="primary"
-                        />
-                      }
-                      label={`${item.nombre}  ${item.peso}...$${item.precio}`}
-                    />
+                  <div
+                    key={index}
+                    className="form-group btn col-4 p-1 border-0"
+                    onClick={(e) =>
+                      handleChangeCheckboxBowl(item, e.target.checked)
+                    }
+                  >
+                    <div
+                      className="border d-flex justify-content-center align-items-center"
+                      style={{
+                        height: 70,
+                        width: "100%",
+                        borderRadius: 12,
+                        fontSize: 14,
+                        background:
+                          item.nombre === selectBowl.plato ? "#1e3a56" : "",
+                        color:
+                          item.nombre === selectBowl.plato ? "#fff" : "#000",
+                      }}
+                    >
+                      {`${item.nombre}  ${item.peso}...$${item.precio}`}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -508,26 +472,34 @@ export default function FullScreenDialog({ openModal = false, handleClose }) {
 
           <ModalBasesProteinas
             bases={opcioneRequeridas.bases}
+            marcaBases={arrayMarcaBases}
             proteina={opcioneRequeridas.proteinas}
+            marcaProteina={selectBases.proteina}
             handleChangeCheckboxBases={handleChangeCheckboxBases}
             handleChangeCheckboxProteinas={handleChangeCheckboxProteinas}
           />
           <ModalMariados
             marinado={opcioneRequeridas.marinados}
+            marcaMarinado={selectMarinado.marinado}
             handleChangeCheckboxMarinado={handleChangeCheckboxMarinado}
             marinarProteina={marinarProteina}
           />
           <ModalTopping
             topping={opcioneRequeridas.topping}
+            marcaTopping={arrayMarcaTopping}
             handleChangeCheckboxTopping={handleChangeCheckboxTopping}
             tipoBowl={selectBowl.plato}
           />
           <ModalEnding
             ending={opcioneRequeridas.ending}
+            marcaEnding={arrayMarcaEnding}
             handleChangeCheckboxEnding={handleChangeCheckboxEnding}
             tipoBowl={selectBowl.plato}
           />
-          <ModalExtra handleChangeCheckboxExtras={handleChangeCheckboxExtras} />
+          <ModalExtra
+            marcaExtra={arrayMarcaExtras}
+            handleChangeCheckboxExtras={handleChangeCheckboxExtras}
+          />
         </div>{" "}
         <div className=" col-12 p-1 bg-light d-flex flex-column align-items-center">
           <div className="col-11">

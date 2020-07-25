@@ -3,15 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import List from "@material-ui/core/List";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector, useDispatch } from "react-redux";
+import createHash from "hash-generator";
 
 import DialogContent from "@material-ui/core/DialogContent";
 import { addProductosCosto } from "../../../store/agregaralaCuenta/actions";
@@ -50,14 +47,20 @@ export default function FullScreenDialog({
     (item) => item.categories === "Bases"
   );
   const [selectExtras, setselectExtras] = useState([]);
+  const [arrayMarcaExtra, setarrayMarcaExtra] = useState([]);
   const [selectBases, setselectBases] = useState([]);
-  const handleChangeCheckbox = (extra, checked) => {
-    let arraynuevo;
-    if (!checked) {
-      arraynuevo = selectExtras.filter((item) => item.nombre !== extra.nombre);
-      setselectExtras(arraynuevo);
-    } else {
-      setselectExtras([...selectExtras, extra]);
+
+  const handleChangeCheckbox = (extra) => {
+    setselectExtras([...selectExtras, extra]);
+    setarrayMarcaExtra([...arrayMarcaExtra, extra.nombre]);
+    let arraynuevo = selectExtras.filter(
+      (item) => item.nombre === extra.nombre
+    );
+    if (arraynuevo.length === 1) {
+      let array = selectExtras.filter((item) => item.nombre !== extra.nombre);
+      let marcado = arrayMarcaExtra.filter((item) => item !== extra.nombre);
+      setarrayMarcaExtra(marcado);
+      setselectExtras(array);
     }
   };
   const handleChangeCheckboxBases = (extra, checked) => {
@@ -73,10 +76,11 @@ export default function FullScreenDialog({
         : menuItem.precio,
       categories: menuItem.categories,
       nombre: menuItem.nombre,
-      base: selectBases.nombre ? selectBases.nombre : "Sin base",
+      base: selectBases.nombre ? [selectBases.nombre] : ["Sin base"],
       extras: selectExtras,
       cantidad: menuproducto.cantidad ? menuproducto.cantidad : 1,
       comentario: menuproducto.comentario ? menuproducto.comentario : "",
+      id: createHash(12),
     };
     const productoslista = [...listaProducts, menuNuevo];
 
@@ -152,32 +156,11 @@ export default function FullScreenDialog({
               +
             </Button>
           </div>
-          {/* <Button autoFocus color="inherit" onClick={siguientesModal}>
-            Aceptar
-          </Button> */}
         </div>
         {/* </AppBar> */}
         <DialogContent className="p-0">
           <div className="justify-content-center col-12 bg-light">
             <List>
-              {/* <div className="row p-4">
-                <div className="col-12">
-                  <Typography variant="h5" className={classes.title}>
-                    Ingredientes:
-                  </Typography>
-                </div>
-                <div className="col-12 d-flex mt-2 flex-wrap">
-                  {productsItems.map((item, index) => (
-                    <div
-                      key={item.id}
-                      className="btn btn-sm bg-info m-1"
-                      // onClick={() => eliminarItemArray(item)}
-                    >
-                      <p className="m-0 p-0 text-white">{`${item.nombre}`}</p>
-                    </div>
-                  ))}
-                </div>
-              </div> */}
               <div className="row p-0">
                 <div className="col-12">
                   <Typography variant="h5" className={classes.title}>
@@ -189,7 +172,7 @@ export default function FullScreenDialog({
                     <div
                       key={index}
                       className="form-group btn col-4 p-1 border-0"
-                      onChange={(e) =>
+                      onClick={(e) =>
                         handleChangeCheckboxBases(item, e.target.checked)
                       }
                     >
@@ -200,6 +183,12 @@ export default function FullScreenDialog({
                           width: "100%",
                           borderRadius: 12,
                           fontSize: 14,
+                          background:
+                            item.nombre === selectBases.nombre ? "#1e3a56" : "",
+                          color:
+                            item.nombre === selectBases.nombre
+                              ? "#fff"
+                              : "#000",
                         }}
                       >
                         {item.nombre} $ {item.precioUnitario}
@@ -219,9 +208,7 @@ export default function FullScreenDialog({
                     <div
                       key={index}
                       className="form-group btn col-4 p-1 border-0"
-                      onChange={(e) =>
-                        handleChangeCheckbox(item, e.target.checked)
-                      }
+                      onClick={(e) => handleChangeCheckbox(item)}
                     >
                       <div
                         className="border d-flex justify-content-center align-items-center"
@@ -230,6 +217,14 @@ export default function FullScreenDialog({
                           width: "100%",
                           borderRadius: 12,
                           fontSize: 14,
+                          background:
+                            arrayMarcaExtra.indexOf(item.nombre) !== -1
+                              ? "#1e3a56"
+                              : "",
+                          color:
+                            arrayMarcaExtra.indexOf(item.nombre) !== -1
+                              ? "#fff"
+                              : "#000",
                         }}
                       >
                         {item.nombre} $ {item.precioUnitario}

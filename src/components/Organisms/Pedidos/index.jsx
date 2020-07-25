@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-
+import createHash from "hash-generator";
 // Material UI
 import { Grid } from "@material-ui/core";
 
@@ -90,6 +89,7 @@ const MenuList = () => {
       categories: prod.categories,
       nombre: prod.nombre,
       cantidad: 1,
+      id: createHash(12),
     };
     const productoslista = [...listaProducts, menuNuevo];
 
@@ -99,9 +99,9 @@ const MenuList = () => {
   let gridSize = {
     xs: 12,
     sm: 6,
-    md: 5,
-    lg: 4,
-    xl: 4,
+    md: 4,
+    lg: 3,
+    xl: 2,
   };
 
   return (

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 // Material UI
 import {
@@ -7,10 +7,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Collapse
-} from '@material-ui/core';
+  Collapse,
+} from "@material-ui/core";
 
-import styles from './styles';
+import styles from "./styles";
 
 const MenuItem = ({
   label,
@@ -19,12 +19,12 @@ const MenuItem = ({
   selected,
   onClick,
   icon: Icon,
-  open
+  open,
 }) => {
   const classes = styles();
   if (routes) {
     return (
-      <>
+      <div>
         <ListItem button selected={selected} onClick={onClick}>
           <ListItemIcon>
             <div className={selected ? classes.iconShow : classes.iconHidden}>
@@ -34,7 +34,7 @@ const MenuItem = ({
           <ListItemText
             primary={label}
             classes={{
-              primary: selected ? classes.itemSelectedText : classes.itemText
+              primary: selected ? classes.itemSelectedText : classes.itemText,
             }}
           />
         </ListItem>
@@ -49,14 +49,14 @@ const MenuItem = ({
                     primary:
                       selected === item.label
                         ? classes.itemSelectedText
-                        : classes.itemText
+                        : classes.itemText,
                   }}
                 />
               </ListItem>
             ))}
           </List>
         </Collapse>
-      </>
+      </div>
     );
   }
 
@@ -66,7 +66,8 @@ const MenuItem = ({
       selected={selected}
       component={Link}
       onClick={onClick}
-      to={path}>
+      to={path}
+    >
       <ListItemIcon>
         <div className={selected ? classes.iconShow : classes.iconHidden}>
           {Icon && <Icon />}
@@ -75,7 +76,7 @@ const MenuItem = ({
       <ListItemText
         primary={label}
         classes={{
-          primary: selected ? classes.itemSelectedText : classes.itemText
+          primary: selected ? classes.itemSelectedText : classes.itemText,
         }}
       />
     </ListItem>

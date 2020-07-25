@@ -2,8 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { useSelector } from "react-redux";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -25,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FullScreenDialog({ handleChangeCheckboxExtras }) {
+export default function FullScreenDialog({
+  handleChangeCheckboxExtras,
+  marcaExtra,
+}) {
   const classes = useStyles();
 
   const products = useSelector((state) => state.products.products);
@@ -51,20 +52,28 @@ export default function FullScreenDialog({ handleChangeCheckboxExtras }) {
           </div>
           <div className="col-12 d-flex mt-2 flex-wrap">
             {productsProteinas.map((item, index) => (
-              <div key={index} className="form-group col-4">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      // checked={state.checkedB}
-                      onChange={(e) =>
-                        handleChangeCheckboxExtras(item, e.target.checked)
-                      }
-                      name="checkedB"
-                      color="primary"
-                    />
-                  }
-                  label={`${item.nombre} $${item.precioUnitario}`}
-                />
+              <div
+                key={index}
+                className="form-group btn col-4 p-1 border-0"
+                onClick={(e) =>
+                  handleChangeCheckboxExtras(item, e.target.checked)
+                }
+              >
+                <div
+                  className="border d-flex justify-content-center align-items-center"
+                  style={{
+                    height: 70,
+                    width: "100%",
+                    borderRadius: 12,
+                    fontSize: 14,
+                    background:
+                      marcaExtra.indexOf(item.nombre) !== -1 ? "#1e3a56" : "",
+                    color:
+                      marcaExtra.indexOf(item.nombre) !== -1 ? "#fff" : "#000",
+                  }}
+                >
+                  {`${item.nombre} $${item.precioUnitario}`}
+                </div>
               </div>
             ))}
           </div>

@@ -1,4 +1,9 @@
-import { authRef, FIREBASE_AUTH_PERSIST } from "../../config/firebase";
+import {
+  authRef,
+  FIREBASE_AUTH_PERSIST,
+  userRef,
+  userEditRef,
+} from "../../config/firebase";
 import * as firebase from "firebase";
 import {
   USER_SIGN_IN,
@@ -9,7 +14,41 @@ import {
   END_LOADING,
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_IN_SUCCESS,
+  USER_FETCH_SUCCESS,
 } from "./Constants";
+
+export const fecthUsers = () => (dispatch) => {
+  dispatch({
+    type: START_LOADING,
+  });
+  userRef.on("value", (snapshot) => {
+    if (snapshot.val()) {
+      const data = snapshot.val();
+
+      const arr = Object.keys(data).map((i) => {
+        data[i].id = i;
+        return data[i];
+      });
+      dispatch({
+        type: USER_FETCH_SUCCESS,
+        payload: {
+          users: arr,
+        },
+      });
+    } else {
+      console.log("=======================================================");
+      console.log(
+        "Ha ocurrido un error al obtener el registro de los usuarios"
+      );
+      console.log("=======================================================");
+    }
+  });
+
+  dispatch({
+    type: END_LOADING,
+    payload: null,
+  });
+};
 
 export const fetchuserlogin = (usuariologueado) => async (dispatch) => {
   await dispatch({
@@ -34,6 +73,8 @@ export const signIn = (username, password) => (dispatch) => {
           const usuariologueado = {
             email: user.user.email,
             userName: user.user.displayName,
+            rol: user.user.rol,
+            verify: user.user.verify,
           };
 
           localStorage.setItem("user", JSON.stringify(usuariologueado));
@@ -62,11 +103,60 @@ export const signIn = (username, password) => (dispatch) => {
     });
 };
 
+export const editUsers = (client) => async (dispatch) => {
+  dispatch({
+    type: START_LOADING,
+  });
+
+  userEditRef(client.id).set(client);
+
+  dispatch({
+    type: END_LOADING,
+  });
+};
+
+export const verifyUserSignIn = (info, verify) => async (dispatch) => {
+  dispatch({
+    type: START_LOADING,
+  });
+
+  if (verify === true) {
+    dispatch({
+      type: USER_FETCH_SUCCESS,
+      payload: {
+        info,
+      },
+    });
+  } else {
+    dispatch({
+      type: USER_FETCH_SUCCESS,
+      payload: {
+        info: null,
+        error: {
+          flag: true,
+          msg: info,
+        },
+      },
+    });
+  }
+
+  dispatch({
+    type: END_LOADING,
+  });
+};
+
 export const signUp = (regData) => (dispatch) => {
   dispatch({
     type: START_LOADING,
     payload: null,
   });
+  const registro = {
+    firstName: regData.firstName,
+    lastName: regData.lastName,
+    email: regData.email,
+    rol: "SIN_ROL",
+    verify: "Inactivo",
+  };
 
   authRef
     .createUserWithEmailAndPassword(regData.email, regData.password)
@@ -81,7 +171,7 @@ export const signUp = (regData) => (dispatch) => {
               .database()
               .ref("users/")
               .child(authRef.currentUser.uid)
-              .set(regData)
+              .set(registro)
               .then(() => {
                 dispatch({
                   type: USER_SIGN_UP_SUCCESS,
@@ -100,17 +190,20 @@ export const signUp = (regData) => (dispatch) => {
 };
 
 export const signOut = () => (dispatch) => {
-  authRef
-    .signOut()
-    .then(() => {
-      dispatch({
-        type: USER_SIGN_OUT,
-        payload: null,
-      });
-    })
-    .catch((error) => {
-      //console.log(error);
-    });
+  dispatch({
+    type: START_LOADING,
+  });
+
+  dispatch({
+    type: USER_FETCH_SUCCESS,
+    payload: {
+      info: null,
+    },
+  });
+
+  dispatch({
+    type: END_LOADING,
+  });
 };
 
 export const clearLoginError = () => (dispatch) => {

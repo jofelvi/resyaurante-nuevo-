@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core";
 export default makeStyles((theme) => ({
   drawer: {
     [theme.breakpoints.up("md")]: {
-      width: 250,
+      // width: 250,
       flexShrink: 0,
     },
   },
@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     border: "none",
   },
   nav: {
-    padding: 10,
+    paddingBottom: 0,
   },
   iconShow: {
     color: theme.palette.text.secondary,

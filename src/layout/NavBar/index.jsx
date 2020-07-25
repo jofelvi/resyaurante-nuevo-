@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 // Material UI
@@ -20,6 +21,7 @@ import {
   PersonOutline,
   PowerSettingsNew,
 } from "@material-ui/icons";
+import { signOut } from "../../store/auth/actions";
 
 import styles from "./styles";
 
@@ -27,10 +29,12 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const dispatch = useDispatch();
 
   const [redireccionar, setredireccionar] = useState(false);
-  const signOut = async () => {
+  const logout = async () => {
     localStorage.removeItem("user");
+    dispatch(signOut());
     setredireccionar(true);
   };
 
@@ -49,7 +53,7 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
         <PersonOutline className={classes.icon} />
         Mi perfil
       </MenuItem>
-      <MenuItem onClick={() => signOut()}>
+      <MenuItem onClick={() => logout()}>
         <PowerSettingsNew className={classes.icon} />
         Cerrar sesión
       </MenuItem>
@@ -78,7 +82,7 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            LidyRestobar
+            Restaurant System
           </Typography>
           <div className={classes.grow} />
           <div className={classes.menu}>
@@ -93,8 +97,8 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
                 noWrap
                 className={classes.username}
               >
-                {/* {userProfile.firstName} {userProfile.lastName} */}
-                {userProfile}
+                {userProfile.firstName} {userProfile.lastName}
+                {/* {userProfile} */}
               </Typography>
               <ExpandMore className={classes.arrow} />
             </Button>
@@ -110,8 +114,8 @@ const NavBar = ({ handleOpenSideNav, userProfile, history }) => {
           }}
         />
       ) : (
-          ""
-        )}
+        ""
+      )}
     </Fragment>
   );
 };

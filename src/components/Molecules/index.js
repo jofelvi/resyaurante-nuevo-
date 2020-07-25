@@ -18,4 +18,5 @@ export {
   ModalScreenDinamico,
   ModalScreenProducto,
   ModalScreenNuevoProd,
+  ModalScreenCreateMenu,
 };

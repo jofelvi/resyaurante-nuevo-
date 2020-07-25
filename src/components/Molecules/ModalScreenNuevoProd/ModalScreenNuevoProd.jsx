@@ -5,8 +5,6 @@ import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import List from "@material-ui/core/List";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
@@ -38,6 +36,7 @@ export default function ModalScreenNuevoProd({
   setForm,
   crearNuevoProducto,
   editarProducts,
+  uploadImgRef,
 }) {
   const classes = useStyles();
 
@@ -78,9 +77,6 @@ export default function ModalScreenNuevoProd({
               {form.nuevo ? "Agregar" : "Editar"}
             </Button>
           </div>
-          {/* <Button autoFocus color="inherit" onClick={siguientesModal}>
-            Aceptar
-          </Button> */}
         </div>
 
         <DialogContent className="p-0">
@@ -133,6 +129,15 @@ export default function ModalScreenNuevoProd({
                             }}
                           />
                         </div>
+                        {/* 
+                        <div className="form-group col-10">
+                          <label>Agregar una Imagen</label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            ref={uploadImgRef}
+                          />
+                        </div> */}
 
                         <div className="form-group col-10">
                           <label>Categoria</label>

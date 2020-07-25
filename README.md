@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Restaurant App
 
 > React, Redux, Firebase
@@ -80,3 +81,7 @@ crud ingrediente:
 - precioUnitario: 
 - presentaciones: 
 - stock: 
+=======
+# admin_restaurante_sushi
+panel admin de restaurante de suchi front en react con firebase
+>>>>>>> 3124b98bda04d9ba5def9851ecaf4f212426b119

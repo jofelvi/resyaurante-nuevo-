@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import SearchClients from "../../components/Organisms/searchClient";
 import CreateClient from "../../components/Organisms/createClient";
 

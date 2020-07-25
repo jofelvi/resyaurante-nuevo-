@@ -11,8 +11,9 @@ const initialState = {
   msg: "",
   productsCuenta: 0,
   productsPagados: 0,
+  productoPorPagar: 0,
   listaProducts: [],
-  listaPedidosPagados: [],
+  listaPedidosPorPagar: [],
   idDetailsOrden: "",
 };
 

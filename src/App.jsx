@@ -53,6 +53,8 @@ const App = () => {
               component={Calculadora}
             />
             <ProtectedRouter exact path="/clients" component={Clients} />
+
+            <ProtectedRouter exact path="/reportes" component={Reportes} />
             <ProtectedRouter exact path="/tables" component={AllTables} />
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />

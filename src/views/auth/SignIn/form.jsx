@@ -58,7 +58,7 @@ const SignInForm = ({ onSubmit }) => {
               className={`alert alert-danger text-center col-12`}
               role="alert"
             >
-              El email no se ha encontrado
+              {dataReg.error.msg}
             </div>
           ) : (
             ""

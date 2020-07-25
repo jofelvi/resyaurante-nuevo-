@@ -1,72 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Material UI
 import { Drawer, Hidden } from "@material-ui/core";
 
 import Menu from "./Menu";
 import styles from "./styles";
-
-const routes = [
-  {
-    title: "Menu",
-    routes: [
-      {
-        label: "Dashboard",
-        path: "/",
-      },
-      {
-        label: "Lista de Ordenes",
-        path: "/lista-ordenes",
-      },
-      {
-        label: "Pedidos",
-        path: "/pedidos",
-      },
-      {
-        label: "Menu Lista",
-        path: "/all-menu",
-      },
-      {
-        label: "Ingredientes",
-        path: "/ingredientes",
-      },
-      {
-        label: "Crear menu",
-        path: "/crear-menu",
-      },
-      {
-        label: "Mesas",
-        path: "/tables",
-      },
-      {
-        label: "Deliverys",
-        path: "/deliverys",
-      },
-      {
-        label: "Cocinas",
-        path: "/kitchens",
-      },
-      {
-        label: "Barras",
-        path: "/bars",
-      },
-    ],
-  },
-  {
-    title: "Configuración",
-    routes: [
-      {
-        label: "Usuarios",
-        path: "/users",
-      },
-    ],
-  },
-];
+import { filterUserRol } from "./filterRol";
 
 const SideNav = (props) => {
   const classes = styles();
   const { open, handleOpen, location } = props;
+  const [routes, setnewRoutes] = useState([]);
+
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (auth.info) {
+      setnewRoutes([
+        {
+          title: "Menu",
+          routes: filterUserRol(auth.info.rol),
+        },
+        {
+          title: "Configuración",
+          routes: [
+            {
+              label: "Usuarios",
+              path: "/users",
+            },
+            {
+              label: "Reportes",
+              path: "/reportes",
+            },
+          ],
+        },
+      ]);
+    }
+  }, [auth.info]);
+  // console.log("desde el inicial state: ", newRoutes);
+  // let routes = [
+
+  // ];
 
   return (
     <div>
@@ -88,7 +63,7 @@ const SideNav = (props) => {
           <Menu routes={routes} location={location} />
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
+      {/* <Hidden smDown implementation="css">
         <Drawer
           classes={{
             paper: classes.drawerPaperDesktop,

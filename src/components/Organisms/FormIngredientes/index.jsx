@@ -11,6 +11,7 @@ import TableProduct from "./table";
 const FormIngredientes = () => {
   const dataProducts = useSelector((state) => state.products);
 
+  const uploadImgRef = React.createRef();
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({
@@ -89,7 +90,11 @@ const FormIngredientes = () => {
       nuevoProd.precioUnitario = "";
     }
 
-    await dispatch(editproducts(nuevoProd, "Add"));
+    await dispatch(
+      editproducts(nuevoProd, "Add", {
+        archivo: uploadImgRef.current.files[0],
+      })
+    );
     eliminarDatos();
     crearAlertaExito("Se a creado el producto con exito");
   };
@@ -217,6 +222,7 @@ const FormIngredientes = () => {
         setForm={setForm}
         crearNuevoProducto={crearNuevoProducto}
         editarProducts={editarProducts}
+        uploadImgRef={uploadImgRef}
       />
 
       <TableProduct

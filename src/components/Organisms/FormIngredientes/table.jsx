@@ -7,9 +7,9 @@ const tableProducts = ({ dataProducts, eliminarProducts, edit }) => {
   const gridSize = {
     xs: 12,
     sm: 6,
-    md: 5,
-    lg: 4,
-    xl: 4,
+    md: 4,
+    lg: 3,
+    xl: 2,
   };
   return (
     <Fragment>

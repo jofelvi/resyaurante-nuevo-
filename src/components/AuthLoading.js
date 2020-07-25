@@ -7,8 +7,9 @@ import { getProduct } from "../store/Products/actions";
 import { getCategories, getCategoriesMenu } from "../store/Categories/actions";
 import { getAddMenu } from "../store/AgregarMenu/actions";
 import { getListaPedidos } from "../store/agregaralaCuenta/actions";
-import { fetchuserlogin } from "../store/auth/actions";
-import { fecthClients } from "../store/Clients/actions";
+import { fetchuserlogin, fecthUsers } from "../store/auth/actions";
+import { fecthClients, fecthMesas } from "../store/Clients/actions";
+import { getReports } from "../store/reportes/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function AuthLoading(props) {
       dispatch(getAddMenu());
       dispatch(getListaPedidos());
       dispatch(fecthClients());
+      dispatch(fecthMesas());
+      dispatch(getReports());
+      dispatch(fecthUsers());
     } else if (auth.info === "") {
       dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }
