@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
+export default function ModalScreenNuevoProd({
   openModal = false,
   handleClose,
   menuItem = [],
@@ -91,7 +91,7 @@ export default function FullScreenDialog({
                   <div className="row justify-content-center">
                     <form
                       className="my-4  col-12"
-                      // onSubmit={}
+                    // onSubmit={}
                     >
                       <div className="form-row justify-content-center">
                         <div className="form-group col-10">
@@ -295,29 +295,29 @@ export default function FullScreenDialog({
                             </div>
                           </Fragment>
                         ) : (
-                          <Fragment>
-                            <div className="form-group col-10 d-flex aling-item-center">
-                              <label for="inputZip7">Precio unitario:</label>
-                              <input
-                                type="text"
-                                className="form-control col-8 ml-3"
-                                id="inputZip7"
-                                placeholder="Precio"
-                                defaultValue={
-                                  form.editData
-                                    ? form.editData.precioUnitario
-                                    : ""
-                                }
-                                onChange={(e) => {
-                                  return setNuevoProd({
-                                    ...nuevoProd,
-                                    precioUnitario: e.target.value,
-                                  });
-                                }}
-                              />
-                            </div>
-                          </Fragment>
-                        )}
+                            <Fragment>
+                              <div className="form-group col-10 d-flex aling-item-center">
+                                <label for="inputZip7">Precio unitario:</label>
+                                <input
+                                  type="text"
+                                  className="form-control col-8 ml-3"
+                                  id="inputZip7"
+                                  placeholder="Precio"
+                                  defaultValue={
+                                    form.editData
+                                      ? form.editData.precioUnitario
+                                      : ""
+                                  }
+                                  onChange={(e) => {
+                                    return setNuevoProd({
+                                      ...nuevoProd,
+                                      precioUnitario: e.target.value,
+                                    });
+                                  }}
+                                />
+                              </div>
+                            </Fragment>
+                          )}
                         <div className="form-group col-10">
                           <div className="custom-control custom-switch">
                             <input
@@ -350,8 +350,8 @@ export default function FullScreenDialog({
                             {form.msjalertError}
                           </div>
                         ) : (
-                          ""
-                        )}
+                            ""
+                          )}
                       </div>
                     </form>
                   </div>

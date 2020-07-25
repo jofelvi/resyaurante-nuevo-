@@ -23,6 +23,7 @@ import { Pedidos } from "./views/Pedidos";
 import { ListaPedidos } from "./views/ListaPedidos";
 import { Calculadora } from "./views/Calculadora";
 import Clients from "./views/clients";
+import { EcommerceHome } from "./views/EcommerceHome";
 
 const App = () => {
   // if (loggedIn) {
@@ -35,6 +36,7 @@ const App = () => {
             <ProtectedRouter exact path="/crear-menu" component={AllProducts} />
             <ProtectedRouter exact path="/all-menu" component={AllMenu} />
             <ProtectedRouter exact path="/pedidos" component={Pedidos} />
+            <ProtectedRouter exact path="/ecommercehome" component={EcommerceHome} />
             <ProtectedRouter
               exact
               path="/lista-ordenes"

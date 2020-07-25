@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 
 import { editproducts } from "../../../store/Products/actions";
-import ModalScreenNuevoProd from "../../Molecules/ModalScreenNuevoProd";
+import ModalScreenNuevoProd from "../../Molecules/ModalScreenNuevoProd/ModalScreenNuevoProd";
 
 import TableProduct from "./table";
 
@@ -205,8 +205,8 @@ const FormIngredientes = () => {
           {form.alertSuccess}
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
 
       <ModalScreenNuevoProd
         openModal={form.abrirProductoForm}

@@ -69,8 +69,10 @@ const SideNav = (props) => {
   const { open, handleOpen, location } = props;
 
   return (
+    <div>
+      {/*  
     <nav className={classes.drawer}>
-      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      The implementation can be swapped with js to avoid SEO duplication of links.
       <Hidden smUp implementation="css">
         <Drawer
           variant="temporary"
@@ -100,7 +102,10 @@ const SideNav = (props) => {
           <Menu routes={routes} location={location} />
         </Drawer>
       </Hidden>
+       
     </nav>
+    */}
+    </div>
   );
 };
 

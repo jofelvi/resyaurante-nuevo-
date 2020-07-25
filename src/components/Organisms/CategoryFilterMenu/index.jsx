@@ -7,9 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 
 import { editcategorieMenu } from "../../../store/Categories/actions";
 import { filterMenu } from "../../../store/AgregarMenu/actions";
-
 import { Tooltip, Button } from "@material-ui/core";
-
 import styles from "./styles";
 
 const AllTables = ({ data, posicion }) => {
@@ -131,8 +129,8 @@ const AllTables = ({ data, posicion }) => {
           {newCategoria.alertSuccess}
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
 
       <Dialog
         onClose={() => {
@@ -173,21 +171,11 @@ const AllTables = ({ data, posicion }) => {
 
       {!newCategoria.agregar && posicion ? (
         <div className="d-flex justify-content-center my-3 mr-2">
-          <button
-            onClick={() =>
-              setNuevaCategoria({
-                ...newCategoria,
-                agregar: true,
-              })
-            }
-            className="btn btn-primary btn-sm"
-          >
-            Nueva
-          </button>
+
         </div>
       ) : (
-        ""
-      )}
+          ""
+        )}
     </div>
   );
 };

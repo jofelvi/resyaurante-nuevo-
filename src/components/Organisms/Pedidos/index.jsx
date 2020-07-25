@@ -12,6 +12,7 @@ import { ModalScreenEstatico, ModalScreenDinamico } from "../../Molecules";
 import ProductoCardRow from "../../Molecules/ProductCard/variants/ViewColumn";
 
 import { addProductosCosto } from "../../../store/agregaralaCuenta/actions";
+import ModalProductosEco from "../../Molecules/ModalProductosEco/ModalProductosEco";
 
 const MenuList = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const MenuList = () => {
     (state) => state.addcuenta.productsCuenta
   );
   const listaProducts = useSelector((state) => state.addcuenta.listaProducts);
-
+  const [abrirModal, setAbrirModal] = useState(false);
   const dataProducts = useSelector((state) => state.addmenu.menufilter);
   const data = Object.keys(dataProducts).map((i) => {
     // console.log(dataProducts[i]);
@@ -38,6 +39,10 @@ const MenuList = () => {
     menuItem: "",
   });
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const [producModalNew, setProducModalNew] = useState();
+
   const handleClickOpen = (opcion) => {
     settipoPedido({
       estatico: true,
@@ -52,17 +57,32 @@ const MenuList = () => {
       dinamico: false,
     });
   };
+
   const openMenuProduct = (menu) => {
     if (menu.products) {
-      setopenProducto({
-        ...openProducto,
-        open: true,
-        menuItem: menu,
-      });
+      setopenProducto(menu);
     } else {
       siguientesProd(menu);
     }
   };
+
+  const closeMenuProduct = (menu) => {
+    if (menu.products) {
+      setopenProducto(menu);
+    } else {
+      siguientesProd(menu);
+    }
+  };
+
+  const handleOpenModalProducNew = (item) => {
+    console.log(producModalNew)
+    setProducModalNew(item)
+    setAbrirModal(true)
+  }
+
+  const handlecloseModalProducNew = () => {
+    setAbrirModal(false)
+  }
 
   const siguientesProd = (prod) => {
     const menuNuevo = {
@@ -101,25 +121,28 @@ const MenuList = () => {
           item
           {...gridSize}
           key={index}
-          onClick={() => (tipoPedido.estatico ? openMenuProduct(item) : "")}
+          onClick={() => (tipoPedido.estatico ? handleOpenModalProducNew(item) : openMenuProduct(item))}
         >
           <ProductoCardRow variant={"column"} products={item} />
+
         </Grid>
       ))}
-      {openProducto.menuItem ? (
-        <ModalScreenEstatico
-          openModal={openProducto.open}
-          handleClose={handleClose}
-          menuItem={openProducto.menuItem}
-        />
-      ) : (
-        ""
-      )}
+
+      <ModalScreenEstatico
+        openModal={openProducto.open}
+        handleClose={handleClose}
+        menuItem={openProducto.menuItem}
+      />,
+      <ModalProductosEco
+        abierto={abrirModal}
+        cerrado={handlecloseModalProducNew}
+        menuItem={producModalNew}
+      />
 
       <ModalScreenDinamico
         openModal={tipoPedido.dinamico}
         handleClose={handleClose}
-        // mostrandoModal={mostrandoModal}
+      // mostrandoModal={mostrandoModal}
       />
     </Grid>
   );

@@ -21,7 +21,7 @@ const Layout = ({ children, profile }) => {
         handleOpenSideNav={handleOpenSideNav}
         userProfile={auth.userName}
       />
-      <SideNav open={mobileOpen} handleOpen={handleOpenSideNav} />
+      {/*<SideNav open={mobileOpen} handleOpen={handleOpenSideNav} />*/}
 
       <main className={classes.main}>
         {/* <Breadcrumb /> */}
