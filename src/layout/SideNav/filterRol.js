@@ -1,21 +1,7 @@
 export const filterUserRol = (userRol) => {
-  const roles = [
-    "MESONERO",
-    "CLIENTE",
-    "CAJA",
-    "COCINA",
-    "ADMIN",
-    "ADMIN_MASTER",
-  ];
+  const roles = ["MESONERO", "CLIENTE", "CAJA", "COCINA", "ADMIN", "ADMIN_MASTER"];
   const mesero = ["/", "/lista-ordenes", "/pedidos"];
-  const cajero = [
-    "/",
-    "/lista-ordenes",
-    "/pedidos",
-    "/all-menu",
-    "/deliverys",
-    "/kitchens",
-  ];
+  const cajero = ["/", "/lista-ordenes", "/pedidos", "/all-menu", "/deliverys", "/kitchens"];
   const clients = ["/", "/pedidos"];
 
   const routes = [
@@ -63,23 +49,16 @@ export const filterUserRol = (userRol) => {
   let authorizationRoutes;
   let authorizationUser = roles.indexOf(userRol) !== -1 ? userRol : false;
 
-  if (authorizationUser === "ADMIN_MASTER" || "ADMIN")
-    authorizationRoutes = routes;
+  if (authorizationUser === "ADMIN_MASTER" || "ADMIN") authorizationRoutes = routes;
 
   if (authorizationUser === "MESONERO") {
-    authorizationRoutes = routes.filter(
-      (items) => mesero.indexOf(items.path) !== -1
-    );
+    authorizationRoutes = routes.filter((items) => mesero.indexOf(items.path) !== -1);
   }
   if (authorizationUser === "CAJA") {
-    authorizationRoutes = routes.filter(
-      (items) => cajero.indexOf(items.path) !== -1
-    );
+    authorizationRoutes = routes.filter((items) => cajero.indexOf(items.path) !== -1);
   }
   if (authorizationUser === "CLIENTE") {
-    authorizationRoutes = routes.filter(
-      (items) => clients.indexOf(items.path) !== -1
-    );
+    authorizationRoutes = routes.filter((items) => clients.indexOf(items.path) !== -1);
   }
 
   return authorizationRoutes;

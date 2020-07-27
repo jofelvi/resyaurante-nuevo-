@@ -9,6 +9,7 @@ import { getAddMenu } from "../store/AgregarMenu/actions";
 import { getListaPedidos } from "../store/agregaralaCuenta/actions";
 import { fetchuserlogin, fecthUsers } from "../store/auth/actions";
 import { fecthClients, fecthMesas } from "../store/Clients/actions";
+import { fecthTables } from "../store/Table/actions";
 import { getReports } from "../store/reportes/actions";
 
 function AuthLoading(props) {
@@ -25,6 +26,7 @@ function AuthLoading(props) {
       dispatch(getListaPedidos());
       dispatch(fecthClients());
       dispatch(fecthMesas());
+      dispatch(fecthTables());
       dispatch(getReports());
       dispatch(fecthUsers());
     } else if (auth.info === "") {

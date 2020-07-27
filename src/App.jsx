@@ -14,7 +14,7 @@ import DashboardView from "./views/dashboard";
 import { AllProducts } from "./views/product";
 import { AllMenu } from "./views/allMenu";
 import { FormIngredientes } from "./views/ingredientes";
-import { AllTables } from "./views/table";
+import { AllTables, AddTable } from "./views/table";
 import { AllDeliverys } from "./views/delivery";
 import { AllKitchens } from "./views/kitchen";
 import { AllBars } from "./views/bar";
@@ -38,25 +38,14 @@ const App = () => {
             <ProtectedRouter exact path="/all-menu" component={AllMenu} />
             <ProtectedRouter exact path="/pedidos" component={Pedidos} />
             <ProtectedRouter exact path="/users" component={Usuarios} />
-            <ProtectedRouter
-              exact
-              path="/lista-ordenes"
-              component={ListaPedidos}
-            />
-            <ProtectedRouter
-              exact
-              path="/ingredientes"
-              component={FormIngredientes}
-            />
-            <ProtectedRouter
-              exact
-              path="/calcular-pago"
-              component={Calculadora}
-            />
+            <ProtectedRouter exact path="/lista-ordenes" component={ListaPedidos} />
+            <ProtectedRouter exact path="/ingredientes" component={FormIngredientes} />
+            <ProtectedRouter exact path="/calcular-pago" component={Calculadora} />
             <ProtectedRouter exact path="/clients" component={Clients} />
 
             <ProtectedRouter exact path="/reportes" component={Reportes} />
             <ProtectedRouter exact path="/tables" component={AllTables} />
+            <ProtectedRouter exact path="/addTable" component={AddTable} />
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />
             <ProtectedRouter exact path="/bars" component={AllBars} />

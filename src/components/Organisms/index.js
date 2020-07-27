@@ -1,6 +1,7 @@
 import CategoryFilter from "./CategoryFilter";
 import ProductList from "./ProductList";
 import TableList from "./TableList";
+import FormTable from "./FormTable";
 import DeliveryList from "./DeliveryList";
 import KitchenList from "./KitchenList";
 import BarList from "./BarList";
@@ -28,4 +29,5 @@ export {
   ListaOrdenes,
   Calculadora,
   TableOrdenPagar,
+  FormTable,
 };

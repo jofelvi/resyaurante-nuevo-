@@ -10,6 +10,8 @@ import productosCuenta from "./agregaralaCuenta/reducer";
 import pagandoCuenta from "./cobrarPedidos/reducer";
 import clients from "./Clients/reducer";
 import Reports from "./reportes/reducer";
+import Table from "./Table/reducer";
+
 const reducers = combineReducers({
   auth: authReducer,
   products: products,
@@ -19,6 +21,7 @@ const reducers = combineReducers({
   listaPorPagar: pagandoCuenta,
   clients: clients,
   reportes: Reports,
+  tables: Table,
 });
 
 let middleware = [];

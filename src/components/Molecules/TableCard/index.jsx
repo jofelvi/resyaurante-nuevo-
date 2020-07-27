@@ -1,58 +1,54 @@
-import React from 'react';
+import React from "react";
 
 // Material UI
-import { Card, CardContent, Avatar, Typography } from '@material-ui/core';
+import { Card, CardContent, Avatar, Typography } from "@material-ui/core";
 
 // Atoms
-import { DropdownMenu } from '../../../components/Atoms';
+import { DropdownMenu } from "../../../components/Atoms";
 
-import TableIcon from '../../../assets/icons/table.svg';
+import TableIcon from "../../../assets/icons/table.svg";
 
-import styles from './styles';
+import styles from "./styles";
 
-const TableCard = () => {
+const TableCard = ({ table, deleteTable, editTable }) => {
   const classes = styles();
   return (
     <Card>
       <CardContent className={classes.content}>
-        <Typography
-          variant="subtitle2"
-          color="textPrimary"
-          className={classes.price}>
-          3 Comensales
+        <Typography variant="subtitle2" color="textPrimary" className={classes.price}>
+          {table.diners} Comensales
         </Typography>
         <DropdownMenu
           label="Opciones"
           className={classes.options}
           options={[
             {
-              label: 'Ver'
+              label: "Ver",
             },
             {
-              label: 'Editar'
+              label: "Editar",
             },
             {
-              label: 'Eliminar'
-            }
+              label: "Eliminar",
+            },
           ]}
+          eliminarProducts={() => deleteTable(table)}
+          edit={() => editTable(table)}
         />
         <Avatar className={classes.avatar}>
           <img src={TableIcon} alt="img" width={48} height={48} />
         </Avatar>
-        <Typography
-          variant="body1"
-          color="textPrimary"
-          align="left"
-          className={classes.title}>
-          Mesa 12
+        <Typography variant="body1" color="textPrimary" align="left" className={classes.title}>
+          Mesa {table.numberTable}
         </Typography>
         <Typography
           variant="subtitle1"
           color="textSecondary"
           align="left"
           paragraph
-          className={classes.description}>
-          Terraza
+          className={classes.description}
+        >
+          {table.sector}
         </Typography>
       </CardContent>
     </Card>
