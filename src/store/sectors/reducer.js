@@ -1,28 +1,28 @@
-import { TABLE_START, TABLE_END, TABLE_FAIL, SET_TABLE_SUCCESS } from "./Constants";
+import { SECTOR_START, SECTOR_END, SECTOR_FAIL, SET_SECTOR_SUCCESS } from "./Constants";
 
 const initialState = {
   error: null,
   loading: false,
   msg: "",
-  tables: [],
-  tableEdit: null,
+  sectors: [],
+  sectorEdit: null,
 };
 
 export default function (state = initialState, { type, payload }) {
   switch (type) {
-    case TABLE_START: {
+    case SECTOR_START: {
       return { ...state, loading: true, error: null };
     }
 
-    case TABLE_END: {
+    case SECTOR_END: {
       return { ...state, loading: false };
     }
 
-    case TABLE_FAIL: {
+    case SECTOR_FAIL: {
       return { ...state, ...payload };
     }
 
-    case SET_TABLE_SUCCESS: {
+    case SET_SECTOR_SUCCESS: {
       return {
         ...state,
         error: false,

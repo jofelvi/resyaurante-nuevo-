@@ -10,6 +10,7 @@ import { getListaPedidos } from "../store/agregaralaCuenta/actions";
 import { fetchuserlogin, fecthUsers } from "../store/auth/actions";
 import { fecthClients, fecthMesas } from "../store/Clients/actions";
 import { fecthTables } from "../store/Table/actions";
+import { fecthSectors } from "../store/sectors/actions";
 import { getReports } from "../store/reportes/actions";
 
 function AuthLoading(props) {
@@ -29,6 +30,7 @@ function AuthLoading(props) {
       dispatch(fecthTables());
       dispatch(getReports());
       dispatch(fecthUsers());
+      dispatch(fecthSectors());
     } else if (auth.info === "") {
       dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }

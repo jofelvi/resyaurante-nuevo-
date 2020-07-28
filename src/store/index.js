@@ -11,6 +11,7 @@ import pagandoCuenta from "./cobrarPedidos/reducer";
 import clients from "./Clients/reducer";
 import Reports from "./reportes/reducer";
 import Table from "./Table/reducer";
+import Sectors from "./sectors/reducer";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   clients: clients,
   reportes: Reports,
   tables: Table,
+  sectors: Sectors,
 });
 
 let middleware = [];

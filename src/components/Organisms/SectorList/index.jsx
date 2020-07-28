@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI
 import {
@@ -14,36 +14,26 @@ import {
 import { FabButton } from "../../Atoms";
 
 // Molecules
-import { TableCard } from "../../Molecules";
+import { SectorCard } from "../../Molecules";
 
 import styles from "./styles";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import MuiAlert from "@material-ui/lab/Alert";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { editTable, getTable } from "../../../store/Table/actions";
+import MuiAlert from "@material-ui/lab/Alert";
+import { editSector, getSector } from "../../../store/sectors/actions";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const TableList = ({ history }) => {
+const SectorList = ({ history }) => {
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.tables.msg);
-  const data = useSelector((state) => state.tables.tables);
+  const message = useSelector((state) => state.sectors.msg);
+  const sectors = useSelector((state) => state.sectors.sectors);
   const [open, setOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const classes = styles();
-
-  console.log(message);
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   let gridSize = {
     xs: 12,
@@ -53,17 +43,25 @@ const TableList = ({ history }) => {
     xl: 2,
   };
 
-  const tableEdit = (table) => {
-    dispatch(getTable(table));
-    history.push("/addTable");
+  const sectorEdit = (sector) => {
+    dispatch(getSector(sector));
+    history.push("/addSector");
   };
 
-  const deleteTable = (table) => {
+  const deleteSector = (sector) => {
     setIsLoading(true);
     setTimeout(() => {
-      dispatch(editTable(table, "Delete"));
+      dispatch(editSector(sector, "Delete"));
       setIsLoading(false);
     }, 1000);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -91,25 +89,23 @@ const TableList = ({ history }) => {
           <CircularProgress /> {"Eliminando mesa"}
         </Grid>
       )}
-
       <Grid item xs={12}>
         <AppBar position="static" color="inherit">
           <Toolbar className={classes.toolbar}>
             <Typography variant="subtitle2" color="primary">
-              MESAS
+              Sectores
             </Typography>
           </Toolbar>
         </AppBar>
       </Grid>
-
-      {data.map((data, index) => (
+      {sectors.map((sector, index) => (
         <Grid item {...gridSize} key={index}>
-          <TableCard table={data} deleteTable={deleteTable} editTable={tableEdit} />
+          <SectorCard sector={sector} deleteSector={deleteSector} editSector={sectorEdit} />
         </Grid>
       ))}
-      <FabButton color="primary" label="addTable" onClick={() => history.push("/addTable")} />
+      <FabButton color="primary" label="addTable" onClick={() => history.push("/addSector")} />
     </Grid>
   );
 };
 
-export default withRouter(TableList);
+export default withRouter(SectorList);

@@ -22,6 +22,7 @@ import { Error404 } from "./views/errors";
 import { Pedidos } from "./views/Pedidos";
 import { ListaPedidos } from "./views/ListaPedidos";
 import { Calculadora } from "./views/Calculadora";
+import { AllSectors, AddSector } from "./views/sectors";
 import Clients from "./views/clients";
 import Reportes from "./views/resports";
 import Usuarios from "./views/users";
@@ -46,6 +47,8 @@ const App = () => {
             <ProtectedRouter exact path="/reportes" component={Reportes} />
             <ProtectedRouter exact path="/tables" component={AllTables} />
             <ProtectedRouter exact path="/addTable" component={AddTable} />
+            <ProtectedRouter exact path="/sectors" component={AllSectors} />
+            <ProtectedRouter exact path="/addSector" component={AddSector} />
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />
             <ProtectedRouter exact path="/bars" component={AllBars} />

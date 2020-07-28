@@ -79,7 +79,7 @@ export const getTable = (table) => (dispatch) => {
       dispatch({
         type: SET_TABLE_SUCCESS,
         payload: {
-          tables: data,
+          tableEdit: data,
         },
       });
     } else {
@@ -97,32 +97,3 @@ export const getTable = (table) => (dispatch) => {
     });
   });
 };
-
-/*export const editMesas = (client, method) => async (dispatch) => {
-  dispatch({
-    type: CLIENTS_START,
-  });
-
-  if (method === "Add") {
-    addMesasRef.push(client);
-    dispatch({
-      type: SET_CLIENTS_SUCCESS,
-      payload: { msg: "Se creo correctamente" },
-    });
-  } else if (method === "Delete") {
-    dispatch({
-      type: SET_CLIENTS_SUCCESS,
-      payload: { msg: "Se borro correctamente" },
-    });
-    addMesasEditRef(client.id).remove();
-  } else {
-    dispatch({
-      type: SET_CLIENTS_SUCCESS,
-      payload: { msg: "Se edito correctamente" },
-    });
-    addMesasEditRef(client.id).set(client);
-  }
-  dispatch({
-    type: CLIENTS_END,
-  });
-};*/

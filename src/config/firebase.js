@@ -20,15 +20,13 @@ export const categoriesRef = databaseRef.child("categories/");
 export const categoriesEditRef = (id) => databaseRef.child("categories/" + id);
 
 export const categoriesMenuRef = databaseRef.child("categoriesmenu/");
-export const categoriesMenuEditRef = (id) =>
-  databaseRef.child("categoriesmenu/" + id);
+export const categoriesMenuEditRef = (id) => databaseRef.child("categoriesmenu/" + id);
 
 export const addMenuRef = databaseRef.child("addmenu/");
 export const addMenuEditRef = (id) => databaseRef.child("addmenu/" + id);
 
 export const addListaPedidosRef = databaseRef.child("listpedidos/");
-export const addListaPedidosEditRef = (id) =>
-  databaseRef.child("listpedidos/" + id);
+export const addListaPedidosEditRef = (id) => databaseRef.child("listpedidos/" + id);
 
 export const addClientRef = databaseRef.child("clients/");
 export const addClientEditRef = (id) => databaseRef.child("clients/" + id);
@@ -38,3 +36,6 @@ export const addMesasEditRef = (id) => databaseRef.child("mesas/" + id);
 
 export const gastosRef = databaseRef.child("gastos/");
 export const gastosEditRef = (id) => databaseRef.child("gastos/" + id);
+
+export const sectorsRef = databaseRef.child("sectors/");
+export const sectorsEditRef = (id) => databaseRef.child("sectors/" + id);

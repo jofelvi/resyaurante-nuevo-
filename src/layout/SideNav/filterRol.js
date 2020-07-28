@@ -45,6 +45,10 @@ export const filterUserRol = (userRol) => {
       label: "Barras",
       path: "/bars",
     },
+    {
+      label: "Sectores",
+      path: "/sectors",
+    },
   ];
   let authorizationRoutes;
   let authorizationUser = roles.indexOf(userRol) !== -1 ? userRol : false;

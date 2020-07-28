@@ -13,6 +13,8 @@ import PedidosAllTable from "./PedidosAllTable";
 import ListaOrdenes from "./ListaPedidos";
 import Calculadora from "./Calculadora";
 import TableOrdenPagar from "./TableOrdenPagar";
+import SectorList from "./SectorList";
+import FormSector from "./FormSector";
 
 export {
   CategoryFilter,
@@ -30,4 +32,6 @@ export {
   Calculadora,
   TableOrdenPagar,
   FormTable,
+  SectorList,
+  FormSector,
 };

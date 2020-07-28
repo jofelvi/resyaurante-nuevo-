@@ -16,7 +16,8 @@ import { withRouter } from "react-router-dom";
 
 const FormTable = ({ history }) => {
   const dispatch = useDispatch();
-  const tableEdit = useSelector((state) => state.tables.tables);
+  const tableEdit = useSelector((state) => state.tables.tableEdit);
+  const sectors = useSelector((state) => state.sectors.sectors);
   const [dataTable, setDataTable] = useState({
     sector: "Interno",
     diners: "",
@@ -65,8 +66,6 @@ const FormTable = ({ history }) => {
     }
   };
 
-  const sector = [{ nombre: "Interno" }, { nombre: "Terraza" }];
-
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
       <div className="col-7 border">
@@ -91,9 +90,9 @@ const FormTable = ({ history }) => {
                   >
                     <option selected>Sector...</option>
 
-                    {sector.map((item, index) => (
-                      <option key={index} value={item.nombre}>
-                        {item.nombre}
+                    {sectors.map((item, index) => (
+                      <option key={index} value={item.nameSector}>
+                        {item.nameSector}
                       </option>
                     ))}
                   </select>
