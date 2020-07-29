@@ -111,9 +111,7 @@ const MenuList = () => {
               className={`${classStyles.subtitle} p-0 m-0`}
               style={{ color: "#b2b2b2" }}
             >
-              {listPorPagar.productsCuenta > listPorPagar.productsPagados
-                ? listPorPagar.productsCuenta - listPorPagar.productsPagados
-                : listPorPagar.productsPagados - listPorPagar.productsCuenta}
+              {listPorPagar.productoPorPagar}
             </p>
           </div>
           <div

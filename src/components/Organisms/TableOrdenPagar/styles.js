@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core";
 
 export default makeStyles((theme) => ({
   root: {
-    width: "100%",
-    minWidth: 230,
-    maxWidth: 230,
+    // width: "100%",
+    minWidth: "30%",
+    maxWidth: "30%",
     height: "100%",
     [theme.breakpoints.up("xs")]: {
       marginRight: theme.spacing(2),

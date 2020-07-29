@@ -36,6 +36,7 @@ export default function FullScreenDialog({
   setForm,
   crearNuevoProducto,
   editarProducts,
+  uploadImgRef,
 }) {
   const classes = useStyles();
 
@@ -76,9 +77,6 @@ export default function FullScreenDialog({
               {form.nuevo ? "Agregar" : "Editar"}
             </Button>
           </div>
-          {/* <Button autoFocus color="inherit" onClick={siguientesModal}>
-            Aceptar
-          </Button> */}
         </div>
 
         <DialogContent className="p-0">
@@ -131,6 +129,15 @@ export default function FullScreenDialog({
                             }}
                           />
                         </div>
+                        {/* 
+                        <div className="form-group col-10">
+                          <label>Agregar una Imagen</label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            ref={uploadImgRef}
+                          />
+                        </div> */}
 
                         <div className="form-group col-10">
                           <label>Categoria</label>

@@ -107,6 +107,7 @@ export default function (state = initialState, { type, payload }) {
         listaProducts: [],
         menudinamicoorden: [],
         productsCuenta: 0,
+        detailspedido: false
       };
     }
     case ADDALACUENTA_EDIT: {

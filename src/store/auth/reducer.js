@@ -17,7 +17,7 @@ export const INITIAL_STATE = {
     firstName: "sjjdsjd",
     id: "u46k33xNkPeq9ZuaRKxHqMt25oi1",
     lastName: "sjdjd",
-    rol: "MESONERO",
+    rol: "ADMIN_MASTER",
     verify: "Activo",
   },
   loading: false,

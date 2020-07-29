@@ -135,7 +135,7 @@ const AllTables = ({ history }) => {
     if (e === "agregar") {
       const hora = new Date();
       const pedido = {
-        status: "pendiente",
+        status: method,
         para: recibirOrden,
         static: productosAll,
         dinamic: productosDinamicosPedido,
@@ -149,7 +149,7 @@ const AllTables = ({ history }) => {
     } else if (e === "editar") {
       const hora = new Date();
       const pedido = {
-        status: "aprovado",
+        status: method,
         static: productosAll,
         para: recibirOrden,
         dinamic: productosDinamicosPedido,
@@ -279,56 +279,64 @@ const AllTables = ({ history }) => {
 
         <MenuOptionsPedidos checked={checked} />
 
-        {productosAllPedido.map((item, index) => (
-          <SwipeableList key={index}>
-            <SwipeableListItem
-              swipeLeft={{
-                content: (
-                  <div
-                    style={{ height: 40, color: "#fff", fontSize: 16 }}
-                    className="bg-danger col-12  d-flex justify-content-end align-items-center "
-                  >
-                    <DeleteForeverIcon />
-                  </div>
-                ),
-                action: () => eliminarProductolist(item),
-              }}
-            >
-              <Button
-                style={{
-                  width: "100%",
-                  backgroundColor: "#f5f8fa",
+        {productosAllPedido.map((item, index) => {
+          return (
+            <SwipeableList key={index}>
+              <SwipeableListItem
+                swipeLeft={{
+                  content: (
+                    <div
+                      style={{ height: 40, color: "#fff", fontSize: 16 }}
+                      className="bg-danger col-12  d-flex justify-content-end align-items-center "
+                    >
+                      <DeleteForeverIcon />
+                    </div>
+                  ),
+                  action: () => eliminarProductolist(item),
                 }}
-                className="d-flex justify-content-between py-2"
-                onClick={() => setopenProducto({ menuItem: item, open: true })}
               >
-                <div className="d-flex">
-                  <div
-                    style={{
-                      width: 22,
-                      height: 24,
-                      background: "rgba(29, 139, 5, 1)",
-                      borderRadius: 5,
-                      marginRight: 10,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "#fff",
-                    }}
-                    className="p-0"
-                  >
-                    {item.cantidad}
+                <Button
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#f5f8fa",
+                  }}
+                  className="py-2 d-flex justify-content-between col-12 px-1 m-0"
+                  onClick={() =>
+                    setopenProducto({ menuItem: item, open: true })
+                  }
+                >
+                  <div className="d-flex">
+                    <div
+                      style={{
+                        width: 22,
+                        height: 24,
+                        background: "rgba(29, 139, 5, 1)",
+                        borderRadius: 5,
+                        marginRight: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#fff",
+                      }}
+                      className="p-0"
+                    >
+                      {item.cantidad}
+                    </div>
+                    <Typography
+                      variant="body1"
+                      color="textPrimary"
+                      align="left"
+                    >
+                      {item.nombre}
+                    </Typography>
                   </div>
                   <Typography variant="body1" color="textPrimary" align="left">
-                    {item.nombre}
+                    {item.precioUnitario}
                   </Typography>
-                </div>
-                <Typography variant="body1" color="textPrimary" align="left">
-                  {item.precioUnitario}
-                </Typography>
-              </Button>
-            </SwipeableListItem>
-          </SwipeableList>
-        ))}
+                </Button>
+              </SwipeableListItem>
+            </SwipeableList>
+          );
+        })}
         <div
           className={`${classes.header} d-flex justify-content-between border-bottom py-1`}
         >
@@ -350,36 +358,59 @@ const AllTables = ({ history }) => {
       <Fragment>
         <div className="d-flex justify-content-between border-bottom mx-2">
           <button
-            onClick={() => setmethodPayment("efectivo")}
+            onClick={() =>
+              setmethodPayment(methodPayment === "efectivo" ? "" : "efectivo")
+            }
             className="btn py-1 d-flex flex-column align-items-center"
+            style={{
+              background: methodPayment === "efectivo" ? "#1e3a56" : "",
+              color: methodPayment === "efectivo" ? "#fff" : "#1e3a56",
+            }}
           >
             <EuroSymbol />
             Efectivo
           </button>
           <button
-            onClick={() => setmethodPayment("tarjeta de credito")}
+            onClick={() =>
+              setmethodPayment(
+                methodPayment === "tarjeta de credito"
+                  ? ""
+                  : "tarjeta de credito"
+              )
+            }
             className="btn py-1 px-0 d-flex flex-column align-items-center"
+            style={{
+              background:
+                methodPayment === "tarjeta de credito" ? "#1e3a56" : "",
+              color:
+                methodPayment === "tarjeta de credito" ? "#fff" : "#1e3a56",
+            }}
           >
             <Payment />
             Tarjeta de credito
           </button>
         </div>
         <div className="mx-2 d-flex justify-content-center col-12">
-          {"mesero" ? (
+          {detailspedidos ? (
+            <button
+              onClick={() => editarPedido("editar", "pendiente")}
+              className="btn py-3 text-success col-12"
+            >
+              Enviar
+            </button>
+          ) : methodPayment === "" ? (
             <button
               onClick={() => cobrarOrden()}
               className="btn py-3 text-primary col-12"
             >
-              Cobrar
+              Cobrar en Caja
             </button>
           ) : (
             <button
-              onClick={() =>
-                editarPedido(detailspedidos ? "editar" : "agregar", "enviar")
-              }
+              onClick={() => editarPedido("agregar", "pagado")}
               className="btn py-3 text-success col-12"
             >
-              Enviar
+              Cobrar y Enviar
             </button>
           )}
         </div>
