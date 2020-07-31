@@ -15,6 +15,8 @@ import Calculadora from "./Calculadora";
 import TableOrdenPagar from "./TableOrdenPagar";
 import SectorList from "./SectorList";
 import FormSector from "./FormSector";
+import ReservedList from "./ReservedList";
+import FormReserved from "./FormReserved";
 
 export {
   CategoryFilter,
@@ -34,4 +36,6 @@ export {
   FormTable,
   SectorList,
   FormSector,
+  ReservedList,
+  FormReserved,
 };

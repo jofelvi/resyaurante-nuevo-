@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 // Material UI
-import {
-  Grid,
-  Checkbox,
-  TextField,
-  Button,
-  // IconButton
-} from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import styles from "./styles";
@@ -19,16 +13,19 @@ const FormTable = ({ history }) => {
   const tableEdit = useSelector((state) => state.tables.tableEdit);
   const sectors = useSelector((state) => state.sectors.sectors);
   const [dataTable, setDataTable] = useState({
-    sector: "Interno",
-    diners: "",
+    sector: "",
+    diners: "0",
     numberTable: "",
-    totalAmount: "",
+    totalAmount: "0",
     pedingOrders: "",
-    timeInit: "09:00",
-    timeEnd: "11:00",
+    timeInit: "",
+    timeEnd: "",
+    dateReserved: "",
+    codeReserved: "",
     reserved: false,
     loading: false,
     method: "Add",
+    enabled: true,
   });
 
   useEffect(() => {
@@ -49,6 +46,7 @@ const FormTable = ({ history }) => {
         loading: false,
       });
     }, 500);
+    document.getElementById("form-table").reset();
     history.push("/tables");
   };
 
@@ -68,7 +66,7 @@ const FormTable = ({ history }) => {
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
-      <div className="col-7 border">
+      <div className="col-4 border">
         <div className="py-3 d-flex justify-content-between border-bottom">
           <h5>{!tableEdit ? "Nueva" : "Editar"} Mesa</h5>
           <Button variant="contained" color="secondary" onClick={() => history.goBack()}>
@@ -79,13 +77,12 @@ const FormTable = ({ history }) => {
           <form className="my-4 col-12 mx-0 px-0" id="form-table">
             <div className="form-row m-0 p-0">
               <div className="d-flex justify-content-between col-12 m-0 p-0">
-                <div className="form-group col-6">
+                <div className="form-group col-12">
                   <label>Sector</label>
                   <select
                     onChange={(e) => handleChange(e)}
-                    defaultChecked={dataTable.sector}
+                    value={dataTable.sector}
                     className="custom-select"
-                    defaultValue={dataTable.sector}
                     name="sector"
                   >
                     <option selected>Sector...</option>
@@ -97,7 +94,9 @@ const FormTable = ({ history }) => {
                     ))}
                   </select>
                 </div>
-                <div className="form-group col-6">
+              </div>
+              <div className="d-flex justify-content-between col-12 m-0 p-0">
+                <div className="form-group col-12">
                   <label for="diners">Comenzales</label>
                   <input
                     type="number"
@@ -111,8 +110,8 @@ const FormTable = ({ history }) => {
                   />
                 </div>
               </div>
-              <div className="d-flex justify-content-between col-12">
-                <div className="form-group col-6">
+              <div className="d-flex justify-content-between col-12 m-0 p-0">
+                <div className="form-group col-12">
                   <label for="numberTable">Número de Mesa</label>
                   <input
                     type="number"
@@ -123,80 +122,6 @@ const FormTable = ({ history }) => {
                     min="0"
                     value={dataTable.numberTable}
                     onChange={(e) => handleChange(e)}
-                  />
-                </div>
-                <div className="form-group col-6">
-                  <label for="tableNumber">Monto total</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="totalAmount"
-                    placeholder="Monto total"
-                    name="totalAmount"
-                    min="0"
-                    value={dataTable.totalAmount}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="d-flex justify-content-between col-12">
-                <div className="form-group col-6">
-                  <TextField
-                    id="time"
-                    label="Tiempo inicial"
-                    type="time"
-                    defaultValue={dataTable.timeInit}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300, // 5 min
-                    }}
-                    name="timeInit"
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-                <div className="form-group col-6">
-                  <TextField
-                    id="time"
-                    label="Tiempo final"
-                    type="time"
-                    defaultValue={dataTable.timeEnd}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300, // 5 min
-                    }}
-                    name="timeEnd"
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-              </div>
-              <div className="d-flex justify-content-center col-12">
-                <div className="form-group col-6">
-                  <label for="pedingOrders">Pedidos pendientes</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="pedingOrders"
-                    placeholder="Pedidos pendientes"
-                    onChange={(e) => handleChange(e)}
-                    name="pedingOrders"
-                    value={dataTable.pedingOrders}
-                  />
-                </div>
-                <div className="form-group col-6">
-                  <label for="reversed">Reservada</label>
-                  <Checkbox
-                    checked={dataTable.reserved}
-                    id="reversed"
-                    name="reserved"
-                    onChange={(e) => handleChange(e)}
-                    color="primary"
-                    inputProps={{ "aria-label": "secondary checkbox" }}
                   />
                 </div>
               </div>

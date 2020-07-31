@@ -12,6 +12,7 @@ import { fecthClients, fecthMesas } from "../store/Clients/actions";
 import { fecthTables } from "../store/Table/actions";
 import { fecthSectors } from "../store/sectors/actions";
 import { getReports } from "../store/reportes/actions";
+import { fecthReserved } from "../store/reserved/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function AuthLoading(props) {
       dispatch(getReports());
       dispatch(fecthUsers());
       dispatch(fecthSectors());
+      dispatch(fecthReserved());
     } else if (auth.info === "") {
       dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }

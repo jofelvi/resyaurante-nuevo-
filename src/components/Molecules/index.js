@@ -8,6 +8,7 @@ import ModalScreenEstatico from "./ModalScreenEstatico";
 import ModalScreenDinamico from "./ModalScreenDinamico";
 import ModalScreenProducto from "./ModalScreenProdcuto";
 import ModalScreenNuevoProd from "./ModalScreenNuevoProd";
+import ReservedCard from "./ReservedCard";
 
 export {
   ProductCard,
@@ -20,4 +21,5 @@ export {
   ModalScreenProducto,
   ModalScreenNuevoProd,
   SectorCard,
+  ReservedCard,
 };

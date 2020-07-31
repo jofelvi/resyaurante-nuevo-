@@ -14,7 +14,10 @@ const TableCard = ({ table, deleteTable, editTable }) => {
   const classes = styles();
   return (
     <Card>
-      <CardContent className={classes.content}>
+      <CardContent
+        className={classes.content}
+        style={table.reserved ? { background: "#ffcdd2" } : {}}
+      >
         <Typography variant="subtitle2" color="textPrimary" className={classes.price}>
           {table.diners} Comensales
         </Typography>

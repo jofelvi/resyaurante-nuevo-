@@ -52,7 +52,7 @@ const FormSector = ({ history }) => {
 
   return (
     <Grid container spacing={2} justify="center" alignItems="center">
-      <div className="col-7 border">
+      <div className="col-4 border">
         <div className="py-3 d-flex justify-content-between border-bottom">
           <h5>{!sectorEdit ? "Nueva" : "Editar"} Sector</h5>
           <Button variant="contained" color="secondary" onClick={() => handleBack()}>

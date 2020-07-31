@@ -12,6 +12,7 @@ import clients from "./Clients/reducer";
 import Reports from "./reportes/reducer";
 import Table from "./Table/reducer";
 import Sectors from "./sectors/reducer";
+import Reserved from "./reserved/reducer";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   reportes: Reports,
   tables: Table,
   sectors: Sectors,
+  reserved: Reserved,
 });
 
 let middleware = [];

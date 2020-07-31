@@ -42,6 +42,7 @@ export const editTable = (table, method) => async (dispatch) => {
 
   if (method === "Add") {
     delete table.loading;
+    delete table.method;
     addMesasRef.push(table);
     dispatch({
       type: SET_TABLE_SUCCESS,

@@ -26,6 +26,7 @@ import { AllSectors, AddSector } from "./views/sectors";
 import Clients from "./views/clients";
 import Reportes from "./views/resports";
 import Usuarios from "./views/users";
+import { AllReserved, AddReserved } from "./views/reserved";
 
 const App = () => {
   // if (loggedIn) {
@@ -52,6 +53,8 @@ const App = () => {
             <ProtectedRouter exact path="/deliverys" component={AllDeliverys} />
             <ProtectedRouter exact path="/kitchens" component={AllKitchens} />
             <ProtectedRouter exact path="/bars" component={AllBars} />
+            <ProtectedRouter exact path="/reserved" component={AllReserved} />
+            <ProtectedRouter exact path="/addReserved" component={AddReserved} />
             <Route exact path="/sign-in" component={SignInView} />
             <Route exact path="/sign-up" component={SignUpView} />
             <Route component={Error404} />

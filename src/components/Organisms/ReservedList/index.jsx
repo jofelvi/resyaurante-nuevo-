@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI
 import {
@@ -14,34 +14,26 @@ import {
 import { FabButton } from "../../Atoms";
 
 // Molecules
-import { TableCard } from "../../Molecules";
+import { ReservedCard } from "../../Molecules";
 
 import styles from "./styles";
 import { withRouter } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useSelector, useDispatch } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { editTable, getTable } from "../../../store/Table/actions";
+import { editReserved, getReserved } from "../../../store/reserved/actions";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const TableList = ({ history }) => {
+const ReservedList = ({ history }) => {
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.tables.msg);
-  const data = useSelector((state) => state.tables.tables);
+  const message = useSelector((state) => state.reserved.msg);
+  const reserved = useSelector((state) => state.reserved.reserved);
   const [open, setOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const classes = styles();
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   let gridSize = {
     xs: 12,
@@ -51,17 +43,24 @@ const TableList = ({ history }) => {
     xl: 2,
   };
 
-  const tableEdit = (table) => {
-    dispatch(getTable(table));
-    history.push("/addTable");
+  const reservedEdit = (reserved) => {
+    dispatch(getReserved(reserved));
+    history.push("/addReserved");
   };
 
-  const deleteTable = (table) => {
+  const deleteReserved = (reserved) => {
     setIsLoading(true);
     setTimeout(() => {
-      dispatch(editTable(table, "Delete"));
+      dispatch(editReserved(reserved, "Delete"));
       setIsLoading(false);
     }, 1000);
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -78,7 +77,6 @@ const TableList = ({ history }) => {
           </Alert>
         </Snackbar>
       )}
-
       {isLoading && (
         <Grid
           item
@@ -86,28 +84,26 @@ const TableList = ({ history }) => {
           container
           style={{ flexDirection: "column", alignItems: "center", alignContent: "center" }}
         >
-          <CircularProgress /> {"Eliminando mesa"}
+          <CircularProgress /> {"Eliminando reserva"}
         </Grid>
       )}
-
       <Grid item xs={12}>
         <AppBar position="static" color="inherit">
           <Toolbar className={classes.toolbar}>
             <Typography variant="subtitle2" color="primary">
-              MESAS
+              Mesas Reservadas
             </Typography>
           </Toolbar>
         </AppBar>
       </Grid>
-
-      {data.map((data, index) => (
+      {reserved.map((item, index) => (
         <Grid item {...gridSize} key={index}>
-          <TableCard table={data} deleteTable={deleteTable} editTable={tableEdit} />
+          <ReservedCard item={item} deleteReserved={deleteReserved} editReserved={reservedEdit} />
         </Grid>
       ))}
-      <FabButton color="primary" label="addTable" onClick={() => history.push("/addTable")} />
+      <FabButton color="primary" label="addReserved" onClick={() => history.push("/addReserved")} />
     </Grid>
   );
 };
 
-export default withRouter(TableList);
+export default withRouter(ReservedList);
