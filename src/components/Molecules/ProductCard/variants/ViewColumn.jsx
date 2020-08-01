@@ -25,7 +25,7 @@ const ProductCardViewColumn = ({ products }) => {
     <Card>
       <CardContent className={classes2.contentColumn}>
         <Typography variant="body1" className={classes.title}>
-          {products.nombre}
+          {products.nombre} avatar
         </Typography>
         <Typography
           variant="subtitle1"
@@ -33,9 +33,7 @@ const ProductCardViewColumn = ({ products }) => {
           // paragraphs
           className={classes.priceColumnRight}
         >
-          {`$ ${
-            products.precioUnitario ? products.precioUnitario : products.precio
-          }`}
+          {`$ ${products.precioUnitario ? products.precioUnitario : products.precio}`}
         </Typography>
       </CardContent>
     </Card>

@@ -56,8 +56,12 @@ export default makeStyles((theme) => ({
     fontSize: 16,
   },
   avatarRow: {
-    width: 100,
-    height: 100,
+    width: 125,
+    height: 125,
+  },
+  avatarLarge: {
+    width: theme.spacing(38),
+    height: theme.spacing(38),
   },
   textContent: {
     marginLeft: theme.spacing(4),

@@ -1,12 +1,13 @@
 import React from "react";
 
 // Material UI
-import { CardContent, Typography, makeStyles, Card } from "@material-ui/core";
+import { CardContent, Typography, makeStyles, Card, Avatar } from "@material-ui/core";
 
 // Atoms
 import { DropdownMenu } from "../../../../components/Atoms";
 
 import styles from "./styles";
+import uploadImage from "./../../../../assets/icons/frame.svg";
 
 const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
   const classes = styles();
@@ -30,14 +31,8 @@ const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
   return (
     <Card>
       <CardContent className={classes2.contentRow}>
-        <Typography
-          variant="subtitle2"
-          color="textPrimary"
-          className={classes.priceRow}
-        >
-          {`$ ${
-            products.precioUnitario ? products.precioUnitario : products.precio
-          }`}
+        <Typography variant="subtitle2" color="textPrimary" className={classes.priceRow}>
+          {`$ ${products.precioUnitario ? products.precioUnitario : products.precio}`}
         </Typography>
         <DropdownMenu
           edit={edit}
@@ -54,19 +49,16 @@ const ProductCardViewRow = ({ products, edit, eliminarProducts }) => {
             },
           ]}
         />
-        {/* <Avatar className={classes.avatarRow}>
+
+        <Avatar className={classes.avatarRow}>
           <img
-            src="https://img.icons8.com/color/48/000000/hot-dog.png"
+            src={products.imageUrl ? products.imageUrl : uploadImage}
+            className={classes.avatarLarge}
             alt="img"
           />
-        </Avatar> */}
+        </Avatar>
         <div className={classes.textContent}>
-          <Typography
-            variant="body1"
-            color="textPrimary"
-            align="left"
-            className={classes.title}
-          >
+          <Typography variant="body1" color="textPrimary" align="left" className={classes.title}>
             {products.nombre}
           </Typography>
           <Typography

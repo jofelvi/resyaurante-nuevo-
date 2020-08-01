@@ -23,9 +23,7 @@ const ProductList = () => {
     return dataProducts[i];
   });
 
-  const dataCategories = useSelector(
-    (state) => state.categories.categoriesMenu
-  );
+  const dataCategories = useSelector((state) => state.categories.categoriesMenu);
 
   const [arrayMenu, setArrayMenu] = useState([]);
   const [nombreCategore, setNombreCategore] = useState({
@@ -64,8 +62,7 @@ const ProductList = () => {
     if (nombreCategore.nombre === "" || arrayMenu.length < 2) {
       setNombreCategore({
         ...nombreCategore,
-        alertSuccess:
-          "Debe tener al menos 2 productos seleccionados y un Nombre",
+        alertSuccess: "Debe tener al menos 2 productos seleccionados y un Nombre",
         colorAlert: "alert-danger",
       });
       setTimeout(() => {
