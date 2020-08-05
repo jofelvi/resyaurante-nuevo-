@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, Button } from "@material-ui/core";
 
 import { addProductosPagados } from "../../../store/cobrarPedidos/actions";
+import ModalTurned from "../ModalTurned";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,25 +25,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuOpcion = () => {
+const MenuOpcion = ({ history }) => {
   const classes1 = useStyles();
   const dispatch = useDispatch();
 
   const [methodPayment, setmethodPayment] = useState("");
 
+  const [openModal, setOpenModal] = useState(false);
+
   const listPorPagar = useSelector((state) => state.listaPorPagar);
 
   const setmethodoPayment = (item) => {
     setmethodPayment(item);
+    if (item === "Efectivo") setOpenModal(true);
 
     dispatch(
       addProductosPagados(
         listPorPagar.listaPedidosPorPagar,
         listPorPagar.productsPagados,
         item,
-        listPorPagar.listaProducts
-      )
+        listPorPagar.listaProducts,
+        listPorPagar.montoEfectivo,
+      ),
     );
+  };
+
+  const handleClose = () => {
+    setOpenModal(!openModal);
+    history.goBack();
   };
 
   const BottomMenu = [
@@ -93,8 +104,9 @@ const MenuOpcion = () => {
           Descuento
         </Button>
       </div>
+      <ModalTurned openModal={openModal} handleClose={handleClose} />
     </div>
     // </div>
   );
 };
-export default MenuOpcion;
+export default withRouter(MenuOpcion);

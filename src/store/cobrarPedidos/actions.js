@@ -1,12 +1,6 @@
-import {
-  COBRARPEDIDO_START,
-  COBRARPEDIDO_END,
-  SET_COBRARPEDIDO_SUCCESS,
-} from "./Constants";
+import { COBRARPEDIDO_START, COBRARPEDIDO_END, SET_COBRARPEDIDO_SUCCESS } from "./Constants";
 
-export const addProductosCosto = (products_lista, precioAnterior = 0) => (
-  dispatch
-) => {
+export const addProductosCosto = (products_lista, precioAnterior = 0) => (dispatch) => {
   dispatch({
     type: COBRARPEDIDO_START,
   });
@@ -17,8 +11,7 @@ export const addProductosCosto = (products_lista, precioAnterior = 0) => (
       let number = products_lista[key].precioUnitario
         ? Number(products_lista[key].precioUnitario)
         : 0;
-      products_lista[key].estado =
-        products_lista[key].estado === "pagado" ? "pagado" : "pendiente";
+      products_lista[key].estado = products_lista[key].estado === "pagado" ? "pagado" : "pendiente";
       preciototal += number;
     }
   }
@@ -67,7 +60,8 @@ export const addProductosPagados = (
   products_lista,
   precioPagado = 0,
   metodo,
-  products_lista_old = []
+  products_lista_old = [],
+  montoEfectivo,
 ) => (dispatch) => {
   dispatch({
     type: COBRARPEDIDO_START,
@@ -87,13 +81,16 @@ export const addProductosPagados = (
     }
   }
 
+  const turned = metodo === "Efectivo" ? Number(montoEfectivo) - preciototal : 0;
+
   dispatch({
-    type: SET_COBRARPEDIDO_SUCCESS, 
+    type: SET_COBRARPEDIDO_SUCCESS,
     payload: {
       productoPorPagar: 0,
       listaProducts: products_lista_old,
       productsPagados: preciototal,
       listaPedidosPorPagar: [],
+      turned,
     },
   });
 
