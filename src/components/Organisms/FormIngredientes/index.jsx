@@ -30,12 +30,21 @@ const FormIngredientes = () => {
     nombre: "",
     presentaciones: false,
     categories: "",
+    proveedor: "",
     // sm: "no disponible",
     // md: "no disponible",
     // lg: "no disponible",
     stock: 0,
+    stockMin: 1,
+    stockMax: 1,
     imageName: "",
     imageUrl: "",
+    formato: "",
+    pesoBruto: "",
+    pesoNeto: "",
+    merma: "100",
+    precioUnitario: "",
+    precioConIva: "",
   });
 
   const eliminarDatos = () => {

@@ -42,6 +42,24 @@ export default function FullScreenDialog({
 
   const dataCategories = useSelector((state) => state.categories.categories);
   const [menuproducto, setmenuproducto] = useState(menuItem);
+  const [isMerma, setIsMerma] = useState(false);
+
+  const providers = [
+    { nombre: "Proveedor 1" },
+    { nombre: "Proveedor 2" },
+    { nombre: "Proveedor 3" },
+    { nombre: "Proveedor 4" },
+  ];
+
+  const formatos = [
+    { nombre: "Caja" },
+    { nombre: "Manojo" },
+    { nombre: "Capsula" },
+    { nombre: "Latas" },
+    { nombre: "Botella" },
+    { nombre: "Bolsa" },
+    { nombre: "Otro" },
+  ];
 
   return (
     <div>
@@ -159,11 +177,64 @@ export default function FullScreenDialog({
                             ))}
                           </select>
                         </div>
+                        <div className="form-group col-10">
+                          <label>Proveedor</label>
+                          <select
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                proveedor: e.target.value,
+                              });
+                            }}
+                            defaultChecked={form.edit ? form.editData.proveedor : ""}
+                            className="custom-select"
+                            defaultValue={form.edit ? form.editData.proveedor : ""}
+                          >
+                            <option selected>Proveedor...</option>
+
+                            {providers.map((item, index) => (
+                              <option key={index} value={item.nombre}>
+                                {item.nombre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label>Formato</label>
+                          <select
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                formato: e.target.value,
+                              });
+                            }}
+                            defaultChecked={form.edit ? form.editData.proveedor : ""}
+                            className="custom-select"
+                            defaultValue={form.edit ? form.editData.proveedor : ""}
+                          >
+                            <option selected>Formato...</option>
+
+                            {formatos.map((item, index) => (
+                              <option key={index} value={item.nombre}>
+                                {item.nombre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
                         <div className="form-group col-10">
                           <label>Presentacion</label>
                           <select
                             onChange={(e) => {
+                              if (e.target.value === "KG" || e.target.value === "G") {
+                                setIsMerma(true);
+                              } else {
+                                setIsMerma(false);
+                                nuevoProd.pesoBruto = 0;
+                                nuevoProd.pesoNeto = 0;
+                                nuevoProd.merma = 100;
+                              }
                               return setNuevoProd({
                                 ...nuevoProd,
                                 presentacion: e.target.value,
@@ -174,12 +245,58 @@ export default function FullScreenDialog({
                             defaultValue={form.edit ? form.editData.presentacion : ""}
                           >
                             <option selected>Presentacion...</option>
-
+                            <option value="G">G</option>
                             <option value="KG">KG</option>
+                            <option value="LTR">LTR</option>
                             <option value="ML">ML</option>
                             <option value="Unidad">Unidad</option>
                           </select>
                         </div>
+
+                        {isMerma && (
+                          <div className="form-group col-10">
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Peso bruto:</label>
+                              <input
+                                type="number"
+                                className="form-control col-8 ml-3"
+                                id="inputZip7"
+                                placeholder="Peso bruto"
+                                min="0"
+                                max="100"
+                                defaultValue={form.editData ? form.editData.pesoBruto : 0}
+                                onChange={(e) => {
+                                  return setNuevoProd({
+                                    ...nuevoProd,
+                                    pesoBruto: e.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Peso neto:</label>
+                              <input
+                                type="number"
+                                className="form-control col-8 ml-3"
+                                id="inputZip7"
+                                placeholder="Peso neto"
+                                defaultValue={form.editData ? form.editData.pesoNeto : 0}
+                                min="0"
+                                max="100"
+                                onChange={(e) => {
+                                  return setNuevoProd({
+                                    ...nuevoProd,
+                                    pesoNeto: e.target.value,
+                                    merma: nuevoProd.pesoBruto - e.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Merma: {nuevoProd.merma}%</label>
+                            </div>
+                          </div>
+                        )}
 
                         <div className="form-group col-10">
                           <label for="inputZip3">Cantidad</label>
@@ -193,6 +310,40 @@ export default function FullScreenDialog({
                               return setNuevoProd({
                                 ...nuevoProd,
                                 stock: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Min</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Stock min"
+                            defaultValue={form.editData ? form.editData.stockMin : ""}
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMin: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Max</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Stock masx"
+                            defaultValue={form.editData ? form.editData.stockMax : ""}
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMax: e.target.value,
                               });
                             }}
                           />
