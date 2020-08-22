@@ -9,7 +9,10 @@ import { getAddMenu } from "../store/AgregarMenu/actions";
 import { getListaPedidos } from "../store/agregaralaCuenta/actions";
 import { fetchuserlogin, fecthUsers } from "../store/auth/actions";
 import { fecthClients, fecthMesas } from "../store/Clients/actions";
+import { fecthTables } from "../store/Table/actions";
+import { fecthSectors } from "../store/sectors/actions";
 import { getReports } from "../store/reportes/actions";
+import { fecthReserved } from "../store/reserved/actions";
 
 function AuthLoading(props) {
   const dispatch = useDispatch();
@@ -25,8 +28,11 @@ function AuthLoading(props) {
       dispatch(getListaPedidos());
       dispatch(fecthClients());
       dispatch(fecthMesas());
+      dispatch(fecthTables());
       dispatch(getReports());
       dispatch(fecthUsers());
+      dispatch(fecthSectors());
+      dispatch(fecthReserved());
     } else if (auth.info === "") {
       dispatch(fetchuserlogin(JSON.parse(userlocalstorage)));
     }

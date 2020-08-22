@@ -23,7 +23,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const FabButton = ({ color, label, addmenu, addOrden, pedido, estatico }) => {
+const FabButton = ({ color, label, addmenu, addOrden, pedido, estatico, onClick }) => {
   const classes = styles();
 
   return (
@@ -31,7 +31,10 @@ const FabButton = ({ color, label, addmenu, addOrden, pedido, estatico }) => {
       color={color}
       aria-label={label}
       className={classes.root}
-      onClick={() => {
+      onClick={
+        () =>
+          onClick() /*{
+        
         if (!pedido) {
           if (addmenu) {
             addmenu();
@@ -39,7 +42,8 @@ const FabButton = ({ color, label, addmenu, addOrden, pedido, estatico }) => {
             addOrden();
           }
         }
-      }}
+      }*/
+      }
     >
       {pedido ? (
         <DropdownMenu

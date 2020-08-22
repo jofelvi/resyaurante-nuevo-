@@ -41,7 +41,7 @@ const SeachClients = () => {
   ];
 
   return (
-    <div className="col-7 border">
+    <div className="col-7 col-lg-offset-2 col-md-offset-2 col-xs-offset-2 col-sm-offset-2 col border">
       <div className="py-3 d-flex justify-content-center border-bottom">
         <h5>Nuevo Cliente</h5>
       </div>

@@ -42,6 +42,24 @@ export default function FullScreenDialog({
 
   const dataCategories = useSelector((state) => state.categories.categories);
   const [menuproducto, setmenuproducto] = useState(menuItem);
+  const [isMerma, setIsMerma] = useState(false);
+
+  const providers = [
+    { nombre: "Proveedor 1" },
+    { nombre: "Proveedor 2" },
+    { nombre: "Proveedor 3" },
+    { nombre: "Proveedor 4" },
+  ];
+
+  const formatos = [
+    { nombre: "Caja" },
+    { nombre: "Manojo" },
+    { nombre: "Capsula" },
+    { nombre: "Latas" },
+    { nombre: "Botella" },
+    { nombre: "Bolsa" },
+    { nombre: "Otro" },
+  ];
 
   return (
     <div>
@@ -70,9 +88,7 @@ export default function FullScreenDialog({
               autoFocus
               color="inherit"
               style={{ fontSize: 16, marginLeft: 10 }}
-              onClick={
-                form.nuevo === true ? crearNuevoProducto : editarProducts
-              }
+              onClick={form.nuevo === true ? crearNuevoProducto : editarProducts}
             >
               {form.nuevo ? "Agregar" : "Editar"}
             </Button>
@@ -85,6 +101,16 @@ export default function FullScreenDialog({
               <div className="row p-4">
                 <Grid item md={12}>
                   <div className="row justify-content-center">
+                    {form.alertError ? (
+                      <div
+                        className={`alert ${form.alertError} text-center my-4 col-sm-8 col-md-10`}
+                        role="alert"
+                      >
+                        {form.msjalertError}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                     <form
                       className="my-4  col-12"
                       // onSubmit={}
@@ -97,9 +123,7 @@ export default function FullScreenDialog({
                             className="form-control"
                             id="inputZip"
                             placeholder="Nombre"
-                            defaultValue={
-                              form.editData ? form.editData.nombre : ""
-                            }
+                            defaultValue={form.editData ? form.editData.nombre : ""}
                             onChange={(e) => {
                               return setNuevoProd({
                                 ...nuevoProd,
@@ -110,17 +134,13 @@ export default function FullScreenDialog({
                         </div>
 
                         <div className="form-group col-10">
-                          <label for="inputZip1">
-                            Descripcion del Producto
-                          </label>
+                          <label for="inputZip1">Descripcion del Producto</label>
                           <input
                             type="text"
                             className="form-control"
                             id="inputZip1"
                             placeholder="Descripcion"
-                            defaultValue={
-                              form.editData ? form.editData.descripcion : ""
-                            }
+                            defaultValue={form.editData ? form.editData.descripcion : ""}
                             onChange={(e) => {
                               return setNuevoProd({
                                 ...nuevoProd,
@@ -129,15 +149,11 @@ export default function FullScreenDialog({
                             }}
                           />
                         </div>
-                        {/* 
+
                         <div className="form-group col-10">
                           <label>Agregar una Imagen</label>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            ref={uploadImgRef}
-                          />
-                        </div> */}
+                          <input type="file" accept="image/*" ref={uploadImgRef} />
+                        </div>
 
                         <div className="form-group col-10">
                           <label>Categoria</label>
@@ -148,17 +164,58 @@ export default function FullScreenDialog({
                                 categories: e.target.value,
                               });
                             }}
-                            defaultChecked={
-                              form.edit ? form.editData.categories : ""
-                            }
+                            defaultChecked={form.edit ? form.editData.categories : ""}
                             className="custom-select"
-                            defaultValue={
-                              form.edit ? form.editData.categories : ""
-                            }
+                            defaultValue={form.edit ? form.editData.categories : ""}
                           >
                             <option selected>Categoria...</option>
 
                             {dataCategories.map((item, index) => (
+                              <option key={index} value={item.nombre}>
+                                {item.nombre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="form-group col-10">
+                          <label>Proveedor</label>
+                          <select
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                proveedor: e.target.value,
+                              });
+                            }}
+                            defaultChecked={form.edit ? form.editData.proveedor : ""}
+                            className="custom-select"
+                            defaultValue={form.edit ? form.editData.proveedor : ""}
+                          >
+                            <option selected>Proveedor...</option>
+
+                            {providers.map((item, index) => (
+                              <option key={index} value={item.nombre}>
+                                {item.nombre}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label>Formato</label>
+                          <select
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                formato: e.target.value,
+                              });
+                            }}
+                            defaultChecked={form.edit ? form.editData.proveedor : ""}
+                            className="custom-select"
+                            defaultValue={form.edit ? form.editData.proveedor : ""}
+                          >
+                            <option selected>Formato...</option>
+
+                            {formatos.map((item, index) => (
                               <option key={index} value={item.nombre}>
                                 {item.nombre}
                               </option>
@@ -170,26 +227,76 @@ export default function FullScreenDialog({
                           <label>Presentacion</label>
                           <select
                             onChange={(e) => {
+                              if (e.target.value === "KG" || e.target.value === "G") {
+                                setIsMerma(true);
+                              } else {
+                                setIsMerma(false);
+                                nuevoProd.pesoBruto = 0;
+                                nuevoProd.pesoNeto = 0;
+                                nuevoProd.merma = 100;
+                              }
                               return setNuevoProd({
                                 ...nuevoProd,
                                 presentacion: e.target.value,
                               });
                             }}
-                            defaultChecked={
-                              form.edit ? form.editData.presentacion : ""
-                            }
+                            defaultChecked={form.edit ? form.editData.presentacion : ""}
                             className="custom-select"
-                            defaultValue={
-                              form.edit ? form.editData.presentacion : ""
-                            }
+                            defaultValue={form.edit ? form.editData.presentacion : ""}
                           >
                             <option selected>Presentacion...</option>
-
+                            <option value="G">G</option>
                             <option value="KG">KG</option>
+                            <option value="LTR">LTR</option>
                             <option value="ML">ML</option>
                             <option value="Unidad">Unidad</option>
                           </select>
                         </div>
+
+                        {isMerma && (
+                          <div className="form-group col-10">
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Peso bruto:</label>
+                              <input
+                                type="number"
+                                className="form-control col-8 ml-3"
+                                id="inputZip7"
+                                placeholder="Peso bruto"
+                                min="0"
+                                max="100"
+                                defaultValue={form.editData ? form.editData.pesoBruto : 0}
+                                onChange={(e) => {
+                                  return setNuevoProd({
+                                    ...nuevoProd,
+                                    pesoBruto: e.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Peso neto:</label>
+                              <input
+                                type="number"
+                                className="form-control col-8 ml-3"
+                                id="inputZip7"
+                                placeholder="Peso neto"
+                                defaultValue={form.editData ? form.editData.pesoNeto : 0}
+                                min="0"
+                                max="100"
+                                onChange={(e) => {
+                                  return setNuevoProd({
+                                    ...nuevoProd,
+                                    pesoNeto: e.target.value,
+                                    merma: nuevoProd.pesoBruto - e.target.value,
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="form-group col-10 d-flex aling-item-center">
+                              <label for="inputZip7">Merma: {nuevoProd.merma}%</label>
+                            </div>
+                          </div>
+                        )}
 
                         <div className="form-group col-10">
                           <label for="inputZip3">Cantidad</label>
@@ -198,13 +305,45 @@ export default function FullScreenDialog({
                             className="form-control"
                             id="inputZip3"
                             placeholder="Cantidad"
-                            defaultValue={
-                              form.editData ? form.editData.stock : ""
-                            }
+                            defaultValue={form.editData ? form.editData.stock : ""}
                             onChange={(e) => {
                               return setNuevoProd({
                                 ...nuevoProd,
                                 stock: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Min</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Stock min"
+                            defaultValue={form.editData ? form.editData.stockMin : ""}
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMin: e.target.value,
+                              });
+                            }}
+                          />
+                        </div>
+
+                        <div className="form-group col-10">
+                          <label for="inputZip3">Stock Max</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="inputZip3"
+                            placeholder="Stock masx"
+                            defaultValue={form.editData ? form.editData.stockMax : ""}
+                            onChange={(e) => {
+                              return setNuevoProd({
+                                ...nuevoProd,
+                                stockMax: e.target.value,
                               });
                             }}
                           />
@@ -216,9 +355,7 @@ export default function FullScreenDialog({
                               type="checkbox"
                               className="custom-control-input"
                               id="customSwitch2"
-                              defaultChecked={
-                                form.editData ? form.editData.disponible : false
-                              }
+                              defaultChecked={form.editData ? form.editData.disponible : false}
                               onChange={(e) => {
                                 setNuevoProd({
                                   ...nuevoProd,
@@ -231,10 +368,7 @@ export default function FullScreenDialog({
                                 });
                               }}
                             />
-                            <label
-                              className="custom-control-label"
-                              for="customSwitch2"
-                            >
+                            <label className="custom-control-label" for="customSwitch2">
                               diferentes presentaciones
                             </label>
                           </div>
@@ -251,9 +385,7 @@ export default function FullScreenDialog({
                                 className="form-control col-8 ml-3"
                                 id="inputZip4"
                                 placeholder="Precio"
-                                defaultValue={
-                                  form.editData ? form.editData.sm : ""
-                                }
+                                defaultValue={form.editData ? form.editData.sm : ""}
                                 onChange={(e) => {
                                   return setNuevoProd({
                                     ...nuevoProd,
@@ -269,9 +401,7 @@ export default function FullScreenDialog({
                                 className="form-control col-8 ml-3"
                                 id="inputZip5"
                                 placeholder="Precio"
-                                defaultValue={
-                                  form.editData ? form.editData.md : ""
-                                }
+                                defaultValue={form.editData ? form.editData.md : ""}
                                 onChange={(e) => {
                                   return setNuevoProd({
                                     ...nuevoProd,
@@ -287,9 +417,7 @@ export default function FullScreenDialog({
                                 className="form-control col-8 ml-4"
                                 id="inputZip6"
                                 placeholder="Precio"
-                                defaultValue={
-                                  form.editData ? form.editData.lg : ""
-                                }
+                                defaultValue={form.editData ? form.editData.lg : ""}
                                 onChange={(e) => {
                                   return setNuevoProd({
                                     ...nuevoProd,
@@ -308,11 +436,7 @@ export default function FullScreenDialog({
                                 className="form-control col-8 ml-3"
                                 id="inputZip7"
                                 placeholder="Precio"
-                                defaultValue={
-                                  form.editData
-                                    ? form.editData.precioUnitario
-                                    : ""
-                                }
+                                defaultValue={form.editData ? form.editData.precioUnitario : ""}
                                 onChange={(e) => {
                                   return setNuevoProd({
                                     ...nuevoProd,
@@ -329,9 +453,7 @@ export default function FullScreenDialog({
                               type="checkbox"
                               className="custom-control-input"
                               id="customSwitch1"
-                              defaultChecked={
-                                form.editData ? form.editData.disponible : true
-                              }
+                              defaultChecked={form.editData ? form.editData.disponible : true}
                               onChange={(e) => {
                                 return setNuevoProd({
                                   ...nuevoProd,
@@ -339,24 +461,11 @@ export default function FullScreenDialog({
                                 });
                               }}
                             />
-                            <label
-                              className="custom-control-label"
-                              for="customSwitch1"
-                            >
+                            <label className="custom-control-label" for="customSwitch1">
                               Disponible
                             </label>
                           </div>
                         </div>
-                        {form.alertError ? (
-                          <div
-                            className={`alert ${form.alertError} text-center my-4 col-sm-8 col-md-10`}
-                            role="alert"
-                          >
-                            {form.msjalertError}
-                          </div>
-                        ) : (
-                          ""
-                        )}
                       </div>
                     </form>
                   </div>

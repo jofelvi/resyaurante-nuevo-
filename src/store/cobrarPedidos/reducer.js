@@ -15,6 +15,8 @@ const initialState = {
   listaProducts: [],
   listaPedidosPorPagar: [],
   idDetailsOrden: "",
+  turned: 0,
+  montoEfectivo: 0,
 };
 
 export default function (state = initialState, { type, payload }) {

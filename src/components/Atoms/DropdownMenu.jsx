@@ -6,14 +6,7 @@ import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 
 import { MoreVert } from "@material-ui/icons";
 
-const DropdownMenu = ({
-  className,
-  label,
-  options = [],
-  edit,
-  products,
-  eliminarProducts,
-}) => {
+const DropdownMenu = ({ className, label, options = [], edit, products, eliminarProducts }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
@@ -39,11 +32,7 @@ const DropdownMenu = ({
   return (
     <>
       <Tooltip title={label} aria-label={label}>
-        <IconButton
-          aria-label={label}
-          className={className}
-          onClick={handleOpenMenu}
-        >
+        <IconButton aria-label={label} className={className} onClick={handleOpenMenu}>
           <MoreVert />
         </IconButton>
       </Tooltip>
@@ -61,12 +50,7 @@ const DropdownMenu = ({
           {options.map(({ label, link, to, onClick }, index) => {
             if (link) {
               return (
-                <MenuItem
-                  key={index}
-                  component={Link}
-                  to={to}
-                  onClick={handleCloseMenu}
-                >
+                <MenuItem key={index} component={Link} to={to}>
                   {label}
                 </MenuItem>
               );

@@ -30,10 +30,21 @@ const FormIngredientes = () => {
     nombre: "",
     presentaciones: false,
     categories: "",
+    proveedor: "",
     // sm: "no disponible",
     // md: "no disponible",
     // lg: "no disponible",
     stock: 0,
+    stockMin: 1,
+    stockMax: 1,
+    imageName: "",
+    imageUrl: "",
+    formato: "",
+    pesoBruto: "",
+    pesoNeto: "",
+    merma: "100",
+    precioUnitario: "",
+    precioConIva: "",
   });
 
   const eliminarDatos = () => {
@@ -44,6 +55,8 @@ const FormIngredientes = () => {
       md: "",
       lg: "",
       id: "",
+      imageName: "",
+      imageUrl: "",
     });
   };
   const crearAlertaExito = (msj) => {
@@ -93,7 +106,7 @@ const FormIngredientes = () => {
     await dispatch(
       editproducts(nuevoProd, "Add", {
         archivo: uploadImgRef.current.files[0],
-      })
+      }),
     );
     eliminarDatos();
     crearAlertaExito("Se a creado el producto con exito");
@@ -127,6 +140,7 @@ const FormIngredientes = () => {
       }, 2500);
       return;
     }
+
     if (nuevoProd.precioUnitario) {
       nuevoProd.sm = "";
       nuevoProd.md = "";
@@ -134,7 +148,11 @@ const FormIngredientes = () => {
     } else {
       nuevoProd.precioUnitario = "";
     }
-    dispatch(editproducts(nuevoProd, "Update"));
+    dispatch(
+      editproducts(nuevoProd, "Update", {
+        archivo: uploadImgRef.current.files[0] ? uploadImgRef.current.files[0] : {},
+      }),
+    );
     eliminarDatos();
     crearAlertaExito("Se a editado el producto con exito");
   };
@@ -179,6 +197,8 @@ const FormIngredientes = () => {
       stock: edit.stock,
       descripcion: edit.descripcion,
       presentacion: edit.presentacion ? edit.presentacion : "Unidad",
+      imageName: edit.imageName,
+      imageUrl: edit.imageUrl,
     });
   };
 
@@ -203,10 +223,7 @@ const FormIngredientes = () => {
         </div>
       </Grid>
       {form.alertSuccess ? (
-        <div
-          className={`alert alert-success text-center my-4 col-sm-8 col-md-10`}
-          role="alert"
-        >
+        <div className={`alert alert-success text-center my-4 col-sm-8 col-md-10`} role="alert">
           {form.alertSuccess}
         </div>
       ) : (

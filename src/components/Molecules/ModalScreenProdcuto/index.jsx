@@ -24,11 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({
-  openModal = false,
-  handleClose,
-  menuItem = [],
-}) {
+export default function FullScreenDialog({ openModal = false, handleClose, menuItem = [] }) {
   const classes = useStyles();
 
   const [menuproducto, setmenuproducto] = useState(menuItem);
@@ -80,12 +76,7 @@ export default function FullScreenDialog({
           </Typography>
 
           <div className="d-flex align-items-center">
-            <Button
-              autoFocus
-              color="inherit"
-              style={{ fontSize: 20 }}
-              onClick={menos}
-            >
+            <Button autoFocus color="inherit" style={{ fontSize: 20 }} onClick={menos}>
               -
             </Button>
             <Typography variant="h6" className={classes.title}>

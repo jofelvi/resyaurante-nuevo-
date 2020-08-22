@@ -1,5 +1,6 @@
 import ProductCard from "./ProductCard";
 import TableCard from "./TableCard";
+import SectorCard from "./SectorCard";
 import DeliveryCard from "./DeliveryCard";
 import KitchenCard from "./KitchenCard";
 import BarCard from "./BarCard";
@@ -8,6 +9,7 @@ import ModalScreenDinamico from "./ModalScreenDinamico";
 import ModalScreenProducto from "./ModalScreenProdcuto";
 import ModalScreenNuevoProd from "./ModalScreenNuevoProd";
 import ModalScreenCreateMenu from "./ModalScreenCreateMenu";
+import ReservedCard from "./ReservedCard";
 
 export {
   ProductCard,
@@ -20,4 +22,6 @@ export {
   ModalScreenProducto,
   ModalScreenNuevoProd,
   ModalScreenCreateMenu,
+  SectorCard,
+  ReservedCard,
 };
