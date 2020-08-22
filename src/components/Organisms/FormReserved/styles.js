@@ -9,7 +9,12 @@ export default makeStyles((theme) => ({
   selectedButton: {
     color: theme.palette.text.secondary,
   },
-  loadingDelete: {
-    padding: "20px 0",
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "100%",
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
 }));

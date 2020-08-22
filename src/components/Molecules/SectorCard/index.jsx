@@ -10,16 +10,13 @@ import TableIcon from "../../../assets/icons/table.svg";
 
 import styles from "./styles";
 
-const TableCard = ({ table, deleteTable, editTable }) => {
+const SectorCard = ({ sector, deleteSector, editSector }) => {
   const classes = styles();
   return (
     <Card>
-      <CardContent
-        className={classes.content}
-        style={table.reserved ? { background: "#ffcdd2" } : {}}
-      >
+      <CardContent className={classes.content}>
         <Typography variant="subtitle2" color="textPrimary" className={classes.price}>
-          {table.diners} Comensales
+          Sector
         </Typography>
         <DropdownMenu
           label="Opciones"
@@ -35,27 +32,18 @@ const TableCard = ({ table, deleteTable, editTable }) => {
               label: "Eliminar",
             },
           ]}
-          eliminarProducts={() => deleteTable(table)}
-          edit={() => editTable(table)}
+          eliminarProducts={() => deleteSector(sector)}
+          edit={() => editSector(sector)}
         />
         <Avatar className={classes.avatar}>
           <img src={TableIcon} alt="img" width={48} height={48} />
         </Avatar>
         <Typography variant="body1" color="textPrimary" align="left" className={classes.title}>
-          Mesa {table.numberTable}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          color="textSecondary"
-          align="left"
-          paragraph
-          className={classes.description}
-        >
-          {table.sector}
+          {sector.nameSector}
         </Typography>
       </CardContent>
     </Card>
   );
 };
 
-export default TableCard;
+export default SectorCard;

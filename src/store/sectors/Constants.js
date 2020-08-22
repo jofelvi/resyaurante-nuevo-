@@ -1,0 +1,4 @@
+export const SECTOR_START = "SECTOR_START";
+export const SECTOR_END = "SECTOR_END";
+export const SECTOR_FAIL = "SECTOR_FAIL";
+export const SET_SECTOR_SUCCESS = "SET_SECTOR_SUCCESS";

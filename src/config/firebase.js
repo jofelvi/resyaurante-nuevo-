@@ -37,3 +37,6 @@ export const addMesasEditRef = (id) => databaseRef.child("mesas/" + id);
 
 export const gastosRef = databaseRef.child("gastos/");
 export const gastosEditRef = (id) => databaseRef.child("gastos/" + id);
+
+export const sectorsRef = databaseRef.child("sectors/");
+export const sectorsEditRef = (id) => databaseRef.child("sectors/" + id);
