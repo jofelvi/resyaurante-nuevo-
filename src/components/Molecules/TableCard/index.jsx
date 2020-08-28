@@ -16,7 +16,7 @@ const TableCard = ({ table, deleteTable, editTable }) => {
     <Card>
       <CardContent
         className={classes.content}
-        style={table.reserved ? { background: "#ffcdd2" } : {}}
+        style={table.reserved && table.onRangeReserved ? { background: "#ffcdd2" } : {}}
       >
         <Typography variant="subtitle2" color="textPrimary" className={classes.price}>
           {table.diners} Comensales

@@ -1,5 +1,6 @@
 import { addMesasEditRef, addMesasRef } from "../../config/firebase";
 import { TABLE_START, TABLE_END, TABLE_FAIL, SET_TABLE_SUCCESS } from "./Constants";
+import moment from "moment";
 
 export const fecthTables = () => (dispatch) => {
   dispatch({
@@ -13,10 +14,19 @@ export const fecthTables = () => (dispatch) => {
         data[i].id = i;
         return data[i];
       });
+
+      const tables = arr.map((item) => {
+        item.onRangeReserved =
+          moment.now() >= moment(`${item.dateReserved}T${item.timeInit}`) &&
+          moment.now() <= moment(`${item.dateReserved}T${item.timeEnd}`);
+
+        return item;
+      });
+
       dispatch({
         type: SET_TABLE_SUCCESS,
         payload: {
-          tables: arr,
+          tables,
         },
       });
     } else {
